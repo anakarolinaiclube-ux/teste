@@ -1229,31 +1229,20 @@
     </footer>
 
     <script>
-        const TOTAL_DAYS = 21;
+        const TOTAL_DAYS  = 21;
         const STORAGE_KEY = 'reset_feminino_v1';
         const DATE_KEY    = 'reset_feminino_startdate';
+        const WEEK_DAYS   = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+        const MONTHS      = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+        const PHASE_DAYS  = { 1:[1,2,3,4,5,6,7], 2:[8,9,10,11,12,13,14], 3:[15,16,17,18,19,20,21] };
 
-        const WEEK_DAYS = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-        const MONTHS    = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
-
-        // ── Estado ──
         let progressData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
         let startDate    = localStorage.getItem(DATE_KEY) || null;
 
-        // ── Formatar data legível ──
-        function formatDate(dateStr) {
-            if (!dateStr) return null;
-            const [y,m,d] = dateStr.split('-').map(Number);
-            const dt = new Date(y, m-1, d);
-            return `${WEEK_DAYS[dt.getDay()]}, ${d} de ${MONTHS[m-1]}`;
-        }
-
-        // ── Calcular data de um dia do protocolo ──
         function getDayDate(dayNum) {
             if (!startDate) return null;
             const [y,m,d] = startDate.split('-').map(Number);
-            const dt = new Date(y, m-1, d + dayNum - 1);
-            return dt;
+            return new Date(y, m-1, d + dayNum - 1);
         }
         function getDayDateStr(dayNum) {
             const dt = getDayDate(dayNum);
@@ -1261,181 +1250,113 @@
             return `${WEEK_DAYS[dt.getDay()]}, ${dt.getDate()} de ${MONTHS[dt.getMonth()]}`;
         }
 
-        // ── Construir calendário ──
         function buildCalendar() {
             const grid = document.getElementById('calendar-grid');
             grid.innerHTML = '';
-            const today = new Date();
-            today.setHours(0,0,0,0);
-
+            const today = new Date(); today.setHours(0,0,0,0);
             for (let i = 1; i <= TOTAL_DAYS; i++) {
-                const col = document.createElement('div');
-                col.className = 'cal-day';
-
-                const label = document.createElement('div');
-                label.className = 'cal-day-label';
-
-                const circle = document.createElement('div');
-                circle.className = 'cal-circle';
-                circle.setAttribute('data-day', i);
-                circle.textContent = i;
-
-                const dateNum = document.createElement('div');
-                dateNum.className = 'cal-date-num';
-
+                const col    = document.createElement('div'); col.className = 'cal-day';
+                const label  = document.createElement('div'); label.className = 'cal-day-label';
+                const circle = document.createElement('div'); circle.className = 'cal-circle'; circle.setAttribute('data-day', i); circle.textContent = i;
+                const dateNum= document.createElement('div'); dateNum.className = 'cal-date-num';
                 if (startDate) {
-                    const dt = getDayDate(i);
+                    const dt = getDayDate(i); const dt2 = new Date(dt); dt2.setHours(0,0,0,0);
                     label.textContent = WEEK_DAYS[dt.getDay()];
                     dateNum.textContent = dt.getDate();
-                    dt.setHours(0,0,0,0);
-                    if (dt.getTime() === today.getTime()) circle.classList.add('today');
-                } else {
-                    label.textContent = `D${i}`;
-                }
-
+                    if (dt2.getTime() === today.getTime()) circle.classList.add('today');
+                } else { label.textContent = 'D'+i; }
                 if (progressData[i]) circle.classList.add('completed');
-
-                col.appendChild(label);
-                col.appendChild(circle);
-                col.appendChild(dateNum);
+                col.appendChild(label); col.appendChild(circle); col.appendChild(dateNum);
                 grid.appendChild(col);
             }
         }
 
-        // ── Atualizar datas nos cards ──
         function updateCardDates() {
             for (let i = 1; i <= TOTAL_DAYS; i++) {
-                const el = document.getElementById(`date-${i}`);
-                if (!el) continue;
-                if (startDate) {
-                    el.innerHTML = `<i class="far fa-calendar"></i> ${getDayDateStr(i)}`;
-                } else {
-                    el.innerHTML = `<i class="far fa-calendar"></i> —`;
-                }
+                const el = document.getElementById('date-'+i);
+                if (el) el.innerHTML = '<i class="far fa-calendar"></i> ' + (startDate ? getDayDateStr(i) : '—');
             }
         }
 
-        // ── Atualizar UI completa ──
+        function updateMiniProgress() {
+            [1,2,3].forEach(function(phase) {
+                const days = PHASE_DAYS[phase];
+                const done = days.filter(function(d){ return progressData[d]; }).length;
+                const el   = document.getElementById('mini-'+phase);
+                if (!el) return;
+                if (done === days.length) { el.textContent = '\u2713 Conclu\u00edda'; el.className = 'phase-progress-mini all-done'; }
+                else { el.textContent = done+'/'+days.length+' dias'; el.className = 'phase-progress-mini'; }
+            });
+        }
+
         function updateUI() {
             let completed = 0;
             for (let i = 1; i <= TOTAL_DAYS; i++) {
                 if (progressData[i]) completed++;
-
-                // Círculo calendário
-                const circle = document.querySelector(`.cal-circle[data-day="${i}"]`);
-                if (circle) {
-                    circle.classList.toggle('completed', !!progressData[i]);
-                }
-
-                // Botão e card
-                const btn  = document.querySelector(`.toggle-btn[data-day="${i}"]`);
-                const card = document.getElementById(`card-${i}`);
+                const circle = document.querySelector('.cal-circle[data-day="'+i+'"]');
+                if (circle) circle.classList.toggle('completed', !!progressData[i]);
+                const btn  = document.querySelector('.toggle-btn[data-day="'+i+'"]');
+                const card = document.getElementById('card-'+i);
                 if (btn) {
-                    if (progressData[i]) {
-                        btn.classList.add('is-completed');
-                        btn.innerHTML = '<i class="fas fa-check-circle"></i> Concluído';
-                    } else {
-                        btn.classList.remove('is-completed');
-                        btn.innerHTML = '<i class="far fa-circle"></i> Marcar como Concluído';
-                    }
+                    btn.classList.toggle('is-completed', !!progressData[i]);
+                    btn.innerHTML = progressData[i]
+                        ? '<i class="fas fa-check-circle"></i> Conclú\u00eddo'
+                        : '<i class="far fa-circle"></i> Marcar como Conclú\u00eddo';
                 }
                 if (card) card.classList.toggle('is-done', !!progressData[i]);
             }
-
-            // Barra e percentual
             const pct = Math.round((completed / TOTAL_DAYS) * 100);
-            document.getElementById('progress-text').textContent = `${pct}%`;
-            document.getElementById('progress-bar').style.width  = `${pct}%`;
-
-            // Próximo dia
+            document.getElementById('progress-text').textContent = pct+'%';
+            document.getElementById('progress-bar').style.width  = pct+'%';
             const nextEl = document.getElementById('next-day-text');
             if (completed === TOTAL_DAYS) {
-                nextEl.innerHTML = '<i class="fas fa-trophy" style="margin-right:5px;"></i>Jornada Concluída!';
+                nextEl.innerHTML = '<i class="fas fa-trophy" style="margin-right:5px;"></i>Jornada Conclú\u00edda!';
             } else {
                 const next = completed + 1;
-                const dateStr = startDate ? ` · ${getDayDateStr(next)}` : '';
-                nextEl.textContent = `Próximo: Dia ${next}${dateStr}`;
+                nextEl.textContent = 'Pr\u00f3ximo: Dia ' + next + (startDate ? ' \u00b7 ' + getDayDateStr(next) : '');
             }
+            updateMiniProgress();
         }
 
-        // ── Botões marcar concluído ──
-        document.querySelectorAll('.toggle-btn').forEach(btn => {
-            btn.addEventListener('click', e => {
-                const day = e.currentTarget.getAttribute('data-day');
-                progressData[day] = !progressData[day];
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(progressData));
-                updateUI();
-            });
-        });
-
-        // ── Date picker ──
-        const datePicker = document.getElementById('start-date');
-        if (startDate) datePicker.value = startDate;
-
-        datePicker.addEventListener('change', e => {
-            startDate = e.target.value;
-            localStorage.setItem(DATE_KEY, startDate);
-            buildCalendar();
-            updateCardDates();
+        // Delegação de eventos — funciona mesmo com elementos dentro do acordeão fechado
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('.toggle-btn');
+            if (!btn) return;
+            const day = btn.getAttribute('data-day');
+            progressData[day] = !progressData[day];
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(progressData));
             updateUI();
         });
 
-        document.getElementById('reset-date').addEventListener('click', () => {
+        // Date picker
+        const datePicker = document.getElementById('start-date');
+        if (startDate) datePicker.value = startDate;
+        datePicker.addEventListener('change', function(e) {
+            startDate = e.target.value;
+            localStorage.setItem(DATE_KEY, startDate);
+            buildCalendar(); updateCardDates(); updateUI();
+        });
+        document.getElementById('reset-date').addEventListener('click', function() {
             startDate = null;
             localStorage.removeItem(DATE_KEY);
             datePicker.value = '';
-            buildCalendar();
-            updateCardDates();
-            updateUI();
+            buildCalendar(); updateCardDates(); updateUI();
         });
 
-        // ── ACORDEÃO DAS FASES ──
-        const PHASE_DAYS = { 1: [1,2,3,4,5,6,7], 2: [8,9,10,11,12,13,14], 3: [15,16,17,18,19,20,21] };
-
-        function updateMiniProgress() {
-            [1,2,3].forEach(phase => {
-                const days = PHASE_DAYS[phase];
-                const done = days.filter(d => progressData[d]).length;
-                const el = document.getElementById(`mini-${phase}`);
-                if (!el) return;
-                if (done === days.length) {
-                    el.textContent = '✓ Concluída';
-                    el.className = 'phase-progress-mini all-done';
-                } else {
-                    el.textContent = `${done}/${days.length} dias`;
-                    el.className = 'phase-progress-mini';
-                }
-            });
-        }
-
-        document.querySelectorAll('.phase-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const phase = header.getAttribute('data-phase');
-                const body  = document.getElementById(`body-${phase}`);
+        // Acordeão
+        document.querySelectorAll('.phase-header').forEach(function(header) {
+            header.addEventListener('click', function() {
+                const phase  = header.getAttribute('data-phase');
+                const body   = document.getElementById('body-'+phase);
                 const isOpen = header.classList.contains('open');
-
-                // Fecha todos
-                document.querySelectorAll('.phase-header').forEach(h => h.classList.remove('open'));
-                document.querySelectorAll('.phase-body').forEach(b => b.classList.remove('open'));
-
-                // Abre o clicado (se estava fechado)
-                if (!isOpen) {
-                    header.classList.add('open');
-                    body.classList.add('open');
-                }
+                document.querySelectorAll('.phase-header').forEach(function(h){ h.classList.remove('open'); });
+                document.querySelectorAll('.phase-body').forEach(function(b){ b.classList.remove('open'); });
+                if (!isOpen) { header.classList.add('open'); body.classList.add('open'); }
             });
         });
 
-        // Chama updateMiniProgress junto com updateUI
-        const _originalUpdateUI = updateUI;
-        function updateUI() {
-            _originalUpdateUI();
-            updateMiniProgress();
-        }
-        updateMiniProgress();
-        buildCalendar();
-        updateCardDates();
-        updateUI();
+        // Init
+        buildCalendar(); updateCardDates(); updateUI();
     </script>
 </body>
 </html>
