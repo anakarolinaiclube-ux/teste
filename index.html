@@ -380,8 +380,56 @@
             display: flex;
             align-items: center;
             gap: 14px;
-            margin: 36px 0 18px;
+            margin: 36px 0 0;
+            padding: 18px 20px;
+            background: var(--white);
+            border: 1px solid var(--cream-border);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            user-select: none;
         }
+        .phase-header:hover {
+            border-color: var(--burgundy);
+            box-shadow: var(--shadow-soft);
+        }
+        .phase-header.open {
+            border-color: var(--burgundy);
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom-color: transparent;
+        }
+        .phase-chevron {
+            margin-left: auto;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+        .phase-header.open .phase-chevron {
+            transform: rotate(180deg);
+            color: var(--burgundy);
+        }
+        .phase-progress-mini {
+            font-size: 0.72rem;
+            color: var(--text-light);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .phase-progress-mini.all-done { color: var(--green-ok); font-weight: 700; }
+
+        /* Acordeão wrapper */
+        .phase-body {
+            display: none;
+            border: 1px solid var(--burgundy);
+            border-top: none;
+            border-bottom-left-radius: var(--radius-md);
+            border-bottom-right-radius: var(--radius-md);
+            padding: 20px;
+            background: var(--cream);
+            margin-bottom: 0;
+        }
+        .phase-body.open { display: block; }
         .phase-badge {
             display: inline-flex;
             align-items: center;
@@ -408,7 +456,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
             gap: 20px;
-            margin-bottom: 12px;
+            margin-bottom: 0;
         }
 
         .day-card {
@@ -749,11 +797,15 @@
             </div>
 
             <!-- ── FASE 1 ── -->
-            <div class="phase-header">
-                <span class="phase-badge phase-badge-1"><i class="fas fa-brain"></i> Fase 1</span>
-                <span class="phase-name">Reset Psicológico — Dias 1 a 7</span>
-            </div>
-            <div class="days-grid" id="grid-fase1">
+            <div class="phase-accordion">
+                <div class="phase-header" data-phase="1">
+                    <span class="phase-badge phase-badge-1"><i class="fas fa-brain"></i> Fase 1</span>
+                    <span class="phase-name">Reset Psicológico — Dias 1 a 7</span>
+                    <span class="phase-progress-mini" id="mini-1"></span>
+                    <i class="fas fa-chevron-down phase-chevron"></i>
+                </div>
+                <div class="phase-body" id="body-1">
+                <div class="days-grid" id="grid-fase1">
 
                 <div class="day-card" id="card-1">
                     <div class="day-card-top">
@@ -895,14 +947,20 @@
                     </div>
                 </div>
 
-            </div>
+            </div><!-- /days-grid fase1 -->
+                </div><!-- /phase-body 1 -->
+            </div><!-- /phase-accordion 1 -->
 
             <!-- ── FASE 2 ── -->
-            <div class="phase-header">
-                <span class="phase-badge phase-badge-2"><i class="fas fa-female"></i> Fase 2</span>
-                <span class="phase-name">Reconstrução Física — Dias 8 a 14</span>
-            </div>
-            <div class="days-grid">
+            <div class="phase-accordion">
+                <div class="phase-header" data-phase="2">
+                    <span class="phase-badge phase-badge-2"><i class="fas fa-female"></i> Fase 2</span>
+                    <span class="phase-name">Reconstrução Física — Dias 8 a 14</span>
+                    <span class="phase-progress-mini" id="mini-2"></span>
+                    <i class="fas fa-chevron-down phase-chevron"></i>
+                </div>
+                <div class="phase-body" id="body-2">
+                <div class="days-grid">
 
                 <div class="day-card" id="card-8">
                     <div class="day-card-top">
@@ -1002,14 +1060,20 @@
                     </div>
                 </div>
 
-            </div>
+            </div><!-- /days-grid fase2 -->
+                </div><!-- /phase-body 2 -->
+            </div><!-- /phase-accordion 2 -->
 
             <!-- ── FASE 3 ── -->
-            <div class="phase-header">
-                <span class="phase-badge phase-badge-3"><i class="fas fa-gem"></i> Fase 3</span>
-                <span class="phase-name">A Nova Identidade — Dias 15 a 21</span>
-            </div>
-            <div class="days-grid">
+            <div class="phase-accordion">
+                <div class="phase-header" data-phase="3">
+                    <span class="phase-badge phase-badge-3"><i class="fas fa-gem"></i> Fase 3</span>
+                    <span class="phase-name">A Nova Identidade — Dias 15 a 21</span>
+                    <span class="phase-progress-mini" id="mini-3"></span>
+                    <i class="fas fa-chevron-down phase-chevron"></i>
+                </div>
+                <div class="phase-body" id="body-3">
+                <div class="days-grid">
 
                 <div class="day-card" id="card-15">
                     <div class="day-card-top">
@@ -1109,7 +1173,9 @@
                     </div>
                 </div>
 
-            </div>
+            </div><!-- /days-grid fase3 -->
+                </div><!-- /phase-body 3 -->
+            </div><!-- /phase-accordion 3 -->
 
             <!-- ── RECURSOS EXTRAS (BÔNUS) ── -->
             <div class="extras-section">
@@ -1323,7 +1389,50 @@
             updateUI();
         });
 
-        // ── Init ──
+        // ── ACORDEÃO DAS FASES ──
+        const PHASE_DAYS = { 1: [1,2,3,4,5,6,7], 2: [8,9,10,11,12,13,14], 3: [15,16,17,18,19,20,21] };
+
+        function updateMiniProgress() {
+            [1,2,3].forEach(phase => {
+                const days = PHASE_DAYS[phase];
+                const done = days.filter(d => progressData[d]).length;
+                const el = document.getElementById(`mini-${phase}`);
+                if (!el) return;
+                if (done === days.length) {
+                    el.textContent = '✓ Concluída';
+                    el.className = 'phase-progress-mini all-done';
+                } else {
+                    el.textContent = `${done}/${days.length} dias`;
+                    el.className = 'phase-progress-mini';
+                }
+            });
+        }
+
+        document.querySelectorAll('.phase-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const phase = header.getAttribute('data-phase');
+                const body  = document.getElementById(`body-${phase}`);
+                const isOpen = header.classList.contains('open');
+
+                // Fecha todos
+                document.querySelectorAll('.phase-header').forEach(h => h.classList.remove('open'));
+                document.querySelectorAll('.phase-body').forEach(b => b.classList.remove('open'));
+
+                // Abre o clicado (se estava fechado)
+                if (!isOpen) {
+                    header.classList.add('open');
+                    body.classList.add('open');
+                }
+            });
+        });
+
+        // Chama updateMiniProgress junto com updateUI
+        const _originalUpdateUI = updateUI;
+        function updateUI() {
+            _originalUpdateUI();
+            updateMiniProgress();
+        }
+        updateMiniProgress();
         buildCalendar();
         updateCardDates();
         updateUI();
