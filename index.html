@@ -217,7 +217,7 @@ body {
 </head>
 <body>
 
-<div class="header">
+<div class="header" id="header-top">
   <div class="header-icon">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 9.36l-7.1 7.1a2.12 2.12 0 0 1-3-3l7.1-7.1a6 6 0 0 1 9.36-7.94l-3.6 3.6z"/></svg>
   </div>
@@ -230,12 +230,12 @@ body {
   <div id="screen-intro" class="intro">
     <div class="intro-badge">Diagnóstico Profissional</div>
     <h1>Você tem perfil para faturar <span>R$ 10.000/mês</span> montando móveis?</h1>
-    <p>O mercado está implorando por novos profissionais. Responda a este teste rápido de 6 perguntas técnicas (e de lógica) para descobrir se você tem a aptidão necessária para lucrar alto neste setor.</p>
+    <p>O mercado está implorando por novos profissionais. Responda a este teste rápido de 10 perguntas técnicas (e de lógica) para descobrir se você tem a aptidão necessária para lucrar alto neste setor.</p>
     
     <div class="intro-meta">
       <div class="intro-meta-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        Apenas 2 minutos
+        Apenas 3 minutos
       </div>
       <div class="intro-meta-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
@@ -251,9 +251,9 @@ body {
 
   <!-- QUESTIONS -->
   <div id="screen-quiz" class="question-screen">
-    <div class="progress-wrap">
+    <div class="progress-wrap" id="progress-top">
       <div class="progress-label">
-        <span class="progress-text" id="q-label">Pergunta 1 de 6</span>
+        <span class="progress-text" id="q-label">Pergunta 1 de 10</span>
         <span class="progress-pct" id="q-pct">0%</span>
       </div>
       <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
@@ -321,9 +321,17 @@ body {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
           Módulo: Como achar clientes na sua região (Sem gastar)
         </div>
-        <div class="offer-feat">
+        <div class="offer-feat" style="color: var(--green); font-weight: 600;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-          App Bônus: Calculadora de Preços + Recibo Automático
+          Bônus 1: Calculadora de Preços Automática
+        </div>
+        <div class="offer-feat" style="color: var(--green); font-weight: 600;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Bônus 2: Gerador de Recibos em PDF
+        </div>
+        <div class="offer-feat" style="color: var(--green); font-weight: 600;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Bônus 3: Agenda Inteligente de Serviços
         </div>
       </div>
 
@@ -346,7 +354,7 @@ body {
 </div>
 
 <script>
-// 6 Perguntas Diretas (Lógica + Visão de Negócio)
+// 10 Perguntas Diretas (Lógica, Ferramentas + Visão de Negócio)
 const questions =[
   {
     text: "Ao ler um manual de instruções para iniciar uma montagem, qual a atitude correta?",
@@ -376,6 +384,42 @@ const questions =[
     ]
   },
   {
+    text: "Qual ferramenta é usada para medir distâncias e dimensões de peças?",
+    options:[
+      "Nível.",
+      "Trena.",
+      "Martelo.",
+      "Formão."
+    ]
+  },
+  {
+    text: "Qual é o risco de apertar demais um parafuso em MDF?",
+    options:[
+      "O parafuso fica mais firme.",
+      "O móvel dura mais.",
+      "Nenhum risco.",
+      "Espanar o furo ou estourar o material."
+    ]
+  },
+  {
+    text: "Ao identificar uma peça fora de medida no projeto, o montador deve:",
+    options:[
+      "Adaptar a peça no local sem avisar.",
+      "Continuar a montagem normalmente.",
+      "Deixar que o cliente resolva sozinho.",
+      "Comunicar imediatamente a loja/fabricante e o cliente."
+    ]
+  },
+  {
+    text: "Ao finalizar a montagem na casa do cliente, qual a melhor atitude para garantir ser recomendado?",
+    options:[
+      "Deixar o lixo das caixas espalhado e ir embora rápido.",
+      "Limpar o local, recolher os plásticos/caixas e mostrar o móvel pronto.",
+      "Cobrar um valor a mais do que o combinado no final.",
+      "Pedir para o próprio cliente limpar a sujeira."
+    ]
+  },
+  {
     text: "Sobre liberdade profissional, o que te atrai mais hoje?",
     options:[
       "Ter um chefe mandando em mim de segunda a sexta.",
@@ -385,21 +429,21 @@ const questions =[
     ]
   },
   {
+    text: "O cliente pede um desconto muito alto antes mesmo de mostrar qual é o móvel. Como agir?",
+    options:[
+      "Aceitar qualquer valor para não perder a viagem.",
+      "Explicar que o preço justo depende do tamanho e da complexidade da montagem.",
+      "Brigar com o cliente e bloquear o número.",
+      "Passar um preço triplicado de propósito."
+    ]
+  },
+  {
     text: "Se você faturasse R$ 150 por 1h30 de trabalho em um sábado, isso ajudaria no seu mês?",
     options:[
       "Não, eu preciso de dinheiro fixo.",
       "Talvez, mas dá muita preguiça trabalhar sábado.",
       "Sim, fazer 3 serviços desses já paga uma conta alta.",
       "Não tenho interesse em renda extra."
-    ]
-  },
-  {
-    text: "Você possui um celular com internet para baixar um aplicativo de orçamento e agendar clientes?",
-    options:[
-      "Não, não uso celular.",
-      "Sim, tenho celular e sei usar WhatsApp e aplicativos básicos.",
-      "Tenho, mas não gosto de usar.",
-      "Não sei responder."
     ]
   }
 ];
@@ -439,13 +483,33 @@ function renderQuestion() {
       `).join('')}
     </div>
   `;
+
+  // Desliza suavemente para o topo do quiz a cada nova pergunta
+  setTimeout(() => {
+    const headerOffset = 20; 
+    const element = document.getElementById('progress-top');
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+    
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  }, 50);
 }
 
 function selectOption(el, idx) {
   document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   selected = idx;
-  document.getElementById('btn-next').classList.add('enabled');
+  
+  const btn = document.getElementById('btn-next');
+  btn.classList.add('enabled');
+
+  // Desliza suavemente para o botão "Próxima" ao selecionar a resposta
+  setTimeout(() => {
+    btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 150);
 }
 
 function nextQuestion() {
@@ -462,6 +526,9 @@ function showLoading() {
   document.getElementById('screen-quiz').style.display = 'none';
   const loading = document.getElementById('screen-loading');
   loading.classList.add('active');
+  
+  // Desliza para o topo para ver o loading
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   
   // Animação das barras
   animateBar('bar-1', 'pct-1', 94, 0);
