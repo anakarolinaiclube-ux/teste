@@ -1,1011 +1,165 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Curso Completo de Resina</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --pink:       #E0157A;
-    --pink-dark:  #B8006A;
-    --pink-light: #FF5BAD;
-    --pink-pale:  #FFD6EC;
-    --pink-bg:    #FFF0F8;
-    --fuchsia:    #C5007A;
-    --white:      #FFFFFF;
-    --text:       #2A0015;
-    --text-soft:  #7A2050;
-    --green:      #18B94A;
-    --green-dark: #0F8A34;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: var(--pink-bg);
-    color: var(--text);
-    overflow-x: hidden;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logos - Mulheres que Oram</title>
+    
+    <!-- Importando fontes elegantes do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f7f1f3; /* Fundo levemente acinzentado rosado */
+            font-family: 'Montserrat', sans-serif;
+            gap: 60px;
+            padding: 40px;
+        }
 
-  /* ── TOP BAR ── */
-  .topbar {
-    background: var(--pink);
-    padding: 10px 20px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: 0.02em;
-  }
-  .topbar span { color: var(--pink-pale); }
+        .titulo-opcao {
+            color: #7a5c66;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: -40px;
+            font-weight: 400;
+        }
 
-  /* ── HERO ── */
-  .hero {
-    background: linear-gradient(160deg, #FF4FAA 0%, var(--pink) 45%, var(--fuchsia) 100%);
-    padding: 52px 24px 60px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -80px; right: -80px;
-    width: 300px; height: 300px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.07);
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: -60px; left: -60px;
-    width: 220px; height: 220px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.05);
-  }
-  .hero-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
-  .hero-eyebrow {
-    display: inline-block;
-    background: rgba(255,255,255,0.18);
-    border: 1.5px solid rgba(255,255,255,0.35);
-    color: var(--white);
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 6px 20px;
-    border-radius: 100px;
-    margin-bottom: 20px;
-  }
-  .hero h1 {
-    font-family: 'Baloo 2', cursive;
-    font-size: clamp(42px, 10vw, 72px);
-    font-weight: 800;
-    color: var(--white);
-    line-height: 1.0;
-    margin-bottom: 8px;
-    text-shadow: 0 3px 16px rgba(0,0,0,0.2);
-  }
-  .hero h1 span {
-    display: block;
-    font-size: clamp(22px, 5vw, 36px);
-    font-weight: 700;
-    opacity: 0.9;
-  }
-  .hero-sub {
-    font-size: 18px;
-    color: rgba(255,255,255,0.9);
-    font-weight: 700;
-    margin: 20px 0 32px;
-    line-height: 1.5;
-  }
-  .hero-sub em {
-    background: rgba(255,255,255,0.2);
-    border-radius: 4px;
-    padding: 2px 8px;
-    font-style: normal;
-  }
+        /* OPÇÃO 1: Formato Circular (Releitura do seu original) */
+        .logo-1 {
+            width: 280px;
+            height: 280px;
+            background-color: #fce8ee; /* Rosa pastel delicado */
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 35px rgba(200, 150, 160, 0.2);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
 
-  /* Price box */
-  .price-hero {
-    background: var(--white);
-    border-radius: 20px;
-    padding: 28px 32px;
-    max-width: 400px;
-    margin: 0 auto 32px;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
-    text-align: center;
-  }
-  .price-from {
-    font-size: 14px;
-    color: var(--text-soft);
-    text-decoration: line-through;
-    font-weight: 700;
-    margin-bottom: 2px;
-  }
-  .price-label-small {
-    font-size: 13px;
-    color: var(--pink);
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 6px;
-  }
-  .price-big {
-    font-family: 'Baloo 2', cursive;
-    font-size: 72px;
-    font-weight: 800;
-    color: var(--pink);
-    line-height: 1;
-  }
-  .price-big sup { font-size: 28px; vertical-align: super; }
-  .price-note {
-    font-size: 13px;
-    color: var(--text-soft);
-    margin-top: 4px;
-    font-weight: 700;
-  }
-  .btn-cta {
-    display: block;
-    background: var(--green);
-    color: var(--white);
-    font-family: 'Nunito', sans-serif;
-    font-size: 20px;
-    font-weight: 900;
-    padding: 20px 32px;
-    border-radius: 14px;
-    text-decoration: none;
-    margin: 20px auto 0;
-    max-width: 420px;
-    text-align: center;
-    transition: all 0.2s;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(24,185,74,0.4);
-    letter-spacing: 0.01em;
-    animation: pulse-btn 2.5s ease-in-out infinite;
-  }
-  @keyframes pulse-btn {
-    0%,100% { box-shadow: 0 6px 20px rgba(24,185,74,0.4); transform: scale(1); }
-    50%      { box-shadow: 0 8px 32px rgba(24,185,74,0.6); transform: scale(1.02); }
-  }
-  .btn-cta:hover { background: var(--green-dark); animation: none; transform: scale(1.03); }
-  .btn-cta small { display: block; font-size: 12px; font-weight: 700; opacity: 0.85; margin-top: 2px; }
-  .hero-guarantee {
-    color: rgba(255,255,255,0.85);
-    font-size: 13px;
-    font-weight: 700;
-    margin-top: 16px;
-  }
-  .hero-guarantee::before { content: '🔒 '; }
+        .logo-1:hover {
+            transform: translateY(-5px);
+        }
 
-  /* ── PRODUCTS STRIP ── */
-  .products-strip {
-    background: var(--white);
-    padding: 28px 24px;
-    border-bottom: 3px solid var(--pink-pale);
-  }
-  .products-strip-title {
-    text-align: center;
-    font-size: 14px;
-    font-weight: 800;
-    color: var(--pink);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 16px;
-  }
-  .products-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-  .product-tag {
-    background: var(--pink-pale);
-    color: var(--pink-dark);
-    font-size: 14px;
-    font-weight: 800;
-    padding: 8px 18px;
-    border-radius: 100px;
-    border: 1.5px solid rgba(224,21,122,0.2);
-  }
+        /* Círculo pontilhado interno */
+        .logo-1::before {
+            content: '';
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border: 1px dashed #dca8b8;
+            border-radius: 50%;
+        }
 
-  /* ── SECTION BASE ── */
-  .section { padding: 60px 24px; }
-  .container { max-width: 680px; margin: 0 auto; position: relative; z-index: 2; }
-  .sec-label {
-    text-align: center;
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--pink);
-    margin-bottom: 10px;
-  }
-  .sec-title {
-    font-family: 'Baloo 2', cursive;
-    font-size: clamp(28px, 6vw, 42px);
-    font-weight: 800;
-    color: var(--text);
-    text-align: center;
-    line-height: 1.15;
-    margin-bottom: 10px;
-  }
-  .sec-title em { color: var(--pink); font-style: normal; }
-  .sec-sub {
-    text-align: center;
-    font-size: 16px;
-    color: var(--text-soft);
-    font-weight: 700;
-    margin-bottom: 40px;
-    line-height: 1.55;
-  }
+        .logo-1 .icone {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+            z-index: 1;
+        }
 
-  /* ── FOR WHOM ── */
-  .for-whom { background: var(--white); }
-  .pain-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-bottom: 32px;
-  }
-  .pain-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    background: var(--pink-bg);
-    border: 1.5px solid var(--pink-pale);
-    border-radius: 14px;
-    padding: 16px 20px;
-  }
-  .pain-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
-  .pain-text { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.5; }
-  .pain-text span { color: var(--pink); }
+        .logo-1 h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            color: #4a1525; /* Vinho / Bordô escuro */
+            margin: 0;
+            text-align: center;
+            line-height: 1;
+            z-index: 1;
+            font-weight: 600;
+        }
 
-  /* ── WHAT YOU GET (GLASSMORPHISM + CAROUSEL) ── */
-  .what {
-    background: var(--pink-bg);
-    position: relative;
-    padding: 60px 0; /* padding horizontal zero para o carrossel atravessar a tela */
-    overflow: hidden;
-  }
-  
-  /* Orbs Decorativas para dar contraste ao Glassmorphism */
-  .orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(60px);
-    z-index: 0;
-    opacity: 0.5;
-  }
-  .orb-1 { top: 10%; left: -10%; width: 350px; height: 350px; background: var(--pink-light); }
-  .orb-2 { bottom: 10%; right: -10%; width: 350px; height: 350px; background: var(--fuchsia); opacity: 0.35; }
-  .orb-3 { top: 40%; left: 40%; width: 250px; height: 250px; background: var(--pink); opacity: 0.25; }
+        .logo-1 span {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.8rem;
+            color: #8c425c;
+            z-index: 1;
+            margin-top: 5px;
+        }
 
-  /* Conteúdos centralizados na seção What */
-  .what .container { padding: 0 24px; }
+        /* OPÇÃO 2: Minimalista, Clean e Moderna */
+        .logo-2 {
+            background-color: #ffffff;
+            padding: 40px 80px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            border-top: 4px solid #dca8b8;
+            transition: transform 0.3s ease;
+        }
 
-  /* Marquee/Carrossel Wrapper */
-  .marquee-wrapper {
-    position: relative;
-    z-index: 2;
-    width: 100vw;
-    max-width: 100%;
-    overflow: hidden;
-    margin-bottom: 40px;
-    display: flex;
-  }
-  .marquee-track {
-    display: flex;
-    gap: 20px;
-    padding: 20px 20px 30px 20px; /* padding para a sombra (box-shadow) não cortar */
-    width: max-content;
-    animation: scroll-marquee 40s linear infinite;
-  }
-  /* Pausa a animação ao passar o mouse */
-  .marquee-track:hover {
-    animation-play-state: paused;
-  }
-  
-  @keyframes scroll-marquee {
-    0% { transform: translateX(0); }
-    /* Desloca 50% exatos do track + compensação do gap para criar o loop infinito perfeito */
-    100% { transform: translateX(calc(-50% - 10px)); } 
-  }
+        .logo-2:hover {
+            transform: translateY(-5px);
+        }
 
-  /* Glass Card */
-  .glass-card {
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 20px;
-    padding: 24px;
-    min-width: 300px;
-    max-width: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    box-shadow: 0 8px 32px 0 rgba(224, 21, 122, 0.15);
-    transition: transform 0.3s ease, border-color 0.3s ease;
-  }
-  .glass-card:hover {
-    transform: translateY(-8px);
-    border-color: var(--pink);
-  }
-  .glass-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .glass-num {
-    width: 48px; height: 48px;
-    background: linear-gradient(135deg, var(--pink-light), var(--pink));
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: 900;
-    color: var(--white);
-    flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(224, 21, 122, 0.3);
-  }
-  .glass-title {
-    font-size: 16px; font-weight: 800; color: var(--text); line-height: 1.2;
-  }
-  .glass-desc {
-    font-size: 14px; color: var(--text-soft); font-weight: 700; line-height: 1.5;
-  }
+        .logo-2 .icone {
+            width: 55px;
+            height: 55px;
+        }
 
-  /* BONUS */
-  .bonus-box {
-    background: linear-gradient(135deg, var(--pink), var(--fuchsia));
-    border-radius: 20px;
-    padding: 28px 24px;
-    text-align: center;
-    color: var(--white);
-    position: relative;
-    z-index: 2;
-  }
-  .bonus-box h3 {
-    font-family: 'Baloo 2', cursive;
-    font-size: 26px;
-    font-weight: 800;
-    margin-bottom: 8px;
-  }
-  .bonus-box p { font-size: 15px; font-weight: 700; opacity: 0.9; line-height: 1.5; }
-  .bonus-items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 18px;
-  }
-  .bonus-tag {
-    background: rgba(255,255,255,0.2);
-    border: 1.5px solid rgba(255,255,255,0.4);
-    color: var(--white);
-    font-size: 14px;
-    font-weight: 800;
-    padding: 8px 16px;
-    border-radius: 100px;
-  }
+        .logo-2 .texto {
+            text-align: center;
+            color: #3b1d26;
+        }
 
-  /* ── TESTIMONIALS ── */
-  .testimonials { background: var(--white); }
-  .testi-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .testi-card {
-    background: var(--pink-bg);
-    border: 1.5px solid var(--pink-pale);
-    border-radius: 16px;
-    padding: 22px;
-  }
-  .testi-stars { color: #FFB800; font-size: 16px; margin-bottom: 10px; }
-  .testi-text { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.6; margin-bottom: 14px; }
-  .testi-author { display: flex; align-items: center; gap: 12px; }
-  .testi-avatar {
-    width: 42px; height: 42px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--pink-light), var(--fuchsia));
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Baloo 2', cursive;
-    font-size: 18px; font-weight: 800; color: var(--white);
-    flex-shrink: 0;
-  }
-  .testi-name { font-size: 14px; font-weight: 800; color: var(--text); }
-  .testi-city { font-size: 12px; color: var(--text-soft); font-weight: 700; }
-
-  /* ── PRICING FINAL ── */
-  .pricing-final { background: var(--pink-bg); }
-  .price-card-main {
-    background: var(--white);
-    border: 3px solid var(--pink);
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 16px 48px rgba(224,21,122,0.15);
-    max-width: 480px;
-    margin: 0 auto;
-  }
-  .price-card-header {
-    background: linear-gradient(135deg, var(--pink-light), var(--pink), var(--fuchsia));
-    padding: 28px 32px;
-    text-align: center;
-  }
-  .price-card-header h3 {
-    font-family: 'Baloo 2', cursive;
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--white);
-    margin-bottom: 6px;
-  }
-  .price-card-header p { font-size: 14px; color: rgba(255,255,255,0.85); font-weight: 700; }
-  .price-card-body { padding: 28px 32px; }
-  .price-card-amount {
-    text-align: center;
-    margin-bottom: 24px;
-  }
-  .price-card-from {
-    font-size: 14px;
-    color: #999;
-    text-decoration: line-through;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-  .price-card-main-price {
-    font-family: 'Baloo 2', cursive;
-    font-size: 80px;
-    font-weight: 800;
-    color: var(--pink);
-    line-height: 1;
-  }
-  .price-card-main-price sup { font-size: 32px; vertical-align: super; }
-  .price-card-note { font-size: 14px; color: var(--text-soft); font-weight: 700; margin-top: 4px; }
-  .features-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-  .features-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.4;
-  }
-  .features-list li::before {
-    content: '✓';
-    color: var(--green);
-    font-weight: 900;
-    flex-shrink: 0;
-    font-size: 16px;
-  }
-  .guarantee-line {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 13px;
-    font-weight: 800;
-    color: var(--text-soft);
-    margin-top: 16px;
-    text-align: center;
-  }
-
-  /* ── FAQ ── */
-  .faq-section { background: var(--white); }
-  .faq-list { display: flex; flex-direction: column; gap: 10px; }
-  .faq-item {
-    background: var(--pink-bg);
-    border: 1.5px solid var(--pink-pale);
-    border-radius: 14px;
-    overflow: hidden;
-  }
-  .faq-q {
-    width: 100%;
-    background: none;
-    border: none;
-    padding: 18px 20px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 15px;
-    font-weight: 800;
-    color: var(--text);
-    text-align: left;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-  }
-  .faq-q:hover { color: var(--pink); }
-  .faq-chevron { font-size: 20px; color: var(--pink); transition: transform 0.25s; flex-shrink: 0; }
-  .faq-item.open .faq-chevron { transform: rotate(45deg); }
-  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
-  .faq-item.open .faq-a { max-height: 200px; }
-  .faq-a-inner { padding: 0 20px 18px; font-size: 14px; font-weight: 700; color: var(--text-soft); line-height: 1.6; }
-
-  /* ── FINAL CTA ── */
-  .final-cta {
-    background: linear-gradient(160deg, #FF4FAA 0%, var(--pink) 50%, var(--fuchsia) 100%);
-    padding: 60px 24px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .final-cta h2 {
-    font-family: 'Baloo 2', cursive;
-    font-size: clamp(32px, 7vw, 52px);
-    font-weight: 800;
-    color: var(--white);
-    line-height: 1.1;
-    margin-bottom: 16px;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.15);
-  }
-  .final-cta p {
-    font-size: 16px;
-    color: rgba(255,255,255,0.9);
-    font-weight: 700;
-    margin-bottom: 32px;
-    line-height: 1.55;
-    max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--text);
-    padding: 28px 24px;
-    text-align: center;
-    font-size: 12px;
-    color: rgba(255,255,255,0.4);
-    font-weight: 700;
-    line-height: 1.7;
-  }
-
-  /* ── STICKY BOTTOM ── */
-  .sticky-bottom {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    background: var(--white);
-    border-top: 3px solid var(--pink-pale);
-    padding: 12px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    z-index: 100;
-    box-shadow: 0 -8px 24px rgba(0,0,0,0.1);
-  }
-  .sticky-price {
-    font-family: 'Baloo 2', cursive;
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--pink);
-    white-space: nowrap;
-  }
-  .sticky-price small { font-size: 13px; display: block; color: var(--text-soft); font-family: 'Nunito', sans-serif; font-weight: 700; }
-  .sticky-btn {
-    flex: 1;
-    background: var(--green);
-    color: var(--white);
-    font-family: 'Nunito', sans-serif;
-    font-size: 16px;
-    font-weight: 900;
-    padding: 14px 20px;
-    border-radius: 12px;
-    text-decoration: none;
-    text-align: center;
-    transition: background 0.2s;
-    border: none;
-    cursor: pointer;
-  }
-  .sticky-btn:hover { background: var(--green-dark); }
-
-  /* body padding for sticky */
-  body { padding-bottom: 80px; }
-
-  @media (min-width: 700px) {
-    .sticky-bottom { display: none; }
-    body { padding-bottom: 0; }
-  }
-</style>
+        .logo-2 h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.6rem;
+            margin: 0;
+            font-weight: 500;
+            line-height: 1.1;
+            letter-spacing: 1px;
+        }
+    </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">🔥 Oferta especial — <span>apenas R$ 19,90</span> · acesso imediato no seu e-mail!</div>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-eyebrow">✨ Curso Completo de Resina</div>
-    <h1>
-      Transforme Resina
-      <span>em Renda Extra!</span>
-    </h1>
-    <p class="hero-sub">
-      Aprenda do zero a fazer <em>chaveiros, quadros, joias e muito mais</em> — e já comece a vender!
-    </p>
-    <div class="price-hero">
-      <div class="price-from">De R$ 97,00</div>
-      <div class="price-label-small">Hoje por apenas</div>
-      <div class="price-big"><sup>R$</sup>19<small style="font-size:36px;font-family:'Baloo 2';font-weight:800;">,90</small></div>
-      <div class="price-note">💳 Pix ou cartão · acesso na hora</div>
-    </div>
-    <a href="https://www.ggcheckout.com/checkout/v4/iUpOrLdMBKFcBMhvV17R" class="btn-cta">
-      QUERO ACESSAR AGORA →
-      <small>Acesso imediato por e-mail após o pagamento</small>
-    </a>
-    <div class="hero-guarantee">Garantia de 7 dias — se não gostar, devolvemos tudo</div>
-  </div>
-</section>
-
-<!-- PRODUCTS -->
-<div class="products-strip">
-  <div class="products-strip-title">O que você vai aprender a fazer</div>
-  <div class="products-grid">
-    <div class="product-tag">🔑 Chaveiros</div>
-    <div class="product-tag">🖼️ Quadros</div>
-    <div class="product-tag">💎 Pingentes</div>
-    <div class="product-tag">🎄 Peças de Natal</div>
-    <div class="product-tag">💍 Bijuterias</div>
-    <div class="product-tag">🕯️ Bandeja decorativa</div>
-    <div class="product-tag">✏️ Canetas personalizadas</div>
-    <div class="product-tag">📖 Capas de caderno</div>
-  </div>
-</div>
-
-<!-- FOR WHOM -->
-<section class="section for-whom">
-  <div class="container">
-    <div class="sec-label">Esse curso é pra você?</div>
-    <h2 class="sec-title">Você <em>se identifica</em> com isso?</h2>
-    <div class="pain-list">
-      <div class="pain-item">
-        <div class="pain-icon">😩</div>
-        <div class="pain-text">Quer aprender resina mas acha que é <span>difícil e caro pra começar</span></div>
-      </div>
-      <div class="pain-item">
-        <div class="pain-icon">💸</div>
-        <div class="pain-text">Precisa de uma <span>renda extra</span> mas não sabe vender nem precificar</div>
-      </div>
-      <div class="pain-item">
-        <div class="pain-icon">😕</div>
-        <div class="pain-text">Já tentou fazer algo com resina mas ficou com <span>bolha, não curou direito</span> ou ficou feio</div>
-      </div>
-      <div class="pain-item">
-        <div class="pain-icon">📱</div>
-        <div class="pain-text">Quer aprender <span>no seu tempo, no celular</span>, sem precisar de curso presencial caro</div>
-      </div>
-    </div>
-    <p style="text-align:center; font-size:17px; font-weight:800; color:var(--pink);">
-      ✅ Se bateu em pelo menos um desses — esse curso foi feito pra você!
-    </p>
-  </div>
-</section>
-
-<!-- WHAT YOU GET (GLASSMORPHISM + INFINITE MARQUEE) -->
-<section class="section what">
-  <!-- Orbs para fundo do efeito Glassmorphism -->
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-
-  <div class="container">
-    <div class="sec-label">Conteúdo completo</div>
-    <h2 class="sec-title">Tudo que você vai <em>receber</em></h2>
-    <p class="sec-sub">Ebook + app de apoio entregues no seu e-mail na hora</p>
-  </div>
-
-  <div class="marquee-wrapper">
-    <div class="marquee-track">
-      <!-- BLOCO 1 DOS CARDS -->
-      <div class="glass-card">
-        <div class="glass-header">
-          <div class="glass-num">1</div>
-          <div class="glass-title">Materiais e segurança</div>
-        </div>
-        <div class="glass-desc">Quais resinas comprar, onde achar mais barato, EPI essencial e como montar seu cantinho</div>
-      </div>
-      <div class="glass-card">
-        <div class="glass-header">
-          <div class="glass-num">2</div>
-          <div class="glass-title">Moldes e formas</div>
-        </div>
-        <div class="glass-desc">Como usar moldes de silicone, acetato e até fazer o seu próprio em casa</div>
-      </div>
-      <div class="glass-card">
-        <div class="glass-header">
-          <div class="glass-num">3</div>
-          <div class="glass-title">Pigmentos e efeitos</div>
-        </div>
-        <div class="glass-desc">Pó de mica, glitter, álcool ink, efeito geode, mármore e oceano</div>
-      </div>
-      <div class="glass-card">
-        <div class="glass-header">
-          <div class="glass-num">4</div>
-          <div class="glass-title">Inclusões e Flores</div>
-        </div>
-        <div class="glass-desc">Como incluir elementos dentro da resina sem manchar nem perder transparência</div>
-      </div>
-      <div class="glass-card">
-        <div class="glass-header">
-          <div class="glass-num">5</div>
-          <div class="glass-title">Acabamento</div>
-        </div>
-        <div class="glass-desc">Como lixar, polir e deixar sua peça com brilho de vitrine profissional</div>
-      </div>
-      <div class="glass-card">
-        <div class="glass-header">
-          <div class="glass-num">6</div>
-          <div class="glass-title">Peças que mais vendem</div>
-        </div>
-        <div class="glass-desc">Chaveiros, quadros, bijuterias, peças de natal — passo a passo de cada uma</div>
-      </div>
-      <div class="glass-card">
-        <div class="glass-header">
-          <div class="glass-num">7</div>
-          <div class="glass-title">Quanto cobrar</div>
-        </div>
-        <div class="glass-desc">Fórmula simples de precificação + calculadora no app pra não trabalhar no prejuízo</div>
-      </div>
-      <div class="glass-card">
-        <div class="glass-header">
-          <div class="glass-num">8</div>
-          <div class="glass-title">Como vender</div>
-        </div>
-        <div class="glass-desc">Fotos bonitas com celular, descrição que converte na Elo7, Shopee e Instagram</div>
-      </div>
-      
-      <!-- BLOCO DUPLICADO (Exatamente igual ao de cima para o Loop Infinito perfeito) -->
-      <div class="glass-card">
-        <div class="glass-header">
-          <div class="glass-num">1</div>
-          <div class="glass-title">Materiais e segurança</div>
-        </div>
-        <div class="glass-desc">Quais resinas comprar, onde achar mais barato, EPI essencial e como montar seu cantinho</div>
-      </div>
-      <div class="glass-card">
-        <div class="glass-header">
-          <div class="glass-num">2</div>
-          <div class="glass-title">Moldes e formas</div>
-        </div>
-        <div class="glass-desc">Como usar moldes de silicone, acetato e até fazer o seu próprio em casa</div>
-      </div>
-      <div class="glass-card">
-        <div class="glass-header">
-          <div class="glass-num">3</div>
-          <div class="glass-title">Pigmentos e efeitos</div>
-        </div>
-        <div class="glass-desc">Pó de mica, glitter, álcool ink, efeito geode, mármore e oceano</div>
-      </div>
-      <div class="glass-card">
-        <div class="glass-header">
-          <div class="glass-num">4</div>
-          <div class="glass-title">Inclusões e Flores</div>
-        </div>
-        <div class="glass-desc">Como incluir elementos dentro da resina sem manchar nem perder transparência</div>
-      </div>
-      <div class="glass-card">
-        <div class="glass-header">
-          <div class="glass-num">5</div>
-          <div class="glass-title">Acabamento</div>
-        </div>
-        <div class="glass-desc">Como lixar, polir e deixar sua peça com brilho de vitrine profissional</div>
-      </div>
-      <div class="glass-card">
-        <div class="glass-header">
-          <div class="glass-num">6</div>
-          <div class="glass-title">Peças que mais vendem</div>
-        </div>
-        <div class="glass-desc">Chaveiros, quadros, bijuterias, peças de natal — passo a passo de cada uma</div>
-      </div>
-      <div class="glass-card">
-        <div class="glass-header">
-          <div class="glass-num">7</div>
-          <div class="glass-title">Quanto cobrar</div>
-        </div>
-        <div class="glass-desc">Fórmula simples de precificação + calculadora no app pra não trabalhar no prejuízo</div>
-      </div>
-      <div class="glass-card">
-        <div class="glass-header">
-          <div class="glass-num">8</div>
-          <div class="glass-title">Como vender</div>
-        </div>
-        <div class="glass-desc">Fotos bonitas com celular, descrição que converte na Elo7, Shopee e Instagram</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="bonus-box">
-      <h3>🎁 Bônus exclusivo incluso!</h3>
-      <p>Junto com o ebook você recebe acesso ao app de apoio com as ferramentas mais pedidas:</p>
-      <div class="bonus-items">
-        <div class="bonus-tag">⏱️ Timer de cura</div>
-        <div class="bonus-tag">🧮 Calculadora de custo</div>
-        <div class="bonus-tag">🏷️ Gerador de ficha técnica</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="section testimonials">
-  <div class="container">
-    <div class="sec-label">Quem já comprou</div>
-    <h2 class="sec-title"><em>Resultados</em> reais</h2>
-    <div class="testi-list">
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"Nunca tinha feito resina na vida. Em duas semanas já tinha vendido meu primeiro lote de chaveiros personalizados no Elo7. O módulo de fotos com celular foi incrível, minhas fotos ficaram profissionais!"</p>
-        <div class="testi-author">
-          <div class="testi-avatar">J</div>
-          <div>
-            <div class="testi-name">Juliana M.</div>
-            <div class="testi-city">São Paulo · SP</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"Eu fazia resina há um ano e sempre vendia barato, achei que era justo. Com a calculadora do app descobri que tava tendo PREJUÍZO. Agora cobro o preço certo e meu faturamento triplicou."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">A</div>
-          <div>
-            <div class="testi-name">Ana Paula S.</div>
-            <div class="testi-city">Belo Horizonte · MG</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"O timer de cura salvou minha vida! Perdia peça toda hora porque esquecia o tempo. Agora meu aproveitamento virou quase 100%. Melhor investimento que fiz esse ano, e olha o preço que é!"</p>
-        <div class="testi-author">
-          <div class="testi-avatar">C</div>
-          <div>
-            <div class="testi-name">Camila R.</div>
-            <div class="testi-city">Curitiba · PR</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="section pricing-final" id="checkout">
-  <div class="container">
-    <div class="sec-label">Garanta o seu acesso</div>
-    <h2 class="sec-title">Oferta <em>especial</em> de hoje</h2>
-    <p class="sec-sub">Preço pode subir a qualquer momento!</p>
-    <div class="price-card-main">
-      <div class="price-card-header">
-        <h3>Curso Completo de Resina</h3>
-        <p>Ebook + App · Acesso imediato por e-mail</p>
-      </div>
-      <div class="price-card-body">
-        <div class="price-card-amount">
-          <div class="price-card-from">De R$ 97,00</div>
-          <div class="price-card-main-price"><sup>R$</sup>19<span style="font-size:40px">,90</span></div>
-          <div class="price-card-note">💳 Pix, cartão ou boleto</div>
-        </div>
-        <ul class="features-list">
-          <li>Ebook completo (8 módulos — 80 páginas)</li>
-          <li>Acesso ao app: calculadora + timer + fichas</li>
-          <li>Tabela de preços para 12 produtos</li>
-          <li>Módulo completo de vendas pelo celular</li>
-          <li>Atualizações futuras sem custo extra</li>
-          <li>Acesso imediato no e-mail após pagamento</li>
-        </ul>
-        <a href="https://www.ggcheckout.com/checkout/v4/iUpOrLdMBKFcBMhvV17R" class="btn-cta">
-          SIM, QUERO POR R$ 19,90 →
-          <small>Clique e garanta seu acesso agora!</small>
-        </a>
-        <div class="guarantee-line">
-          🛡️ Garantia de 7 dias — 100% do dinheiro de volta, sem perguntas
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="section faq-section">
-  <div class="container">
-    <div class="sec-label">Dúvidas</div>
-    <h2 class="sec-title">Perguntas <em>frequentes</em></h2>
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Como recebo o acesso depois de pagar?
-          <span class="faq-chevron">+</span>
-        </button>
-        <div class="faq-a">
-          <div class="faq-a-inner">Assim que o pagamento for confirmado você recebe um e-mail automático com o link do ebook (PDF) e o link de acesso ao app. No Pix é instantâneo. No cartão pode levar alguns minutinhos.</div>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Precisa ter experiência para fazer o curso?
-          <span class="faq-chevron">+</span>
-        </button>
-        <div class="faq-a">
-          <div class="faq-a-inner">Não! O curso começa do zero absoluto. Você vai aprender o que comprar, como misturar, como moldar e como vender. Não precisa saber nada antes.</div>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          O app funciona no celular?
-          <span class="faq-chevron">+</span>
-        </button>
-        <div class="faq-a">
-          <div class="faq-a-inner">Sim! O app é um site que abre direto no navegador do celular. Não precisa instalar nada. Funciona no Android e iPhone normalmente.</div>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          E se eu não gostar?
-          <span class="faq-chevron">+</span>
-        </button>
-        <div class="faq-a">
-          <div class="faq-a-inner">Você tem 7 dias de garantia total. Se por qualquer motivo não ficar satisfeita, é só mandar um e-mail e a gente devolve o valor integral. Sem burocracia e sem perguntas.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="final-cta">
-  <h2>Não perde essa chance! 💖</h2>
-  <p>Por apenas R$ 19,90 você aprende do zero, começa a produzir e já pode vender. Acesso imediato no seu e-mail!</p>
-  <a href="https://www.ggcheckout.com/checkout/v4/iUpOrLdMBKFcBMhvV17R" class="btn-cta" style="max-width:420px; margin: 0 auto;">
-    QUERO MEU ACESSO AGORA →
-    <small>Garantia de 7 dias · sem risco nenhum</small>
-  </a>
-</section>
-
-<footer>
-  © 2025 Curso Resina · Todos os direitos reservados<br>
-  Dúvidas? Fale com a gente pelo e-mail: suporte.atend1@outlook.com<br>
-  Garantia de 7 dias · Pagamento 100% seguro
-</footer>
-
-<!-- STICKY BOTTOM (mobile) -->
-<div class="sticky-bottom">
-  <div class="sticky-price">
-    <small>Acesso completo</small>
-    R$ 19,90
-  </div>
-  <a href="https://www.ggcheckout.com/checkout/v4/iUpOrLdMBKFcBMhvV17R" class="sticky-btn">GARANTIR AGORA →</a>
-</div>
-
-<script>
-  function toggleFaq(btn) {
-    // Fecha outras abertas
-    const allItems = document.querySelectorAll('.faq-item');
-    const item = btn.closest('.faq-item');
+    <div class="titulo-opcao">Opção 1: Estilo Selo (Clássica e Feminina)</div>
     
-    allItems.forEach(i => {
-      if(i !== item) i.classList.remove('open');
-    });
+    <!-- Início da Logo 1 -->
+    <div class="logo-1">
+        <!-- Ícone SVG: Cruz delicada com ramos/folhas (florescendo) -->
+        <svg class="icone" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 75 Q 35 60 40 45 Q 45 40 50 55" fill="#dca8b8" opacity="0.8"/>
+            <path d="M50 65 Q 65 55 60 35 Q 55 30 50 45" fill="#dca8b8" opacity="0.8"/>
+            <line x1="50" y1="15" x2="50" y2="85" stroke="#4a1525" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="30" y1="35" x2="70" y2="35" stroke="#4a1525" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        
+        <h1>Mulheres</h1>
+        <span>que Oram</span>
+    </div>
 
-    item.classList.toggle('open');
-  }
-</script>
+    <div class="titulo-opcao">Opção 2: Minimalista (Ideal para estampar e Instagram)</div>
+    
+    <!-- Início da Logo 2 -->
+    <div class="logo-2">
+        <!-- Ícone SVG: Minimalista e elegante -->
+        <svg class="icone" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="45" stroke="#f0d5de" stroke-width="2"/>
+            <path d="M50 25 L50 75 M35 40 L65 40" stroke="#8c425c" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+
+        <div class="texto">
+            <h1>Mulheres</h1>
+            <h1><i style="color: #8c425c;">que Oram</i></h1>
+        </div>
+    </div>
+
 </body>
 </html>
