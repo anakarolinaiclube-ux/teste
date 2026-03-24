@@ -3,167 +3,1009 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Criativos | Funil de Quiz Montador</title>
+<title>Curso Completo de Resina</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg-dark: #0b1120;
-  --bg-card: #1e293b;
-  --bg-card-hover: #334155;
-  --border-color: #334155;
-  --orange: #f97316;
-  --green: #10b981;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-}
+  :root {
+    --pink:       #E0157A;
+    --pink-dark:  #B8006A;
+    --pink-light: #FF5BAD;
+    --pink-pale:  #FFD6EC;
+    --pink-bg:    #FFF0F8;
+    --fuchsia:    #C5007A;
+    --white:      #FFFFFF;
+    --text:       #2A0015;
+    --text-soft:  #7A2050;
+    --green:      #18B94A;
+    --green-dark: #0F8A34;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--pink-bg);
+    color: var(--text);
+    overflow-x: hidden;
+  }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #0f172a; padding: 40px 20px; }
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--pink);
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+  .topbar span { color: var(--pink-pale); }
 
-.container { max-width: 1100px; margin: 0 auto; }
-.header-title { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 800; color: #0f172a; margin-bottom: 8px; }
-.header-sub { font-size: 15px; color: #64748b; margin-bottom: 40px; }
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(160deg, #FF4FAA 0%, var(--pink) 45%, var(--fuchsia) 100%);
+    padding: 52px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+  .hero-eyebrow {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    border: 1.5px solid rgba(255,255,255,0.35);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 20px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(42px, 10vw, 72px);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.0;
+    margin-bottom: 8px;
+    text-shadow: 0 3px 16px rgba(0,0,0,0.2);
+  }
+  .hero h1 span {
+    display: block;
+    font-size: clamp(22px, 5vw, 36px);
+    font-weight: 700;
+    opacity: 0.9;
+  }
+  .hero-sub {
+    font-size: 18px;
+    color: rgba(255,255,255,0.9);
+    font-weight: 700;
+    margin: 20px 0 32px;
+    line-height: 1.5;
+  }
+  .hero-sub em {
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-style: normal;
+  }
 
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  /* Price box */
+  .price-hero {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 28px 32px;
+    max-width: 400px;
+    margin: 0 auto 32px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+  .price-from {
+    font-size: 14px;
+    color: var(--text-soft);
+    text-decoration: line-through;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .price-label-small {
+    font-size: 13px;
+    color: var(--pink);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .price-big {
+    font-family: 'Baloo 2', cursive;
+    font-size: 72px;
+    font-weight: 800;
+    color: var(--pink);
+    line-height: 1;
+  }
+  .price-big sup { font-size: 28px; vertical-align: super; }
+  .price-note {
+    font-size: 13px;
+    color: var(--text-soft);
+    margin-top: 4px;
+    font-weight: 700;
+  }
+  .btn-cta {
+    display: block;
+    background: var(--green);
+    color: var(--white);
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    padding: 20px 32px;
+    border-radius: 14px;
+    text-decoration: none;
+    margin: 20px auto 0;
+    max-width: 420px;
+    text-align: center;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(24,185,74,0.4);
+    letter-spacing: 0.01em;
+    animation: pulse-btn 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse-btn {
+    0%,100% { box-shadow: 0 6px 20px rgba(24,185,74,0.4); transform: scale(1); }
+    50%      { box-shadow: 0 8px 32px rgba(24,185,74,0.6); transform: scale(1.02); }
+  }
+  .btn-cta:hover { background: var(--green-dark); animation: none; transform: scale(1.03); }
+  .btn-cta small { display: block; font-size: 12px; font-weight: 700; opacity: 0.85; margin-top: 2px; }
+  .hero-guarantee {
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 16px;
+  }
+  .hero-guarantee::before { content: '🔒 '; }
 
-/* ── CARD BASE ── */
-.criativo { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
-.criativo-preview { aspect-ratio: 4/5; position: relative; display: flex; flex-direction: column; justify-content: center; padding: 24px; overflow: hidden; }
-.criativo-tag { position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); color: #fff; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 6px 12px; border-radius: 20px; font-family: 'Poppins', sans-serif; z-index: 10; border: 1px solid rgba(255,255,255,0.1); }
+  /* ── PRODUCTS STRIP ── */
+  .products-strip {
+    background: var(--white);
+    padding: 28px 24px;
+    border-bottom: 3px solid var(--pink-pale);
+  }
+  .products-strip-title {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--pink);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+  .products-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .product-tag {
+    background: var(--pink-pale);
+    color: var(--pink-dark);
+    font-size: 14px;
+    font-weight: 800;
+    padding: 8px 18px;
+    border-radius: 100px;
+    border: 1.5px solid rgba(224,21,122,0.2);
+  }
 
-.criativo-info { padding: 20px; background: #fff; border-top: 1px solid #e2e8f0; }
-.criativo-name { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 12px; }
-.spec { display: flex; gap: 8px; font-size: 13px; color: #475569; margin-bottom: 8px; line-height: 1.5; }
-.spec-label { font-weight: 700; color: #0f172a; min-width: 60px; }
+  /* ── SECTION BASE ── */
+  .section { padding: 60px 24px; }
+  .container { max-width: 680px; margin: 0 auto; position: relative; z-index: 2; }
+  .sec-label {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 10px;
+  }
+  .sec-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(28px, 6vw, 42px);
+    font-weight: 800;
+    color: var(--text);
+    text-align: center;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .sec-title em { color: var(--pink); font-style: normal; }
+  .sec-sub {
+    text-align: center;
+    font-size: 16px;
+    color: var(--text-soft);
+    font-weight: 700;
+    margin-bottom: 40px;
+    line-height: 1.55;
+  }
 
-/* ── STYLES DOS ADS INTERNOS ── */
-/* AD 1 */
-.ad1-bg { background: linear-gradient(135deg, #0b1120 0%, #1e293b 100%); }
-.ad1-title { font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 16px; text-align: center; letter-spacing: -1px; }
-.ad1-title span { color: var(--orange); }
-.ad1-btn { background: var(--orange); color: #fff; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 14px; padding: 14px; border-radius: 8px; text-align: center; box-shadow: 0 4px 15px rgba(249,115,22,0.4); margin-top: 20px; }
-.ad1-progress { display: flex; gap: 4px; margin: 0 auto 20px; justify-content: center; }
-.ad1-dot { width: 30px; height: 6px; background: rgba(255,255,255,0.2); border-radius: 10px; }
-.ad1-dot.active { background: var(--orange); }
+  /* ── FOR WHOM ── */
+  .for-whom { background: var(--white); }
+  .pain-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .pain-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--pink-bg);
+    border: 1.5px solid var(--pink-pale);
+    border-radius: 14px;
+    padding: 16px 20px;
+  }
+  .pain-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+  .pain-text { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.5; }
+  .pain-text span { color: var(--pink); }
 
-/* AD 2 */
-.ad2-bg { background: #0b1120; }
-.ad2-fake-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
-.ad2-q-num { font-size: 11px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-family: 'Poppins', sans-serif; }
-.ad2-q-title { font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 800; color: #0b1120; line-height: 1.2; margin-bottom: 16px; }
-.ad2-opt { border: 2px solid #e2e8f0; border-radius: 8px; padding: 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; color: #475569; }
-.ad2-opt.correct { border-color: var(--green); background: rgba(16,185,129,0.1); color: var(--green-dark); }
-.ad2-opt-circle { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #cbd5e1; }
-.ad2-opt.correct .ad2-opt-circle { border-color: var(--green); background: var(--green); }
-.ad2-cursor { position: absolute; bottom: 40px; right: 40px; width: 30px; height: 30px; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" stroke="black" stroke-width="2"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg>'); background-size: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); }
+  /* ── WHAT YOU GET (GLASSMORPHISM + CAROUSEL) ── */
+  .what {
+    background: var(--pink-bg);
+    position: relative;
+    padding: 60px 0; /* padding horizontal zero para o carrossel atravessar a tela */
+    overflow: hidden;
+  }
+  
+  /* Orbs Decorativas para dar contraste ao Glassmorphism */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    z-index: 0;
+    opacity: 0.5;
+  }
+  .orb-1 { top: 10%; left: -10%; width: 350px; height: 350px; background: var(--pink-light); }
+  .orb-2 { bottom: 10%; right: -10%; width: 350px; height: 350px; background: var(--fuchsia); opacity: 0.35; }
+  .orb-3 { top: 40%; left: 40%; width: 250px; height: 250px; background: var(--pink); opacity: 0.25; }
 
-/* AD 3 */
-.ad3-bg { background: #1e293b; position: relative; }
-.ad3-bg::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at center, rgba(16,185,129,0.15) 0%, transparent 70%); }
-.ad3-alert { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: var(--green); padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 16px; }
-.ad3-title { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 12px; text-align: left; }
-.ad3-sub { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 24px; }
-.ad3-cta { display: flex; align-items: center; justify-content: space-between; background: #fff; padding: 12px 16px; border-radius: 100px; color: #0b1120; font-weight: 700; font-family: 'Poppins', sans-serif; font-size: 13px; }
-.ad3-cta-icon { background: var(--orange); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; }
+  /* Conteúdos centralizados na seção What */
+  .what .container { padding: 0 24px; }
 
-@media (max-width: 900px) { .grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; } }
+  /* Marquee/Carrossel Wrapper */
+  .marquee-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100vw;
+    max-width: 100%;
+    overflow: hidden;
+    margin-bottom: 40px;
+    display: flex;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 20px;
+    padding: 20px 20px 30px 20px; /* padding para a sombra (box-shadow) não cortar */
+    width: max-content;
+    animation: scroll-marquee 40s linear infinite;
+  }
+  /* Pausa a animação ao passar o mouse */
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+  
+  @keyframes scroll-marquee {
+    0% { transform: translateX(0); }
+    /* Desloca 50% exatos do track + compensação do gap para criar o loop infinito perfeito */
+    100% { transform: translateX(calc(-50% - 10px)); } 
+  }
+
+  /* Glass Card */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    padding: 24px;
+    min-width: 300px;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: 0 8px 32px 0 rgba(224, 21, 122, 0.15);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+  .glass-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--pink);
+  }
+  .glass-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .glass-num {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, var(--pink-light), var(--pink));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--white);
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(224, 21, 122, 0.3);
+  }
+  .glass-title {
+    font-size: 16px; font-weight: 800; color: var(--text); line-height: 1.2;
+  }
+  .glass-desc {
+    font-size: 14px; color: var(--text-soft); font-weight: 700; line-height: 1.5;
+  }
+
+  /* BONUS */
+  .bonus-box {
+    background: linear-gradient(135deg, var(--pink), var(--fuchsia));
+    border-radius: 20px;
+    padding: 28px 24px;
+    text-align: center;
+    color: var(--white);
+    position: relative;
+    z-index: 2;
+  }
+  .bonus-box h3 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .bonus-box p { font-size: 15px; font-weight: 700; opacity: 0.9; line-height: 1.5; }
+  .bonus-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 18px;
+  }
+  .bonus-tag {
+    background: rgba(255,255,255,0.2);
+    border: 1.5px solid rgba(255,255,255,0.4);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 800;
+    padding: 8px 16px;
+    border-radius: 100px;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--white); }
+  .testi-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .testi-card {
+    background: var(--pink-bg);
+    border: 1.5px solid var(--pink-pale);
+    border-radius: 16px;
+    padding: 22px;
+  }
+  .testi-stars { color: #FFB800; font-size: 16px; margin-bottom: 10px; }
+  .testi-text { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.6; margin-bottom: 14px; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink-light), var(--fuchsia));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Baloo 2', cursive;
+    font-size: 18px; font-weight: 800; color: var(--white);
+    flex-shrink: 0;
+  }
+  .testi-name { font-size: 14px; font-weight: 800; color: var(--text); }
+  .testi-city { font-size: 12px; color: var(--text-soft); font-weight: 700; }
+
+  /* ── PRICING FINAL ── */
+  .pricing-final { background: var(--pink-bg); }
+  .price-card-main {
+    background: var(--white);
+    border: 3px solid var(--pink);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(224,21,122,0.15);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .price-card-header {
+    background: linear-gradient(135deg, var(--pink-light), var(--pink), var(--fuchsia));
+    padding: 28px 32px;
+    text-align: center;
+  }
+  .price-card-header h3 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+  .price-card-header p { font-size: 14px; color: rgba(255,255,255,0.85); font-weight: 700; }
+  .price-card-body { padding: 28px 32px; }
+  .price-card-amount {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .price-card-from {
+    font-size: 14px;
+    color: #999;
+    text-decoration: line-through;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .price-card-main-price {
+    font-family: 'Baloo 2', cursive;
+    font-size: 80px;
+    font-weight: 800;
+    color: var(--pink);
+    line-height: 1;
+  }
+  .price-card-main-price sup { font-size: 32px; vertical-align: super; }
+  .price-card-note { font-size: 14px; color: var(--text-soft); font-weight: 700; margin-top: 4px; }
+  .features-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .features-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .features-list li::before {
+    content: '✓';
+    color: var(--green);
+    font-weight: 900;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+  .guarantee-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text-soft);
+    margin-top: 16px;
+    text-align: center;
+  }
+
+  /* ── FAQ ── */
+  .faq-section { background: var(--white); }
+  .faq-list { display: flex; flex-direction: column; gap: 10px; }
+  .faq-item {
+    background: var(--pink-bg);
+    border: 1.5px solid var(--pink-pale);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 18px 20px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text);
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .faq-q:hover { color: var(--pink); }
+  .faq-chevron { font-size: 20px; color: var(--pink); transition: transform 0.25s; flex-shrink: 0; }
+  .faq-item.open .faq-chevron { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .faq-item.open .faq-a { max-height: 200px; }
+  .faq-a-inner { padding: 0 20px 18px; font-size: 14px; font-weight: 700; color: var(--text-soft); line-height: 1.6; }
+
+  /* ── FINAL CTA ── */
+  .final-cta {
+    background: linear-gradient(160deg, #FF4FAA 0%, var(--pink) 50%, var(--fuchsia) 100%);
+    padding: 60px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-cta h2 {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(32px, 7vw, 52px);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+  .final-cta p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.9);
+    font-weight: 700;
+    margin-bottom: 32px;
+    line-height: 1.55;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text);
+    padding: 28px 24px;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    font-weight: 700;
+    line-height: 1.7;
+  }
+
+  /* ── STICKY BOTTOM ── */
+  .sticky-bottom {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--white);
+    border-top: 3px solid var(--pink-pale);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    z-index: 100;
+    box-shadow: 0 -8px 24px rgba(0,0,0,0.1);
+  }
+  .sticky-price {
+    font-family: 'Baloo 2', cursive;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--pink);
+    white-space: nowrap;
+  }
+  .sticky-price small { font-size: 13px; display: block; color: var(--text-soft); font-family: 'Nunito', sans-serif; font-weight: 700; }
+  .sticky-btn {
+    flex: 1;
+    background: var(--green);
+    color: var(--white);
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    padding: 14px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  .sticky-btn:hover { background: var(--green-dark); }
+
+  /* body padding for sticky */
+  body { padding-bottom: 80px; }
+
+  @media (min-width: 700px) {
+    .sticky-bottom { display: none; }
+    body { padding-bottom: 0; }
+  }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <h1 class="header-title">Criativos para Funil de Quiz</h1>
-  <p class="header-sub">Venda o TESTE (o clique), deixe o teste vender o CURSO (a conversão).</p>
+<!-- TOP BAR -->
+<div class="topbar">🔥 Oferta especial — <span>apenas R$ 19,90</span> · acesso imediato no seu e-mail!</div>
 
-  <div class="grid">
-    
-    <!-- CRIATIVO 1: O Desafio Direto -->
-    <div class="criativo">
-      <div class="criativo-preview ad1-bg">
-        <span class="criativo-tag">AD 1 • Desafio</span>
-        
-        <div class="ad1-progress">
-          <div class="ad1-dot active"></div>
-          <div class="ad1-dot active"></div>
-          <div class="ad1-dot"></div>
-          <div class="ad1-dot"></div>
-        </div>
-
-        <div class="ad1-title">Você conseguiria faturar <span>R$ 10.000/mês</span> como montador de móveis?</div>
-        <p style="text-align: center; color: var(--text-muted); font-size: 13px; line-height: 1.5;">O mercado está implorando por profissionais. Faça o teste de 2 minutos e descubra seu potencial.</p>
-        
-        <div class="ad1-btn">CLIQUE E DESCUBRA ➔</div>
-      </div>
-      <div class="criativo-info">
-        <div class="criativo-name">1. A Promessa como Pergunta</div>
-        <div class="spec"><span class="spec-label">Visual</span> Fundo escuro premium. Barras de progresso no topo simulando que o quiz já começou.</div>
-        <div class="spec"><span class="spec-label">Copy</span> Em vez de prometer que ele VAI ganhar, nós o desafiamos: "Você conseguiria?". O ego faz a pessoa clicar.</div>
-        <div class="spec"><span class="spec-label">Uso</span> Feed do Instagram e Facebook.</div>
-      </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">✨ Curso Completo de Resina</div>
+    <h1>
+      Transforme Resina
+      <span>em Renda Extra!</span>
+    </h1>
+    <p class="hero-sub">
+      Aprenda do zero a fazer <em>chaveiros, quadros, joias e muito mais</em> — e já comece a vender!
+    </p>
+    <div class="price-hero">
+      <div class="price-from">De R$ 97,00</div>
+      <div class="price-label-small">Hoje por apenas</div>
+      <div class="price-big"><sup>R$</sup>19<small style="font-size:36px;font-family:'Baloo 2';font-weight:800;">,90</small></div>
+      <div class="price-note">💳 Pix ou cartão · acesso na hora</div>
     </div>
+    <a href="https://www.ggcheckout.com/checkout/v4/iUpOrLdMBKFcBMhvV17R" class="btn-cta">
+      QUERO ACESSAR AGORA →
+      <small>Acesso imediato por e-mail após o pagamento</small>
+    </a>
+    <div class="hero-guarantee">Garantia de 7 dias — se não gostar, devolvemos tudo</div>
+  </div>
+</section>
 
-    <!-- CRIATIVO 2: A Fake Poll (Enquete) -->
-    <div class="criativo">
-      <div class="criativo-preview ad2-bg">
-        
-        <div class="ad2-fake-card">
-          <div class="ad2-q-num">Pergunta 4 de 10</div>
-          <div class="ad2-q-title">Qual ferramenta é usada para medir distâncias?</div>
-          
-          <div class="ad2-opt">
-            <div class="ad2-opt-circle"></div> Nível
-          </div>
-          <div class="ad2-opt correct">
-            <div class="ad2-opt-circle"></div> Trena
-          </div>
-          <div class="ad2-opt">
-            <div class="ad2-opt-circle"></div> Formão
-          </div>
-        </div>
-        
-        <div class="ad2-cursor"></div>
-        <div style="text-align: center; margin-top: 20px; color: #fff; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700;">Se você acertou, seu perfil vale dinheiro.</div>
-      </div>
-      <div class="criativo-info">
-        <div class="criativo-name">2. O "Fake Quiz" na imagem</div>
-        <div class="spec"><span class="spec-label">Visual</span> Um print simulando uma das perguntas do próprio quiz.</div>
-        <div class="spec"><span class="spec-label">Copy</span> A pergunta é intencionalmente fácil. Quando a pessoa pensa "É Trena, óbvio", ela se sente inteligente e clica para provar que tiraria nota 10.</div>
-        <div class="spec"><span class="spec-label">Uso</span> Excelente para Stories e Reels.</div>
-      </div>
-    </div>
-
-    <!-- CRIATIVO 3: A Identificação (A Dor) -->
-    <div class="criativo">
-      <div class="criativo-preview ad3-bg">
-        <span class="criativo-tag">AD 3 • Identificação</span>
-        
-        <div class="ad3-alert">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-          PERFIL IDENTIFICADO
-        </div>
-        
-        <div class="ad3-title">Você é o cara que monta os móveis da família de graça?</div>
-        <div class="ad3-sub">Descubra qual é a sua nota técnica e quanto dinheiro você está deixando na mesa todo final de semana.</div>
-        
-        <div class="ad3-cta">
-          INICIAR DIAGNÓSTICO
-          <div class="ad3-cta-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </div>
-        </div>
-      </div>
-      <div class="criativo-info">
-        <div class="criativo-name">3. O "Dinheiro na Mesa"</div>
-        <div class="spec"><span class="spec-label">Visual</span> Foco em tipografia forte e botões estilo "pílula" (UI de aplicativos modernos).</div>
-        <div class="spec"><span class="spec-label">Copy</span> Bate diretamente na dor de quem tem a habilidade, gasta tempo ajudando os outros e não ganha R$ 1 com isso.</div>
-        <div class="spec"><span class="spec-label">Uso</span> Feed e Stories (Pode usar um vídeo de fundo de alguém montando móvel).</div>
-      </div>
-    </div>
-
+<!-- PRODUCTS -->
+<div class="products-strip">
+  <div class="products-strip-title">O que você vai aprender a fazer</div>
+  <div class="products-grid">
+    <div class="product-tag">🔑 Chaveiros</div>
+    <div class="product-tag">🖼️ Quadros</div>
+    <div class="product-tag">💎 Pingentes</div>
+    <div class="product-tag">🎄 Peças de Natal</div>
+    <div class="product-tag">💍 Bijuterias</div>
+    <div class="product-tag">🕯️ Bandeja decorativa</div>
+    <div class="product-tag">✏️ Canetas personalizadas</div>
+    <div class="product-tag">📖 Capas de caderno</div>
   </div>
 </div>
 
+<!-- FOR WHOM -->
+<section class="section for-whom">
+  <div class="container">
+    <div class="sec-label">Esse curso é pra você?</div>
+    <h2 class="sec-title">Você <em>se identifica</em> com isso?</h2>
+    <div class="pain-list">
+      <div class="pain-item">
+        <div class="pain-icon">😩</div>
+        <div class="pain-text">Quer aprender resina mas acha que é <span>difícil e caro pra começar</span></div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-icon">💸</div>
+        <div class="pain-text">Precisa de uma <span>renda extra</span> mas não sabe vender nem precificar</div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-icon">😕</div>
+        <div class="pain-text">Já tentou fazer algo com resina mas ficou com <span>bolha, não curou direito</span> ou ficou feio</div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-icon">📱</div>
+        <div class="pain-text">Quer aprender <span>no seu tempo, no celular</span>, sem precisar de curso presencial caro</div>
+      </div>
+    </div>
+    <p style="text-align:center; font-size:17px; font-weight:800; color:var(--pink);">
+      ✅ Se bateu em pelo menos um desses — esse curso foi feito pra você!
+    </p>
+  </div>
+</section>
+
+<!-- WHAT YOU GET (GLASSMORPHISM + INFINITE MARQUEE) -->
+<section class="section what">
+  <!-- Orbs para fundo do efeito Glassmorphism -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="container">
+    <div class="sec-label">Conteúdo completo</div>
+    <h2 class="sec-title">Tudo que você vai <em>receber</em></h2>
+    <p class="sec-sub">Ebook + app de apoio entregues no seu e-mail na hora</p>
+  </div>
+
+  <div class="marquee-wrapper">
+    <div class="marquee-track">
+      <!-- BLOCO 1 DOS CARDS -->
+      <div class="glass-card">
+        <div class="glass-header">
+          <div class="glass-num">1</div>
+          <div class="glass-title">Materiais e segurança</div>
+        </div>
+        <div class="glass-desc">Quais resinas comprar, onde achar mais barato, EPI essencial e como montar seu cantinho</div>
+      </div>
+      <div class="glass-card">
+        <div class="glass-header">
+          <div class="glass-num">2</div>
+          <div class="glass-title">Moldes e formas</div>
+        </div>
+        <div class="glass-desc">Como usar moldes de silicone, acetato e até fazer o seu próprio em casa</div>
+      </div>
+      <div class="glass-card">
+        <div class="glass-header">
+          <div class="glass-num">3</div>
+          <div class="glass-title">Pigmentos e efeitos</div>
+        </div>
+        <div class="glass-desc">Pó de mica, glitter, álcool ink, efeito geode, mármore e oceano</div>
+      </div>
+      <div class="glass-card">
+        <div class="glass-header">
+          <div class="glass-num">4</div>
+          <div class="glass-title">Inclusões e Flores</div>
+        </div>
+        <div class="glass-desc">Como incluir elementos dentro da resina sem manchar nem perder transparência</div>
+      </div>
+      <div class="glass-card">
+        <div class="glass-header">
+          <div class="glass-num">5</div>
+          <div class="glass-title">Acabamento</div>
+        </div>
+        <div class="glass-desc">Como lixar, polir e deixar sua peça com brilho de vitrine profissional</div>
+      </div>
+      <div class="glass-card">
+        <div class="glass-header">
+          <div class="glass-num">6</div>
+          <div class="glass-title">Peças que mais vendem</div>
+        </div>
+        <div class="glass-desc">Chaveiros, quadros, bijuterias, peças de natal — passo a passo de cada uma</div>
+      </div>
+      <div class="glass-card">
+        <div class="glass-header">
+          <div class="glass-num">7</div>
+          <div class="glass-title">Quanto cobrar</div>
+        </div>
+        <div class="glass-desc">Fórmula simples de precificação + calculadora no app pra não trabalhar no prejuízo</div>
+      </div>
+      <div class="glass-card">
+        <div class="glass-header">
+          <div class="glass-num">8</div>
+          <div class="glass-title">Como vender</div>
+        </div>
+        <div class="glass-desc">Fotos bonitas com celular, descrição que converte na Elo7, Shopee e Instagram</div>
+      </div>
+      
+      <!-- BLOCO DUPLICADO (Exatamente igual ao de cima para o Loop Infinito perfeito) -->
+      <div class="glass-card">
+        <div class="glass-header">
+          <div class="glass-num">1</div>
+          <div class="glass-title">Materiais e segurança</div>
+        </div>
+        <div class="glass-desc">Quais resinas comprar, onde achar mais barato, EPI essencial e como montar seu cantinho</div>
+      </div>
+      <div class="glass-card">
+        <div class="glass-header">
+          <div class="glass-num">2</div>
+          <div class="glass-title">Moldes e formas</div>
+        </div>
+        <div class="glass-desc">Como usar moldes de silicone, acetato e até fazer o seu próprio em casa</div>
+      </div>
+      <div class="glass-card">
+        <div class="glass-header">
+          <div class="glass-num">3</div>
+          <div class="glass-title">Pigmentos e efeitos</div>
+        </div>
+        <div class="glass-desc">Pó de mica, glitter, álcool ink, efeito geode, mármore e oceano</div>
+      </div>
+      <div class="glass-card">
+        <div class="glass-header">
+          <div class="glass-num">4</div>
+          <div class="glass-title">Inclusões e Flores</div>
+        </div>
+        <div class="glass-desc">Como incluir elementos dentro da resina sem manchar nem perder transparência</div>
+      </div>
+      <div class="glass-card">
+        <div class="glass-header">
+          <div class="glass-num">5</div>
+          <div class="glass-title">Acabamento</div>
+        </div>
+        <div class="glass-desc">Como lixar, polir e deixar sua peça com brilho de vitrine profissional</div>
+      </div>
+      <div class="glass-card">
+        <div class="glass-header">
+          <div class="glass-num">6</div>
+          <div class="glass-title">Peças que mais vendem</div>
+        </div>
+        <div class="glass-desc">Chaveiros, quadros, bijuterias, peças de natal — passo a passo de cada uma</div>
+      </div>
+      <div class="glass-card">
+        <div class="glass-header">
+          <div class="glass-num">7</div>
+          <div class="glass-title">Quanto cobrar</div>
+        </div>
+        <div class="glass-desc">Fórmula simples de precificação + calculadora no app pra não trabalhar no prejuízo</div>
+      </div>
+      <div class="glass-card">
+        <div class="glass-header">
+          <div class="glass-num">8</div>
+          <div class="glass-title">Como vender</div>
+        </div>
+        <div class="glass-desc">Fotos bonitas com celular, descrição que converte na Elo7, Shopee e Instagram</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="bonus-box">
+      <h3>🎁 Bônus exclusivo incluso!</h3>
+      <p>Junto com o ebook você recebe acesso ao app de apoio com as ferramentas mais pedidas:</p>
+      <div class="bonus-items">
+        <div class="bonus-tag">⏱️ Timer de cura</div>
+        <div class="bonus-tag">🧮 Calculadora de custo</div>
+        <div class="bonus-tag">🏷️ Gerador de ficha técnica</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials">
+  <div class="container">
+    <div class="sec-label">Quem já comprou</div>
+    <h2 class="sec-title"><em>Resultados</em> reais</h2>
+    <div class="testi-list">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Nunca tinha feito resina na vida. Em duas semanas já tinha vendido meu primeiro lote de chaveiros personalizados no Elo7. O módulo de fotos com celular foi incrível, minhas fotos ficaram profissionais!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">J</div>
+          <div>
+            <div class="testi-name">Juliana M.</div>
+            <div class="testi-city">São Paulo · SP</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Eu fazia resina há um ano e sempre vendia barato, achei que era justo. Com a calculadora do app descobri que tava tendo PREJUÍZO. Agora cobro o preço certo e meu faturamento triplicou."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div>
+            <div class="testi-name">Ana Paula S.</div>
+            <div class="testi-city">Belo Horizonte · MG</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"O timer de cura salvou minha vida! Perdia peça toda hora porque esquecia o tempo. Agora meu aproveitamento virou quase 100%. Melhor investimento que fiz esse ano, e olha o preço que é!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">C</div>
+          <div>
+            <div class="testi-name">Camila R.</div>
+            <div class="testi-city">Curitiba · PR</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section pricing-final" id="checkout">
+  <div class="container">
+    <div class="sec-label">Garanta o seu acesso</div>
+    <h2 class="sec-title">Oferta <em>especial</em> de hoje</h2>
+    <p class="sec-sub">Preço pode subir a qualquer momento!</p>
+    <div class="price-card-main">
+      <div class="price-card-header">
+        <h3>Curso Completo de Resina</h3>
+        <p>Ebook + App · Acesso imediato por e-mail</p>
+      </div>
+      <div class="price-card-body">
+        <div class="price-card-amount">
+          <div class="price-card-from">De R$ 97,00</div>
+          <div class="price-card-main-price"><sup>R$</sup>19<span style="font-size:40px">,90</span></div>
+          <div class="price-card-note">💳 Pix, cartão ou boleto</div>
+        </div>
+        <ul class="features-list">
+          <li>Ebook completo (8 módulos — 80 páginas)</li>
+          <li>Acesso ao app: calculadora + timer + fichas</li>
+          <li>Tabela de preços para 12 produtos</li>
+          <li>Módulo completo de vendas pelo celular</li>
+          <li>Atualizações futuras sem custo extra</li>
+          <li>Acesso imediato no e-mail após pagamento</li>
+        </ul>
+        <a href="https://www.ggcheckout.com/checkout/v4/iUpOrLdMBKFcBMhvV17R" class="btn-cta">
+          SIM, QUERO POR R$ 19,90 →
+          <small>Clique e garanta seu acesso agora!</small>
+        </a>
+        <div class="guarantee-line">
+          🛡️ Garantia de 7 dias — 100% do dinheiro de volta, sem perguntas
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq-section">
+  <div class="container">
+    <div class="sec-label">Dúvidas</div>
+    <h2 class="sec-title">Perguntas <em>frequentes</em></h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Como recebo o acesso depois de pagar?
+          <span class="faq-chevron">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Assim que o pagamento for confirmado você recebe um e-mail automático com o link do ebook (PDF) e o link de acesso ao app. No Pix é instantâneo. No cartão pode levar alguns minutinhos.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Precisa ter experiência para fazer o curso?
+          <span class="faq-chevron">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Não! O curso começa do zero absoluto. Você vai aprender o que comprar, como misturar, como moldar e como vender. Não precisa saber nada antes.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          O app funciona no celular?
+          <span class="faq-chevron">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Sim! O app é um site que abre direto no navegador do celular. Não precisa instalar nada. Funciona no Android e iPhone normalmente.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          E se eu não gostar?
+          <span class="faq-chevron">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Você tem 7 dias de garantia total. Se por qualquer motivo não ficar satisfeita, é só mandar um e-mail e a gente devolve o valor integral. Sem burocracia e sem perguntas.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Não perde essa chance! 💖</h2>
+  <p>Por apenas R$ 19,90 você aprende do zero, começa a produzir e já pode vender. Acesso imediato no seu e-mail!</p>
+  <a href="https://www.ggcheckout.com/checkout/v4/iUpOrLdMBKFcBMhvV17R" class="btn-cta" style="max-width:420px; margin: 0 auto;">
+    QUERO MEU ACESSO AGORA →
+    <small>Garantia de 7 dias · sem risco nenhum</small>
+  </a>
+</section>
+
+<footer>
+  © 2025 Curso Resina · Todos os direitos reservados<br>
+  Dúvidas? Fale com a gente pelo e-mail: suporte.atend1@outlook.com<br>
+  Garantia de 7 dias · Pagamento 100% seguro
+</footer>
+
+<!-- STICKY BOTTOM (mobile) -->
+<div class="sticky-bottom">
+  <div class="sticky-price">
+    <small>Acesso completo</small>
+    R$ 19,90
+  </div>
+  <a href="https://www.ggcheckout.com/checkout/v4/iUpOrLdMBKFcBMhvV17R" class="sticky-btn">GARANTIR AGORA →</a>
+</div>
+
+<script>
+  function toggleFaq(btn) {
+    // Fecha outras abertas
+    const allItems = document.querySelectorAll('.faq-item');
+    const item = btn.closest('.faq-item');
+    
+    allItems.forEach(i => {
+      if(i !== item) i.classList.remove('open');
+    });
+
+    item.classList.toggle('open');
+  }
+</script>
 </body>
 </html>
