@@ -1,385 +1,217 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dose Diária | Histórias que Inspiram</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gisa Andrade | Estética & Bem-Estar em Belo Horizonte</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0f0f0f;
-            --card-bg: #1a1a1a;
-            --accent-red: #E50914; 
-            --accent-hover: #ff1f2a;
-            --text-main: #ffffff;
-            --text-dim: #b3b3b3;
-            --glass: rgba(255, 255, 255, 0.05);
+            --gold: #C5A059;
+            --nude: #FDF8F5;
+            --dark: #1A1A1A;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--nude); color: var(--dark); overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
         
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        /* Efeito de luz no fundo */
-        body::before {
-            content: '';
-            position: absolute;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            height: 300px;
-            background: var(--accent-red);
-            filter: blur(120px);
-            opacity: 0.15;
-            z-index: 0;
+        .hero-gradient {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
         }
 
-        header {
-            padding: 30px 20px;
-            text-align: center;
-            z-index: 10;
-        }
-        .logo { 
-            font-weight: 800; 
-            font-size: 1.6rem; 
-            letter-spacing: -1px;
-            text-transform: uppercase;
-        }
-        .logo span { color: var(--accent-red); }
-
-        .app-container {
-            flex: 1;
-            padding: 0 20px 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 10;
-        }
-
-        .hero-text {
-            text-align: center;
-            margin-bottom: 30px;
-            max-width: 500px;
-        }
-
-        .badge-live {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(229, 9, 20, 0.15);
-            color: var(--accent-red);
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            border: 1px solid rgba(229, 9, 20, 0.3);
-        }
-
-        .dot {
-            height: 8px;
-            width: 8px;
-            background-color: var(--accent-red);
-            border-radius: 50%;
-            display: inline-block;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(229, 9, 20, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(229, 9, 20, 0); }
-        }
-
-        h1 { font-size: 1.8rem; line-height: 1.2; margin-bottom: 15px; font-weight: 800; }
-        .hero-text p { color: var(--text-dim); font-size: 0.95rem; font-weight: 300; }
-
-        /* Player Premium */
-        .player-card {
-            width: 100%;
-            max-width: 380px;
-            background: var(--card-bg);
-            border-radius: 32px;
-            padding: 30px;
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-            text-align: center;
-        }
-
-        .visualizer-circle {
-            width: 140px;
-            height: 140px;
-            background: linear-gradient(145deg, #1e1e1e, #141414);
-            border-radius: 50%;
-            margin: 0 auto 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 4px solid #252525;
-            position: relative;
-        }
-
-        .visualizer-circle.active { border-color: var(--accent-red); transition: 0.3s; }
-
-        .waveform {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            height: 40px;
-        }
-        .bar { width: 4px; height: 15px; background: var(--accent-red); border-radius: 10px; transition: 0.2s; }
+        .gold-text { color: var(--gold); }
+        .bg-gold { background-color: var(--gold); }
         
-        .active .bar { animation: wave 1s infinite ease-in-out; }
-        .active .bar:nth-child(1) { animation-delay: 0.1s; }
-        .active .bar:nth-child(2) { animation-delay: 0.2s; }
-        .active .bar:nth-child(3) { animation-delay: 0.3s; }
-        .active .bar:nth-child(4) { animation-delay: 0.4s; }
-
-        @keyframes wave {
-            0%, 100% { height: 10px; }
-            50% { height: 35px; }
+        .btn-premium {
+            transition: all 0.3s ease;
+            border: 1px solid var(--gold);
         }
-
-        .episode-info { margin-bottom: 25px; }
-        .episode-info h3 { font-size: 1.1rem; margin-bottom: 5px; }
-        .episode-info p { font-size: 0.85rem; color: var(--text-dim); font-style: italic; }
-
-        .progress-area { margin-bottom: 20px; }
-        .progress-bar-bg {
-            width: 100%;
-            height: 5px;
-            background: #333;
-            border-radius: 10px;
-            cursor: pointer;
-            overflow: hidden;
-        }
-        .progress-fill {
-            width: 0%;
-            height: 100%;
-            background: var(--accent-red);
-            transition: width 0.1s linear;
-        }
-        .time-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.7rem;
-            color: #666;
-            margin-top: 8px;
-            font-weight: 600;
-        }
-
-        .controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .main-play-btn {
-            width: 70px;
-            height: 70px;
-            background: var(--accent-red);
-            border: none;
-            border-radius: 50%;
+        .btn-premium:hover {
+            background-color: var(--gold);
             color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(229, 9, 20, 0.3);
-            transition: 0.3s;
-        }
-        .main-play-btn:hover { transform: scale(1.05); background: var(--accent-hover); }
-
-        /* CTA Section */
-        .cta-box {
-            margin-top: 30px;
-            width: 100%;
-            max-width: 380px;
-            display: none; /* Aparece após o áudio ou delay */
-            animation: fadeIn 0.8s ease forwards;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(197, 160, 89, 0.2);
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .whatsapp-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            background: #25D366;
-            color: #000;
-            padding: 18px;
-            border-radius: 16px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1rem;
-            transition: 0.3s;
+        .service-card:hover img { transform: scale(1.05); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .whatsapp-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2); }
-
-        .season-teaser {
-            margin-top: 25px;
-            padding: 15px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 12px;
-            border-left: 3px solid var(--accent-red);
-            text-align: left;
-        }
-        .season-teaser small { color: var(--accent-red); font-weight: 700; text-transform: uppercase; font-size: 0.65rem; }
-        .season-teaser p { font-size: 0.8rem; margin-top: 4px; color: var(--text-dim); }
-
-        footer {
-            padding: 30px;
-            text-align: center;
-            font-size: 0.7rem;
-            color: #444;
-        }
-
+        .animate-fade { animation: fadeIn 1s ease-out forwards; }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
-    <header>
-        <div class="logo">DOSE<span>DIÁRIA</span></div>
-    </header>
-
-    <main class="app-container">
-        
-        <div class="hero-text">
-            <div class="badge-live"><span class="dot"></span> Próximo episódio em 12h</div>
-            <h1>A sua dose de coragem matinal via áudio.</h1>
-            <p>Ouça uma prévia da história de hoje e entre no canal para receber o conteúdo completo diariamente.</p>
+    <!-- Header -->
+    <nav class="fixed w-full z-50 glass px-6 py-4 flex justify-between items-center">
+        <div class="text-2xl font-bold tracking-widest uppercase italic gold-text">Gisa Andrade</div>
+        <div class="hidden md:flex space-x-8 text-sm font-medium uppercase tracking-tighter">
+            <a href="#sobre" class="hover:text-[#C5A059] transition">A Clínica</a>
+            <a href="#servicos" class="hover:text-[#C5A059] transition">Procedimentos</a>
+            <a href="#resultados" class="hover:text-[#C5A059] transition">Resultados</a>
+            <a href="#contato" class="hover:text-[#C5A059] transition">Contato</a>
         </div>
+        <a href="https://wa.me/5531972152505" target="_blank" class="bg-gold text-white px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-black transition">Agendar</a>
+    </nav>
 
-        <section class="player-card">
-            <div class="visualizer-circle" id="viz">
-                <div class="waveform">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </div>
+    <!-- Hero Section -->
+    <section class="h-screen flex items-center justify-center text-center px-4 hero-gradient text-white">
+        <div class="max-w-4xl animate-fade">
+            <h1 class="text-5xl md:text-7xl mb-6">Sua beleza merece ser celebrada todos os dias.</h1>
+            <p class="text-lg md:text-xl mb-8 font-light tracking-wide italic">Especialista em realçar sua essência com naturalidade e tecnologia de ponta na Savassi.</p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="https://wa.me/5531972152505" class="bg-gold text-white px-10 py-4 rounded-full font-semibold hover:bg-white hover:text-gold transition duration-300">AGENDAR AVALIAÇÃO PERSONALIZADA</a>
             </div>
-
-            <div class="episode-info">
-                <h3 id="ep-title">Carregando...</h3>
-                <p id="ep-desc">"..."</p>
-            </div>
-
-            <div class="progress-area">
-                <div class="progress-bar-bg" id="progress-container">
-                    <div class="progress-fill" id="progress-fill"></div>
-                </div>
-                <div class="time-labels">
-                    <span id="curr-time">00:00</span>
-                    <span id="total-time">00:00</span>
-                </div>
-            </div>
-
-            <div class="controls">
-                <button class="main-play-btn" id="play-btn">
-                    <i class="fas fa-play" id="play-icon"></i>
-                </button>
-            </div>
-
-            <div class="season-teaser">
-                <small id="season-name">TEMPORADA: ...</small>
-                <p id="next-teaser">Amanhã: O segredo que levou este líder ao topo. Não perca!</p>
-            </div>
-        </section>
-
-        <!-- CTA OTIMIZADO -->
-        <div class="cta-box" id="cta-box">
-            <a href="https://whatsapp.com/channel/SEU_LINK_AQUI" class="whatsapp-btn">
-                <i class="fab fa-whatsapp"></i> ENTRAR NO CANAL GRATUITO
-            </a>
-            <p style="text-align: center; font-size: 0.7rem; color: #666; margin-top: 10px;">
-                Junte-se a mais de 4.000 pessoas hoje.
-            </p>
         </div>
+    </section>
 
-    </main>
+    <!-- Sobre -->
+    <section id="sobre" class="py-24 px-6 md:px-20 bg-white">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <img src="https://images.unsplash.com/photo-1552693673-1bf958298935?auto=format&fit=crop&q=80&w=800" alt="Gisa Andrade" class="rounded-2xl shadow-2xl">
+            </div>
+            <div>
+                <span class="gold-text uppercase tracking-widest text-sm font-bold">Excelência & Acolhimento</span>
+                <h2 class="text-4xl md:text-5xl mt-4 mb-6 leading-tight">Gisa Andrade: Ciência e Humanização.</h2>
+                <p class="text-gray-600 leading-relaxed mb-6">
+                    Localizada no coração da Savassi, a Clínica Gisa Andrade nasceu do desejo de oferecer mais que tratamentos estéticos: oferecemos uma jornada de transformação pessoal. 
+                </p>
+                <p class="text-gray-600 leading-relaxed mb-8">
+                    Comandada por Gisa Andrade, nossa clínica é referência em Belo Horizonte por unir tecnologia de última geração a um atendimento profundamente humanizado. Aqui, cada protocolo é único, desenhado para respeitar suas curvas e sua história.
+                </p>
+                <div class="flex gap-8 border-t pt-8">
+                    <div><p class="text-3xl font-bold gold-text italic">5.0</p><p class="text-xs uppercase text-gray-400">Avaliação Google</p></div>
+                    <div><p class="text-3xl font-bold gold-text italic">100%</p><p class="text-xs uppercase text-gray-400">Foco em Você</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <footer>
-        &copy; 2024 Dose Diária de Motivação. Conteúdo exclusivo.
+    <!-- Serviços -->
+    <section id="servicos" class="py-24 bg-[#F9F6F2] px-6">
+        <div class="max-w-6xl mx-auto text-center mb-16">
+            <h2 class="text-4xl md:text-5xl mb-4">Procedimentos Exclusivos</h2>
+            <div class="w-20 h-1 bg-gold mx-auto"></div>
+        </div>
+        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+            <!-- Drenagem -->
+            <div class="glass p-8 rounded-3xl service-card transition-all duration-500 hover:shadow-xl">
+                <div class="mb-6 overflow-hidden rounded-2xl">
+                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80&w=600" class="transition duration-500">
+                </div>
+                <h3 class="text-2xl mb-3 gold-text">Drenagem Linfática High-End</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Redução de medidas e desintoxicação corporal com técnicas manuais que proporcionam leveza imediata.</p>
+            </div>
+            <!-- Criolipólise -->
+            <div class="glass p-8 rounded-3xl service-card transition-all duration-500 hover:shadow-xl">
+                <div class="mb-6 overflow-hidden rounded-2xl">
+                    <img src="https://images.unsplash.com/photo-1616391182219-e080b4d1043a?auto=format&fit=crop&q=80&w=600" class="transition duration-500">
+                </div>
+                <h3 class="text-2xl mb-3 gold-text">Criolipólise Avançada</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Elimine gordura localizada com tecnologia de resfriamento controlado. Resultados visíveis sem cirurgia.</p>
+            </div>
+            <!-- Botox -->
+            <div class="glass p-8 rounded-3xl service-card transition-all duration-500 hover:shadow-xl">
+                <div class="mb-6 overflow-hidden rounded-2xl">
+                    <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc2069?auto=format&fit=crop&q=80&w=600" class="transition duration-500">
+                </div>
+                <h3 class="text-2xl mb-3 gold-text">Botox & Rejuvenescimento</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Suavize linhas de expressão mantendo a naturalidade do seu rosto com os melhores injetáveis do mercado.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prova Social -->
+    <section id="resultados" class="py-24 bg-white px-6 overflow-hidden">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-4xl md:text-5xl mb-2">Quem confia, recomenda.</h2>
+                    <div class="flex text-yellow-500 space-x-1 mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <span class="text-black ml-2 font-bold text-sm">5.0 no Google</span>
+                    </div>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="p-6 border rounded-2xl italic text-gray-600">"Resultado sensacional logo nas primeiras sessões. A Gisa é impecável!" <br><span class="font-bold text-black mt-4 block not-italic">— Ana Clara M.</span></div>
+                <div class="p-6 border rounded-2xl italic text-gray-600">"Atendimento extremamente humanizado. Você se sente em casa na clínica." <br><span class="font-bold text-black mt-4 block not-italic">— Mariana L.</span></div>
+                <div class="p-6 border rounded-2xl italic text-gray-600">"Melhor drenagem que já fiz em BH. Ambiente lindo e muito aconchegante." <br><span class="font-bold text-black mt-4 block not-italic">— Beatriz F.</span></div>
+                <div class="p-6 border rounded-2xl italic text-gray-600">"Profissionais extremamente atenciosos e competentes. Nota 10!" <br><span class="font-bold text-black mt-4 block not-italic">— Carla S.</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diferenciais -->
+    <section class="py-20 bg-dark text-white px-6">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-12 text-center">
+            <div>
+                <i class="fas fa-fingerprint text-3xl gold-text mb-4"></i>
+                <h4 class="text-lg mb-2 italic">Tratamento Personalizado</h4>
+                <p class="text-gray-400 text-xs">Cada protocolo é exclusivo para sua anatomia.</p>
+            </div>
+            <div>
+                <i class="fas fa-heart text-3xl gold-text mb-4"></i>
+                <h4 class="text-lg mb-2 italic">Cuidado Humano</h4>
+                <p class="text-gray-400 text-xs">Um ambiente acolhedor e atencioso em cada detalhe.</p>
+            </div>
+            <div>
+                <i class="fas fa-microchip text-3xl gold-text mb-4"></i>
+                <h4 class="text-lg mb-2 italic">Alta Tecnologia</h4>
+                <p class="text-gray-400 text-xs">Equipamentos de última geração com segurança.</p>
+            </div>
+            <div>
+                <i class="fas fa-leaf text-3xl gold-text mb-4"></i>
+                <h4 class="text-lg mb-2 italic">Resultados Naturais</h4>
+                <p class="text-gray-400 text-xs">Sua melhor versão, sem exageros.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contato -->
+    <footer id="contato" class="py-20 px-6 bg-white border-t">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-12">
+            <div>
+                <h3 class="text-3xl italic gold-text mb-6">Gisa Andrade</h3>
+                <p class="text-gray-500 leading-relaxed mb-6">Elevando a autoestima de BH através de mãos cuidadosas e tecnologia avançada.</p>
+                <div class="flex space-x-4 text-xl gold-text">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="https://wa.me/5531972152505"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-bold uppercase text-xs tracking-widest mb-6">Onde Estamos</h4>
+                <p class="text-gray-600 mb-2 italic">Savassi, Belo Horizonte - MG</p>
+                <p class="text-gray-600">Rua Paraíba, 1352</p>
+                <p class="text-gray-600 mt-4 font-bold">Atendimento até às 20h</p>
+                <p class="text-gray-400 text-sm">*Necessário agendamento prévio.</p>
+            </div>
+            <div>
+                <h4 class="font-bold uppercase text-xs tracking-widest mb-6">Inicie sua Transformação</h4>
+                <a href="https://wa.me/5531972152505" class="inline-block w-full text-center bg-gold text-white py-4 rounded-xl font-bold hover:bg-black transition">
+                    <i class="fab fa-whatsapp mr-2"></i> AGENDAR PELO WHATSAPP
+                </a>
+                <p class="text-center mt-4 text-sm text-gray-400">(31) 97215-2505</p>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto mt-20 pt-8 border-t text-center text-gray-400 text-xs">
+            © 2024 Clínica de Estética Gisa Andrade. Todos os direitos reservados.
+        </div>
     </footer>
 
-    <script>
-        // CONFIGURAÇÃO DO CONTEÚDO (Altere aqui diariamente)
-        const DAILY_DATA = {
-            temporada: "Lendas do Esporte",
-            titulo: "Kobe Bryant: A Mamba Mentality",
-            resumo: "Entenda por que ele acordava às 4 da manhã enquanto os rivais ainda dormiam.",
-            audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", // Link do seu áudio
-            linkCanal: "https://whatsapp.com/channel/SEU_LINK_DO_CANAL",
-            teaserAmanha: "Amanhã: A história de superação de Michael Jordan. Você vai se surpreender."
-        };
-
-        // Elementos
-        const audio = new Audio(DAILY_DATA.audioUrl);
-        const playBtn = document.getElementById('play-btn');
-        const playIcon = document.getElementById('play-icon');
-        const viz = document.getElementById('viz');
-        const progressFill = document.getElementById('progress-fill');
-        const ctaBox = document.getElementById('cta-box');
-
-        // Setup Inicial
-        document.getElementById('ep-title').innerText = DAILY_DATA.titulo;
-        document.getElementById('ep-desc').innerText = `"${DAILY_DATA.resumo}"`;
-        document.getElementById('season-name').innerText = `TEMPORADA: ${DAILY_DATA.temporada}`;
-        document.getElementById('next-teaser').innerText = DAILY_DATA.teaserAmanha;
-
-        // Mostrar CTA após 5 segundos ou ao final do áudio
-        setTimeout(() => {
-            ctaBox.style.display = 'block';
-        }, 5000);
-
-        playBtn.addEventListener('click', () => {
-            if (audio.paused) {
-                audio.play();
-                playIcon.classList.replace('fa-play', 'fa-pause');
-                viz.classList.add('active');
-            } else {
-                audio.pause();
-                playIcon.classList.replace('fa-pause', 'fa-play');
-                viz.classList.remove('active');
-            }
-        });
-
-        audio.addEventListener('timeupdate', () => {
-            const pct = (audio.currentTime / audio.duration) * 100;
-            progressFill.style.width = pct + '%';
-            
-            // Update tempo real
-            let m = Math.floor(audio.currentTime / 60);
-            let s = Math.floor(audio.currentTime % 60);
-            document.getElementById('curr-time').innerText = `${m}:${s < 10 ? '0'+s : s}`;
-        });
-
-        audio.addEventListener('loadedmetadata', () => {
-            let m = Math.floor(audio.duration / 60);
-            let s = Math.floor(audio.duration % 60);
-            document.getElementById('total-time').innerText = `${m}:${s < 10 ? '0'+s : s}`;
-        });
-
-        audio.addEventListener('ended', () => {
-            playIcon.classList.replace('fa-pause', 'fa-play');
-            viz.classList.remove('active');
-            ctaBox.style.display = 'block'; // Garante que o CTA apareça
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        });
-    </script>
 </body>
 </html>
