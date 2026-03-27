@@ -3,205 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gisa Andrade | Criomodelagem & Drenagem de Alto Padrão</title>
+    <title>Gisa Andrade | Criomodelagem & Estética de Luxo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --brand-dark: #3D5254; /* Verde Petróleo/Chumbo do print */
-            --brand-gold: #C5A059; /* Dourado da marca */
-            --brand-white: #FFFFFF;
+            --brand-dark: #2A3A3B; /* Tom mais profundo para contraste */
+            --brand-petroleum: #3D5254; 
+            --brand-gold: #C5A059;
+            --brand-light-gold: #E5C789;
         }
 
         body { 
             font-family: 'Montserrat', sans-serif; 
             background-color: var(--brand-dark); 
-            color: var(--brand-white);
-            background-image: linear-gradient(135deg, #3D5254 0%, #2A3A3B 100%);
+            color: white;
+            margin: 0;
+            overflow-x: hidden;
         }
 
-        h1, h2, h3, .font-serif { font-family: 'Cormorant Garamond', serif; }
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
 
-        /* Efeito Glassmorphism Premium */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
+        /* --- BACKGROUND DINÂMICO --- */
+        .hero-container {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 50% 50%, var(--brand-petroleum) 0%, var(--brand-dark) 100%);
+            overflow: hidden;
         }
 
+        /* Blobs Orgânicos com Blur */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 1;
+            opacity: 0.15;
+            animation: move 25s infinite alternate ease-in-out;
+        }
+        .blob-1 { width: 400px; height: 400px; background: var(--brand-gold); top: -10%; left: -5%; }
+        .blob-2 { width: 500px; height: 500px; background: #5a7a7d; bottom: -10%; right: -5%; animation-delay: -5s; }
+
+        @keyframes move {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(50px, 100px) scale(1.1); }
+        }
+
+        /* Poeira Dourada (Partículas) */
+        .particles {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--brand-gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) translateX(50px); opacity: 0; }
+        }
+
+        /* --- TIPOGRAFIA E TEXTO --- */
+        .gold-shimmer {
+            background: linear-gradient(90deg, #C5A059 0%, #F2D06B 50%, #C5A059 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+
+        .hero-title {
+            animation: fadeInUp 1.5s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- BOTÃO PREMIUM --- */
+        .btn-premium {
+            position: relative;
+            background: transparent;
+            border: 1px solid var(--brand-gold);
+            color: white;
+            padding: 18px 45px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            border-radius: 2px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 10;
+        }
+
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(197, 160, 89, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-premium:hover::before { left: 100%; }
+
+        .btn-premium:hover {
+            color: black;
+            background: var(--brand-gold);
+            box-shadow: 0 0 30px rgba(197, 160, 89, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* --- GLASSMORPHISM --- */
         .glass-nav {
-            background: rgba(61, 82, 84, 0.7);
-            backdrop-filter: blur(20px);
+            background: rgba(42, 58, 59, 0.8);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .gold-gradient-text {
-            background: linear-gradient(to right, #D4AF37, #F2D06B);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .gold-border { border-color: var(--brand-gold); }
-        .bg-gold { background-color: var(--brand-gold); }
-        .text-gold { color: var(--brand-gold); }
-
-        /* Animações */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        .image-zoom:hover img { transform: scale(1.08); transition: 0.6s; }
-        
-        /* Botão Premium */
-        .btn-cta {
-            background: linear-gradient(45deg, #C5A059, #D4AF37);
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
-        }
-        .btn-cta:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(197, 160, 89, 0.5);
+        /* --- ILUMINAÇÃO DE VITRINE (Light Spots) --- */
+        .light-spot {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 50% 30%, rgba(197, 160, 89, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 3;
         }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body>
 
-    <!-- Navbar -->
-    <nav class="fixed w-full z-50 glass-nav px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center">
-            <!-- PLACEHOLDER LOGO -->
-            <img src="logo.png" alt="Gisa Andrade" class="h-12 w-auto"> 
+    <!-- Nav -->
+    <nav class="fixed w-full z-[100] glass-nav px-8 py-5 flex justify-between items-center">
+        <div class="text-xl tracking-[0.3em] font-light uppercase">
+            Gisa <span class="font-bold text-gold">Andrade</span>
         </div>
-        <div class="hidden md:flex space-x-8 text-[10px] font-bold uppercase tracking-[0.2em]">
-            <a href="#home" class="hover:text-gold transition">Início</a>
-            <a href="#criomodelagem" class="hover:text-gold transition">Criomodelagem</a>
-            <a href="#drenagem" class="hover:text-gold transition">Drenagem</a>
-            <a href="#sobre" class="hover:text-gold transition">A Clínica</a>
+        <div class="hidden md:flex space-x-10 text-[10px] font-semibold uppercase tracking-[0.2em] opacity-80">
+            <a href="#home" class="hover:text-[#C5A059] transition">Início</a>
+            <a href="#criomodelagem" class="hover:text-[#C5A059] transition">Criomodelagem</a>
+            <a href="#drenagem" class="hover:text-[#C5A059] transition">Drenagem</a>
         </div>
-        <a href="https://wa.me/5531972152505" class="btn-cta text-white px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest">Agendar</a>
+        <a href="https://wa.me/5531972152505" class="text-[10px] border-b border-gold pb-1 tracking-widest uppercase hover:opacity-50 transition">Contato</a>
     </nav>
 
-    <!-- Hero -->
-    <section id="home" class="relative h-screen flex items-center justify-center px-4 pt-20">
-        <!-- Fundo com textura sutil -->
-        <div class="absolute inset-0 opacity-20 pointer-events-none">
-            <img src="https://www.transparenttextures.com/patterns/black-paper.png" class="w-full h-full object-cover">
-        </div>
+    <!-- Hero Section -->
+    <section id="home" class="hero-container">
+        <!-- Elementos de fundo -->
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="light-spot"></div>
+        
+        <!-- Partículas (Geradas via script para não poluir o HTML) -->
+        <div class="particles" id="particle-container"></div>
 
-        <div class="max-w-5xl text-center z-10">
-            <span class="text-gold tracking-[0.4em] text-xs uppercase mb-4 block reveal">Resultados Reais na Savassi</span>
-            <h1 class="text-6xl md:text-8xl mb-6 font-serif leading-tight reveal" style="transition-delay: 0.2s;">
-                A Arte da <br><span class="italic gold-gradient-text">Criomodelagem</span>
-            </h1>
-            <p class="text-gray-300 text-lg md:text-xl mb-10 font-light max-w-2xl mx-auto reveal" style="transition-delay: 0.4s;">
-                Redefina suas curvas com o método <b>#CRIODAGISA</b>. Tecnologia, acolhimento e resultados visíveis.
-            </p>
-            <div class="flex flex-col md:flex-row gap-6 justify-center reveal" style="transition-delay: 0.6s;">
-                <a href="https://wa.me/5531972152505" class="btn-cta px-10 py-5 rounded-full font-bold text-sm tracking-widest uppercase italic">Descubra sua melhor versão</a>
-            </div>
-        </div>
-    </section>
+        <!-- Conteúdo Principal -->
+        <div class="relative z-10 text-center px-6 max-w-5xl">
+            <div class="hero-title">
+                <span class="block text-[10px] md:text-xs tracking-[0.6em] uppercase mb-8 opacity-60 font-light">
+                    O ápice da estética avançada na Savassi
+                </span>
+                
+                <h1 class="text-6xl md:text-9xl mb-8 leading-[0.9] font-light italic">
+                    A Nova Era da <br>
+                    <span class="gold-shimmer font-bold not-italic">Criomodelagem</span>
+                </h1>
 
-    <!-- Criomodelagem #CrioDaGisa -->
-    <section id="criomodelagem" class="py-24 px-6">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <div class="glass-card p-4 image-zoom">
-                <!-- Imagem inspirada no print enviado -->
-                <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc2069?auto=format&fit=crop&q=80&w=800" class="rounded-[20px] w-full shadow-2xl">
-            </div>
-            <div class="reveal">
-                <h2 class="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">O Método Exclusivo</h2>
-                <h3 class="text-5xl font-serif mb-6 italic">#CrioDaGisa</h3>
-                <p class="text-gray-300 mb-6 leading-relaxed">
-                    A Criomodelagem não é apenas um procedimento, é uma técnica de escultura corporal sem cortes. Utilizamos o resfriamento controlado para eliminar gordura localizada de forma definitiva.
+                <p class="text-sm md:text-base text-gray-400 font-light tracking-widest max-w-xl mx-auto mb-12 leading-relaxed">
+                    Um protocolo exclusivo que une ciência e sensibilidade para esculpir sua silhueta com naturalidade.
                 </p>
-                <ul class="space-y-4 mb-8">
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-gold"></i> Redução de medidas imediata</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-gold"></i> Protocolo personalizado para cada biotipo</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-gold"></i> Resultados que elevam a autoestima</li>
-                </ul>
-                <a href="https://wa.me/5531972152505" class="inline-block border-b-2 gold-border pb-1 font-bold text-xs uppercase tracking-[0.2em] hover:text-gold transition">Consultar disponibilidade</a>
-            </div>
-        </div>
-    </section>
 
-    <!-- Drenagem Linfática -->
-    <section id="drenagem" class="py-24 px-6 bg-black/20">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <div class="order-2 md:order-1 reveal">
-                <h2 class="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">Bem-Estar & Saúde</h2>
-                <h3 class="text-5xl font-serif mb-6">Drenagem Linfática Premium</h3>
-                <p class="text-gray-300 mb-6 leading-relaxed">
-                    Muito além da estética. Nossa drenagem é focada no alívio do inchaço, ativação do metabolismo e uma sensação de leveza incomparável. O toque humano que faz a diferença.
-                </p>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="glass-card p-6 text-center">
-                        <i class="fas fa-feather text-gold text-2xl mb-2"></i>
-                        <p class="text-xs uppercase tracking-widest font-bold">Leveza</p>
-                    </div>
-                    <div class="glass-card p-6 text-center">
-                        <i class="fas fa-vial text-gold text-2xl mb-2"></i>
-                        <p class="text-xs uppercase tracking-widest font-bold">Detox</p>
+                <div class="flex flex-col items-center gap-6">
+                    <a href="https://wa.me/5531972152505" class="btn-premium">
+                        Agendar Avaliação
+                    </a>
+                    <div class="flex items-center gap-4 opacity-40">
+                        <div class="w-12 h-[1px] bg-white"></div>
+                        <span class="text-[9px] uppercase tracking-[0.3em]">Exclusividade Gisa Andrade</span>
+                        <div class="w-12 h-[1px] bg-white"></div>
                     </div>
                 </div>
             </div>
-            <div class="order-1 md:order-2 glass-card p-4 image-zoom">
-                <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80&w=800" class="rounded-[20px] w-full shadow-2xl">
-            </div>
         </div>
     </section>
 
-    <!-- Prova Social (Glass) -->
-    <section class="py-24 px-6 text-center">
-        <div class="max-w-4xl mx-auto">
-            <div class="flex justify-center text-gold gap-1 mb-6">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            </div>
-            <h2 class="text-4xl font-serif mb-12 italic">"O atendimento é impecável e os resultados da Criomodelagem me surpreenderam desde a primeira semana."</h2>
-            <p class="uppercase tracking-widest text-xs font-bold text-gold">— Avaliação Google 5.0 Estrelas</p>
-        </div>
-    </section>
-
-    <!-- Footer / Contato -->
-    <footer id="sobre" class="py-20 px-6 border-t border-white/10">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-12">
-            <div>
-                <img src="logo.png" alt="Logo" class="h-10 mb-6">
-                <p class="text-gray-400 text-sm leading-relaxed">Referência em Criomodelagem e Drenagem Linfática na Savassi. Um refúgio de bem-estar no coração de BH.</p>
+    <!-- Seção de Serviços (Resumida para o exemplo) -->
+    <section id="criomodelagem" class="py-32 px-6 bg-white text-black">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+            <div class="relative">
+                <div class="absolute -top-10 -left-10 w-40 h-40 bg-[#F9F6F2] -z-10"></div>
+                <img src="logo.png" alt="Criomodelagem" class="w-full grayscale hover:grayscale-0 transition duration-700 shadow-2xl rounded-sm">
             </div>
             <div>
-                <h4 class="text-gold font-bold uppercase text-[10px] tracking-widest mb-6">Localização</h4>
-                <p class="text-gray-300 text-sm italic italic">Rua Paraíba, 1352<br>Savassi, Belo Horizonte - MG</p>
-                <p class="text-gray-500 text-xs mt-4">Atendimento exclusivo com agendamento.</p>
-            </div>
-            <div>
-                <h4 class="text-gold font-bold uppercase text-[10px] tracking-widest mb-6">Redes Sociais</h4>
-                <div class="flex gap-6 text-xl">
-                    <a href="#" class="hover:text-gold transition"><i class="fab fa-instagram"></i></a>
-                    <a href="https://wa.me/5531972152505" class="hover:text-gold transition"><i class="fab fa-whatsapp"></i></a>
+                <h2 class="text-5xl mb-8 italic">Ciência que acolhe, <br>resultados que transformam.</h2>
+                <p class="text-gray-600 leading-relaxed mb-8 font-light">
+                    O método <b>#CrioDaGisa</b> é reconhecido pela precisão técnica e pelo cuidado humanizado. Localizado no coração da Savassi, oferecemos um ambiente privado e sofisticado para quem não abre mão da excelência.
+                </p>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 border-b border-gray-100 pb-4">
+                        <span class="text-gold font-bold">01</span>
+                        <span class="uppercase tracking-widest text-xs">Criomodelagem Avançada</span>
+                    </div>
+                    <div class="flex items-center gap-4 border-b border-gray-100 pb-4">
+                        <span class="text-gold font-bold">02</span>
+                        <span class="uppercase tracking-widest text-xs">Drenagem Linfática Premium</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </footer>
+    </section>
 
-    <!-- Script para revelar elementos no scroll -->
+    <!-- Script para Partículas Dinâmicas -->
     <script>
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
+        const container = document.getElementById('particle-container');
+        const particleCount = 25;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            // Posição aleatória
+            const x = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = 10 + Math.random() * 10;
+            const size = Math.random() * 3;
+
+            particle.style.left = `${x}%`;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            container.appendChild(particle);
         }
-        window.addEventListener("scroll", reveal);
-        reveal(); // Inicializar
     </script>
 </body>
 </html>
