@@ -3,215 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gisa Andrade | Estética & Bem-Estar em Belo Horizonte</title>
+    <title>Gisa Andrade | Criomodelagem & Drenagem de Alto Padrão</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --gold: #C5A059;
-            --nude: #FDF8F5;
-            --dark: #1A1A1A;
-        }
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--nude); color: var(--dark); overflow-x: hidden; }
-        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
-        
-        .glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            --brand-dark: #3D5254; /* Verde Petróleo/Chumbo do print */
+            --brand-gold: #C5A059; /* Dourado da marca */
+            --brand-white: #FFFFFF;
         }
 
-        .hero-gradient {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&q=80&w=1920');
-            background-size: cover;
-            background-position: center;
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--brand-dark); 
+            color: var(--brand-white);
+            background-image: linear-gradient(135deg, #3D5254 0%, #2A3A3B 100%);
         }
 
-        .gold-text { color: var(--gold); }
-        .bg-gold { background-color: var(--gold); }
-        
-        .btn-premium {
-            transition: all 0.3s ease;
-            border: 1px solid var(--gold);
-        }
-        .btn-premium:hover {
-            background-color: var(--gold);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(197, 160, 89, 0.2);
+        h1, h2, h3, .font-serif { font-family: 'Cormorant Garamond', serif; }
+
+        /* Efeito Glassmorphism Premium */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
         }
 
-        .service-card:hover img { transform: scale(1.05); }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .glass-nav {
+            background: rgba(61, 82, 84, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .animate-fade { animation: fadeIn 1s ease-out forwards; }
+
+        .gold-gradient-text {
+            background: linear-gradient(to right, #D4AF37, #F2D06B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-border { border-color: var(--brand-gold); }
+        .bg-gold { background-color: var(--brand-gold); }
+        .text-gold { color: var(--brand-gold); }
+
+        /* Animações */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .image-zoom:hover img { transform: scale(1.08); transition: 0.6s; }
+        
+        /* Botão Premium */
+        .btn-cta {
+            background: linear-gradient(45deg, #C5A059, #D4AF37);
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
+        }
+        .btn-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(197, 160, 89, 0.5);
+        }
     </style>
 </head>
-<body class="antialiased">
+<body class="overflow-x-hidden">
 
-    <!-- Header -->
-    <nav class="fixed w-full z-50 glass px-6 py-4 flex justify-between items-center">
-        <div class="text-2xl font-bold tracking-widest uppercase italic gold-text">Gisa Andrade</div>
-        <div class="hidden md:flex space-x-8 text-sm font-medium uppercase tracking-tighter">
-            <a href="#sobre" class="hover:text-[#C5A059] transition">A Clínica</a>
-            <a href="#servicos" class="hover:text-[#C5A059] transition">Procedimentos</a>
-            <a href="#resultados" class="hover:text-[#C5A059] transition">Resultados</a>
-            <a href="#contato" class="hover:text-[#C5A059] transition">Contato</a>
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass-nav px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <!-- PLACEHOLDER LOGO -->
+            <img src="logo.png" alt="Gisa Andrade" class="h-12 w-auto"> 
         </div>
-        <a href="https://wa.me/5531972152505" target="_blank" class="bg-gold text-white px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-black transition">Agendar</a>
+        <div class="hidden md:flex space-x-8 text-[10px] font-bold uppercase tracking-[0.2em]">
+            <a href="#home" class="hover:text-gold transition">Início</a>
+            <a href="#criomodelagem" class="hover:text-gold transition">Criomodelagem</a>
+            <a href="#drenagem" class="hover:text-gold transition">Drenagem</a>
+            <a href="#sobre" class="hover:text-gold transition">A Clínica</a>
+        </div>
+        <a href="https://wa.me/5531972152505" class="btn-cta text-white px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest">Agendar</a>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="h-screen flex items-center justify-center text-center px-4 hero-gradient text-white">
-        <div class="max-w-4xl animate-fade">
-            <h1 class="text-5xl md:text-7xl mb-6">Sua beleza merece ser celebrada todos os dias.</h1>
-            <p class="text-lg md:text-xl mb-8 font-light tracking-wide italic">Especialista em realçar sua essência com naturalidade e tecnologia de ponta na Savassi.</p>
-            <div class="flex flex-col md:flex-row gap-4 justify-center">
-                <a href="https://wa.me/5531972152505" class="bg-gold text-white px-10 py-4 rounded-full font-semibold hover:bg-white hover:text-gold transition duration-300">AGENDAR AVALIAÇÃO PERSONALIZADA</a>
+    <!-- Hero -->
+    <section id="home" class="relative h-screen flex items-center justify-center px-4 pt-20">
+        <!-- Fundo com textura sutil -->
+        <div class="absolute inset-0 opacity-20 pointer-events-none">
+            <img src="https://www.transparenttextures.com/patterns/black-paper.png" class="w-full h-full object-cover">
+        </div>
+
+        <div class="max-w-5xl text-center z-10">
+            <span class="text-gold tracking-[0.4em] text-xs uppercase mb-4 block reveal">Resultados Reais na Savassi</span>
+            <h1 class="text-6xl md:text-8xl mb-6 font-serif leading-tight reveal" style="transition-delay: 0.2s;">
+                A Arte da <br><span class="italic gold-gradient-text">Criomodelagem</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl mb-10 font-light max-w-2xl mx-auto reveal" style="transition-delay: 0.4s;">
+                Redefina suas curvas com o método <b>#CRIODAGISA</b>. Tecnologia, acolhimento e resultados visíveis.
+            </p>
+            <div class="flex flex-col md:flex-row gap-6 justify-center reveal" style="transition-delay: 0.6s;">
+                <a href="https://wa.me/5531972152505" class="btn-cta px-10 py-5 rounded-full font-bold text-sm tracking-widest uppercase italic">Descubra sua melhor versão</a>
             </div>
         </div>
     </section>
 
-    <!-- Sobre -->
-    <section id="sobre" class="py-24 px-6 md:px-20 bg-white">
+    <!-- Criomodelagem #CrioDaGisa -->
+    <section id="criomodelagem" class="py-24 px-6">
         <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <div>
-                <img src="https://images.unsplash.com/photo-1552693673-1bf958298935?auto=format&fit=crop&q=80&w=800" alt="Gisa Andrade" class="rounded-2xl shadow-2xl">
+            <div class="glass-card p-4 image-zoom">
+                <!-- Imagem inspirada no print enviado -->
+                <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc2069?auto=format&fit=crop&q=80&w=800" class="rounded-[20px] w-full shadow-2xl">
             </div>
-            <div>
-                <span class="gold-text uppercase tracking-widest text-sm font-bold">Excelência & Acolhimento</span>
-                <h2 class="text-4xl md:text-5xl mt-4 mb-6 leading-tight">Gisa Andrade: Ciência e Humanização.</h2>
-                <p class="text-gray-600 leading-relaxed mb-6">
-                    Localizada no coração da Savassi, a Clínica Gisa Andrade nasceu do desejo de oferecer mais que tratamentos estéticos: oferecemos uma jornada de transformação pessoal. 
+            <div class="reveal">
+                <h2 class="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">O Método Exclusivo</h2>
+                <h3 class="text-5xl font-serif mb-6 italic">#CrioDaGisa</h3>
+                <p class="text-gray-300 mb-6 leading-relaxed">
+                    A Criomodelagem não é apenas um procedimento, é uma técnica de escultura corporal sem cortes. Utilizamos o resfriamento controlado para eliminar gordura localizada de forma definitiva.
                 </p>
-                <p class="text-gray-600 leading-relaxed mb-8">
-                    Comandada por Gisa Andrade, nossa clínica é referência em Belo Horizonte por unir tecnologia de última geração a um atendimento profundamente humanizado. Aqui, cada protocolo é único, desenhado para respeitar suas curvas e sua história.
-                </p>
-                <div class="flex gap-8 border-t pt-8">
-                    <div><p class="text-3xl font-bold gold-text italic">5.0</p><p class="text-xs uppercase text-gray-400">Avaliação Google</p></div>
-                    <div><p class="text-3xl font-bold gold-text italic">100%</p><p class="text-xs uppercase text-gray-400">Foco em Você</p></div>
-                </div>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-gold"></i> Redução de medidas imediata</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-gold"></i> Protocolo personalizado para cada biotipo</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-gold"></i> Resultados que elevam a autoestima</li>
+                </ul>
+                <a href="https://wa.me/5531972152505" class="inline-block border-b-2 gold-border pb-1 font-bold text-xs uppercase tracking-[0.2em] hover:text-gold transition">Consultar disponibilidade</a>
             </div>
         </div>
     </section>
 
-    <!-- Serviços -->
-    <section id="servicos" class="py-24 bg-[#F9F6F2] px-6">
-        <div class="max-w-6xl mx-auto text-center mb-16">
-            <h2 class="text-4xl md:text-5xl mb-4">Procedimentos Exclusivos</h2>
-            <div class="w-20 h-1 bg-gold mx-auto"></div>
-        </div>
-        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-            <!-- Drenagem -->
-            <div class="glass p-8 rounded-3xl service-card transition-all duration-500 hover:shadow-xl">
-                <div class="mb-6 overflow-hidden rounded-2xl">
-                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80&w=600" class="transition duration-500">
-                </div>
-                <h3 class="text-2xl mb-3 gold-text">Drenagem Linfática High-End</h3>
-                <p class="text-gray-600 text-sm leading-relaxed">Redução de medidas e desintoxicação corporal com técnicas manuais que proporcionam leveza imediata.</p>
-            </div>
-            <!-- Criolipólise -->
-            <div class="glass p-8 rounded-3xl service-card transition-all duration-500 hover:shadow-xl">
-                <div class="mb-6 overflow-hidden rounded-2xl">
-                    <img src="https://images.unsplash.com/photo-1616391182219-e080b4d1043a?auto=format&fit=crop&q=80&w=600" class="transition duration-500">
-                </div>
-                <h3 class="text-2xl mb-3 gold-text">Criolipólise Avançada</h3>
-                <p class="text-gray-600 text-sm leading-relaxed">Elimine gordura localizada com tecnologia de resfriamento controlado. Resultados visíveis sem cirurgia.</p>
-            </div>
-            <!-- Botox -->
-            <div class="glass p-8 rounded-3xl service-card transition-all duration-500 hover:shadow-xl">
-                <div class="mb-6 overflow-hidden rounded-2xl">
-                    <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc2069?auto=format&fit=crop&q=80&w=600" class="transition duration-500">
-                </div>
-                <h3 class="text-2xl mb-3 gold-text">Botox & Rejuvenescimento</h3>
-                <p class="text-gray-600 text-sm leading-relaxed">Suavize linhas de expressão mantendo a naturalidade do seu rosto com os melhores injetáveis do mercado.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Prova Social -->
-    <section id="resultados" class="py-24 bg-white px-6 overflow-hidden">
-        <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
-                <div>
-                    <h2 class="text-4xl md:text-5xl mb-2">Quem confia, recomenda.</h2>
-                    <div class="flex text-yellow-500 space-x-1 mb-4">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <span class="text-black ml-2 font-bold text-sm">5.0 no Google</span>
+    <!-- Drenagem Linfática -->
+    <section id="drenagem" class="py-24 px-6 bg-black/20">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div class="order-2 md:order-1 reveal">
+                <h2 class="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">Bem-Estar & Saúde</h2>
+                <h3 class="text-5xl font-serif mb-6">Drenagem Linfática Premium</h3>
+                <p class="text-gray-300 mb-6 leading-relaxed">
+                    Muito além da estética. Nossa drenagem é focada no alívio do inchaço, ativação do metabolismo e uma sensação de leveza incomparável. O toque humano que faz a diferença.
+                </p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="glass-card p-6 text-center">
+                        <i class="fas fa-feather text-gold text-2xl mb-2"></i>
+                        <p class="text-xs uppercase tracking-widest font-bold">Leveza</p>
+                    </div>
+                    <div class="glass-card p-6 text-center">
+                        <i class="fas fa-vial text-gold text-2xl mb-2"></i>
+                        <p class="text-xs uppercase tracking-widest font-bold">Detox</p>
                     </div>
                 </div>
             </div>
-            <div class="grid md:grid-cols-4 gap-6">
-                <div class="p-6 border rounded-2xl italic text-gray-600">"Resultado sensacional logo nas primeiras sessões. A Gisa é impecável!" <br><span class="font-bold text-black mt-4 block not-italic">— Ana Clara M.</span></div>
-                <div class="p-6 border rounded-2xl italic text-gray-600">"Atendimento extremamente humanizado. Você se sente em casa na clínica." <br><span class="font-bold text-black mt-4 block not-italic">— Mariana L.</span></div>
-                <div class="p-6 border rounded-2xl italic text-gray-600">"Melhor drenagem que já fiz em BH. Ambiente lindo e muito aconchegante." <br><span class="font-bold text-black mt-4 block not-italic">— Beatriz F.</span></div>
-                <div class="p-6 border rounded-2xl italic text-gray-600">"Profissionais extremamente atenciosos e competentes. Nota 10!" <br><span class="font-bold text-black mt-4 block not-italic">— Carla S.</span></div>
+            <div class="order-1 md:order-2 glass-card p-4 image-zoom">
+                <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80&w=800" class="rounded-[20px] w-full shadow-2xl">
             </div>
         </div>
     </section>
 
-    <!-- Diferenciais -->
-    <section class="py-20 bg-dark text-white px-6">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-12 text-center">
-            <div>
-                <i class="fas fa-fingerprint text-3xl gold-text mb-4"></i>
-                <h4 class="text-lg mb-2 italic">Tratamento Personalizado</h4>
-                <p class="text-gray-400 text-xs">Cada protocolo é exclusivo para sua anatomia.</p>
+    <!-- Prova Social (Glass) -->
+    <section class="py-24 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex justify-center text-gold gap-1 mb-6">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
             </div>
-            <div>
-                <i class="fas fa-heart text-3xl gold-text mb-4"></i>
-                <h4 class="text-lg mb-2 italic">Cuidado Humano</h4>
-                <p class="text-gray-400 text-xs">Um ambiente acolhedor e atencioso em cada detalhe.</p>
-            </div>
-            <div>
-                <i class="fas fa-microchip text-3xl gold-text mb-4"></i>
-                <h4 class="text-lg mb-2 italic">Alta Tecnologia</h4>
-                <p class="text-gray-400 text-xs">Equipamentos de última geração com segurança.</p>
-            </div>
-            <div>
-                <i class="fas fa-leaf text-3xl gold-text mb-4"></i>
-                <h4 class="text-lg mb-2 italic">Resultados Naturais</h4>
-                <p class="text-gray-400 text-xs">Sua melhor versão, sem exageros.</p>
-            </div>
+            <h2 class="text-4xl font-serif mb-12 italic">"O atendimento é impecável e os resultados da Criomodelagem me surpreenderam desde a primeira semana."</h2>
+            <p class="uppercase tracking-widest text-xs font-bold text-gold">— Avaliação Google 5.0 Estrelas</p>
         </div>
     </section>
 
     <!-- Footer / Contato -->
-    <footer id="contato" class="py-20 px-6 bg-white border-t">
+    <footer id="sobre" class="py-20 px-6 border-t border-white/10">
         <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-12">
             <div>
-                <h3 class="text-3xl italic gold-text mb-6">Gisa Andrade</h3>
-                <p class="text-gray-500 leading-relaxed mb-6">Elevando a autoestima de BH através de mãos cuidadosas e tecnologia avançada.</p>
-                <div class="flex space-x-4 text-xl gold-text">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="https://wa.me/5531972152505"><i class="fab fa-whatsapp"></i></a>
+                <img src="logo.png" alt="Logo" class="h-10 mb-6">
+                <p class="text-gray-400 text-sm leading-relaxed">Referência em Criomodelagem e Drenagem Linfática na Savassi. Um refúgio de bem-estar no coração de BH.</p>
+            </div>
+            <div>
+                <h4 class="text-gold font-bold uppercase text-[10px] tracking-widest mb-6">Localização</h4>
+                <p class="text-gray-300 text-sm italic italic">Rua Paraíba, 1352<br>Savassi, Belo Horizonte - MG</p>
+                <p class="text-gray-500 text-xs mt-4">Atendimento exclusivo com agendamento.</p>
+            </div>
+            <div>
+                <h4 class="text-gold font-bold uppercase text-[10px] tracking-widest mb-6">Redes Sociais</h4>
+                <div class="flex gap-6 text-xl">
+                    <a href="#" class="hover:text-gold transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/5531972152505" class="hover:text-gold transition"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
-            <div>
-                <h4 class="font-bold uppercase text-xs tracking-widest mb-6">Onde Estamos</h4>
-                <p class="text-gray-600 mb-2 italic">Savassi, Belo Horizonte - MG</p>
-                <p class="text-gray-600">Rua Paraíba, 1352</p>
-                <p class="text-gray-600 mt-4 font-bold">Atendimento até às 20h</p>
-                <p class="text-gray-400 text-sm">*Necessário agendamento prévio.</p>
-            </div>
-            <div>
-                <h4 class="font-bold uppercase text-xs tracking-widest mb-6">Inicie sua Transformação</h4>
-                <a href="https://wa.me/5531972152505" class="inline-block w-full text-center bg-gold text-white py-4 rounded-xl font-bold hover:bg-black transition">
-                    <i class="fab fa-whatsapp mr-2"></i> AGENDAR PELO WHATSAPP
-                </a>
-                <p class="text-center mt-4 text-sm text-gray-400">(31) 97215-2505</p>
-            </div>
-        </div>
-        <div class="max-w-6xl mx-auto mt-20 pt-8 border-t text-center text-gray-400 text-xs">
-            © 2024 Clínica de Estética Gisa Andrade. Todos os direitos reservados.
         </div>
     </footer>
 
+    <!-- Script para revelar elementos no scroll -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Inicializar
+    </script>
 </body>
 </html>
