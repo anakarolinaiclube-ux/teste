@@ -32,7 +32,7 @@
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 0 25px;
+            padding: 0 25px; /* Proteção lateral garantida */
         }
 
         /* ── BOTÕES ── */
@@ -82,9 +82,9 @@
         .logo { font-size: 1.3rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; }
 
         /* ── HERO ── */
-        header {
-            padding-top: calc(var(--nav-height) + 80px);
-            padding-bottom: 80px;
+        .hero {
+            padding-top: 180px; /* Espaço amplo para fugir da navbar no desktop */
+            padding-bottom: 50px; 
             text-align: center;
         }
         h1 {
@@ -119,7 +119,7 @@
 
         /* ── SEÇÃO DOR ── */
         .pain-section {
-            padding: 80px 0;
+            padding: 60px 0;
             background: linear-gradient(135deg, rgba(244,63,94,0.03) 0%, rgba(244,63,94,0.09) 100%);
             overflow: hidden;
         }
@@ -141,7 +141,7 @@
             display: flex;
             gap: 24px;
             width: max-content;
-            animation: scrollCards 18s linear infinite;
+            animation: scrollCards 35s linear infinite; 
         }
         .pain-carousel:hover { animation-play-state: paused; }
 
@@ -165,16 +165,20 @@
         .pain-card i { color: var(--accent); font-size: 1.8rem; }
         .pain-card strong { font-size: 1.05rem; color: var(--accent); font-weight: 700; }
         .pain-card p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; }
+        
+        .pain-cta-wrapper {
+            text-align: center; 
+            margin-top: 40px;
+        }
 
         /* ── FEATURES ── */
         .features {
-            padding: 90px 0;
+            padding: 60px 0;
         }
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
-            margin-bottom: 48px;
         }
         .feature-card {
             padding: 40px 30px;
@@ -191,39 +195,15 @@
         .feature-card i { font-size: 2.2rem; margin-bottom: 15px; display: block; color: var(--primary); }
         .feature-card h3 { margin-bottom: 10px; font-size: 1.1rem; }
         .feature-card p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; }
-        /* CTA dentro de features */
-        .features-cta { text-align: center; }
-
-        /* ── DEPOIMENTOS ── */
-        .social-proof {
-            padding: 90px 0;
-            background: white;
-        }
-        .testimonials {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 48px;
-        }
-        .testimonial-card {
-            padding: 35px;
-            border: 2px solid rgba(99,102,241,0.12);
-            border-radius: 24px;
-            background: #fff;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.03);
-            transition: 0.3s;
-        }
-        .testimonial-card:hover { border-color: var(--primary); transform: translateY(-5px); }
-        .testimonial-card p { color: var(--text-muted); line-height: 1.7; font-size: 0.97rem; }
-        /* CTA dentro de social proof */
-        .social-proof-cta { text-align: center; }
 
         /* ── PRICING ── */
         .pricing {
-            padding: 90px 0;
+            padding: 60px 0; 
             background: linear-gradient(135deg, rgba(99,102,241,0.04) 0%, rgba(168,85,247,0.06) 100%);
         }
-        /* Wrapper com fundo para o glass funcionar */
+        .pricing-header {
+            margin-bottom: 40px;
+        }
         .pricing-bg {
             background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
             border-radius: 40px;
@@ -308,8 +288,29 @@
         .btn-glass:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(0,0,0,0.2); }
         .price-footer { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-top: 14px; }
 
+        /* ── DEPOIMENTOS ── */
+        .social-proof {
+            padding: 60px 0;
+            background: white;
+        }
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .testimonial-card {
+            padding: 35px;
+            border: 2px solid rgba(99,102,241,0.12);
+            border-radius: 24px;
+            background: #fff;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.03);
+            transition: 0.3s;
+        }
+        .testimonial-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .testimonial-card p { color: var(--text-muted); line-height: 1.7; font-size: 0.97rem; }
+
         /* ── CTA FINAL ── */
-        .cta-final { padding: 90px 0; }
+        .cta-final { padding: 60px 0; }
         .cta-box {
             padding: 70px 30px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -334,18 +335,25 @@
             border-top: 1px solid rgba(0,0,0,0.05);
         }
 
-        /* ── MOBILE ── */
+        /* ── MOBILE FIRST / AJUSTES FINOS ── */
         @media (max-width: 768px) {
-            header { padding-top: calc(var(--nav-height) + 52px); padding-bottom: 60px; }
-            .container { padding: 0 20px; }
+            /* Como o container agora está por dentro, o padding desce a hero com precisão e garante a visibilidade da Headline */
+            .hero { padding-top: 140px; padding-bottom: 40px; } 
+            
             .section-header h2 { font-size: 1.6rem; }
             .price-card { padding: 36px 24px; }
             .pricing-bg { padding: 40px 16px; border-radius: 28px; }
             .cta-box { padding: 50px 24px; border-radius: 28px; }
-            .features { padding: 70px 0; }
-            .social-proof { padding: 70px 0; }
-            .pricing { padding: 70px 0; }
-            .cta-final { padding: 70px 0; }
+            
+            .pain-section { padding: 40px 0; }
+            .features { padding: 40px 0; }
+            .social-proof { padding: 40px 0; }
+            .pricing { padding: 40px 0; }
+            .cta-final { padding: 40px 0; }
+            
+            .section-header { margin-bottom: 24px; }
+            .pricing-header { margin-bottom: 24px; }
+            .pain-cta-wrapper { margin-top: 24px; }
         }
     </style>
 </head>
@@ -358,17 +366,22 @@
                 <i class="fas fa-chart-pie"></i>
                 <span>FluxoFácil</span>
             </div>
-            <a href="#preço" class="btn btn-primary" style="padding: 10px 24px; font-size: 0.85rem;">Começar Agora</a>
+            <!-- LINK EXTERNO AQUI -->
+            <a href="LINK_DO_CHECKOUT_AQUI" target="_blank" class="btn btn-primary" style="padding: 10px 24px; font-size: 0.85rem;">Começar Agora</a>
         </div>
     </nav>
 
     <!-- HERO -->
-    <header class="container">
-        <h1>Você sabe quanto <span class="gradient-text">realmente</span> está ganhando?</h1>
-        <p class="subheadline">Organize seus atendimentos e pare de trabalhar no escuro com a ferramenta mais intuitiva do mercado.</p>
-        <div class="hero-cta">
-            <a href="#preço" class="btn btn-primary">Começar por R$9,90/mês</a>
-            <small><i class="fas fa-shield-alt"></i> 7 dias de garantia · Cancele quando quiser</small>
+    <header class="hero">
+        <!-- Container envelopado por dentro resolve o conflito da margem com a Navbar -->
+        <div class="container">
+            <h1>Você sabe quanto <span class="gradient-text">realmente</span> está ganhando?</h1>
+            <p class="subheadline">Organize seus atendimentos e pare de trabalhar no escuro com a ferramenta mais intuitiva do mercado.</p>
+            <div class="hero-cta">
+                <!-- LINK EXTERNO AQUI -->
+                <a href="LINK_DO_CHECKOUT_AQUI" target="_blank" class="btn btn-primary">Começar por R$9,90/mês</a>
+                <small><i class="fas fa-shield-alt"></i> 7 dias de garantia · Cancele quando quiser</small>
+            </div>
         </div>
     </header>
 
@@ -380,10 +393,8 @@
                 <p>Veja se você se identifica:</p>
             </div>
         </div>
-        <!-- Carrossel automático — fora do container para ir de borda a borda -->
         <div class="carousel-track-wrap">
             <div class="pain-carousel" id="painCarousel">
-                <!-- Set 1 -->
                 <div class="pain-card">
                     <i class="fas fa-exclamation-circle"></i>
                     <strong>Falta de controle</strong>
@@ -409,7 +420,7 @@
                     <strong>Sem Histórico</strong>
                     <p>Não sabe qual serviço dá mais lucro nem qual cliente volta mais.</p>
                 </div>
-                <!-- Set 2 — duplicado para loop infinito -->
+                <!-- Duplicado para loop infinito suave -->
                 <div class="pain-card">
                     <i class="fas fa-exclamation-circle"></i>
                     <strong>Falta de controle</strong>
@@ -437,40 +448,43 @@
                 </div>
             </div>
         </div>
-        <!-- CTA após seção de dor -->
-        <div style="text-align:center; margin-top: 44px;">
-            <a href="#preço" class="btn btn-primary">Resolver isso agora →</a>
+        <div class="pain-cta-wrapper container">
+            <!-- LINK EXTERNO AQUI -->
+            <a href="LINK_DO_CHECKOUT_AQUI" target="_blank" class="btn btn-primary">Resolver isso agora →</a>
         </div>
     </section>
 
     <!-- FEATURES -->
-    <section class="features container">
-        <div class="section-header">
-            <h2>Por que escolher o FluxoFácil?</h2>
-            <p>Tudo que você precisa, sem nada que atrapalhe.</p>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <i class="fas fa-bolt"></i>
-                <h3>Agilidade Total</h3>
-                <p>Cadastre atendimentos em segundos. Interface limpa e sem menus complicados.</p>
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Por que escolher o FluxoFácil?</h2>
+                <p>Tudo que você precisa, sem nada que atrapalhe.</p>
             </div>
-            <div class="feature-card">
-                <i class="fas fa-chart-line"></i>
-                <h3>Insights Reais</h3>
-                <p>Gráficos automáticos que mostram seu serviço mais vendido e sua evolução.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-mobile-alt"></i>
-                <h3>Efeito App</h3>
-                <p>Funciona no celular como um aplicativo, mesmo totalmente offline.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Agilidade Total</h3>
+                    <p>Cadastre atendimentos em segundos. Interface limpa e sem menus complicados.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Insights Reais</h3>
+                    <p>Gráficos automáticos que mostram seu serviço mais vendido e sua evolução.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Efeito App</h3>
+                    <p>Funciona no celular como um aplicativo, mesmo totalmente offline.</p>
+                </div>
             </div>
         </div>
     </section>
-        <!-- PRICING -->
+    
+    <!-- PRICING -->
     <section class="pricing" id="preço">
         <div class="container">
-            <div class="section-header" style="margin-bottom: 48px;">
+            <div class="section-header pricing-header">
                 <h2>Um preço. Tudo incluído.</h2>
                 <p>Sem surpresas, sem fidelidade, sem complicação.</p>
             </div>
@@ -485,7 +499,8 @@
                         <li><i class="fas fa-check"></i> Backup e exportação de dados</li>
                         <li><i class="fas fa-check"></i> Suporte prioritário</li>
                     </ul>
-                    <a href="index.html" class="btn-glass">Quero Começar Agora</a>
+                    <!-- LINK EXTERNO AQUI -->
+                    <a href="LINK_DO_CHECKOUT_AQUI" target="_blank" class="btn-glass">Quero Começar Agora</a>
                     <p class="price-footer">Sem fidelidade. Cancele em 1 clique.</p>
                 </div>
             </div>
@@ -519,12 +534,15 @@
     </section>
 
     <!-- CTA FINAL -->
-    <section class="cta-final container">
-        <div class="cta-box">
-            <h2>Pronto para profissionalizar seu negócio?</h2>
-            <p>Junte-se a centenas de profissionais que pararam de trabalhar no escuro.</p>
-            <a href="#preço" class="btn btn-white">Assinar por R$9,90/mês</a>
-            <small style="color: rgba(255,255,255,0.6); font-size: 0.8rem;"><i class="fas fa-shield-alt"></i> 7 dias de garantia · Cancele quando quiser</small>
+    <section class="cta-final">
+        <div class="container">
+            <div class="cta-box">
+                <h2>Pronto para profissionalizar seu negócio?</h2>
+                <p>Junte-se a centenas de profissionais que pararam de trabalhar no escuro.</p>
+                <!-- LINK EXTERNO AQUI -->
+                <a href="LINK_DO_CHECKOUT_AQUI" target="_blank" class="btn btn-white">Assinar por R$9,90/mês</a>
+                <small style="color: rgba(255,255,255,0.6); font-size: 0.8rem;"><i class="fas fa-shield-alt"></i> 7 dias de garantia · Cancele quando quiser</small>
+            </div>
         </div>
     </section>
 
