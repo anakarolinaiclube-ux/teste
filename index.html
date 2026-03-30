@@ -29,17 +29,17 @@
             background-image: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%);
         }
 
-        /* Ajuste de margens globais */
         .container { 
             max-width: 1100px; 
             margin: 0 auto; 
-            padding: 0 25px; /* Margem de segurança lateral aumentada */
+            padding: 0 25px; 
         }
 
         .btn { display: inline-block; padding: 18px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; transition: 0.3s; cursor: pointer; border: none; text-align: center; width: auto; }
         .btn-primary { background: var(--primary); color: white; box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(99, 102, 241, 0.4); }
 
-        /* Navbar Corrigida - Evita Encavalamento */
+        /* Navbar */
         nav { 
             padding: 1rem 0; 
             position: fixed; 
@@ -48,53 +48,62 @@
             z-index: 1000; 
             background: rgba(248, 250, 252, 0.8);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0,0,0,0.05);
         }
         .nav-content { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.3rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 8px; }
 
-        /* Hero Section - Padding aumentado para não encavalar */
+        /* Hero Section - Ajuste no padding-top para descer a hero */
         header { 
-            padding: 140px 0 60px; /* Aumentado de 120px para 140px */
+            padding: 180px 0 60px; /* Alterado de 140px para 180px */
             text-align: center; 
         }
         h1 { font-size: clamp(1.8rem, 8vw, 3.2rem); line-height: 1.2; margin-bottom: 1.5rem; font-weight: 800; padding: 0 5px; }
         .gradient-text { background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .subheadline { font-size: 1.05rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 2.5rem; line-height: 1.6; }
 
-        /* Seção de Dor - Glassmorphism Vermelho + Carrossel */
-        .pain-section { padding: 80px 0; background: rgba(244, 63, 94, 0.02); }
+        /* Seção de Dor - Ajuste para Glassmorphism e Arrastar Corretamente */
+        .pain-section { 
+            padding: 80px 0; 
+            /* Adicionado um degradê leve de fundo para o glassmorphism dar mais contraste e não parecer sólido */
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.02) 0%, rgba(244, 63, 94, 0.08) 100%); 
+        }
         .section-header { text-align: center; margin-bottom: 40px; padding: 0 10px; }
         
         .pain-carousel { 
             display: flex; 
             gap: 20px; 
             overflow-x: auto; 
-            padding: 20px 5px;
+            padding: 20px 0;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Esconde scrollbar no Firefox */
+            scrollbar-width: none; 
+            scroll-padding: 0 20px;
         }
-        .pain-carousel::-webkit-scrollbar { display: none; } /* Esconde scrollbar no Chrome */
+        .pain-carousel::-webkit-scrollbar { display: none; }
 
         .pain-card { 
-            min-width: 280px; 
+            width: 85%; /* Porcentagem garante que não fuja da tela em celulares pequenos */
+            max-width: 300px; 
             flex: 0 0 auto;
             scroll-snap-align: center;
             padding: 30px; 
             background: var(--glass-red);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(244, 63, 94, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); /* Essencial para funcionar no Safari/iOS */
+            border: 1px solid rgba(244, 63, 94, 0.3);
             border-radius: 24px;
             display: flex;
             flex-direction: column;
             gap: 15px;
+            white-space: normal;
         }
         .pain-card i { color: var(--accent); font-size: 1.8rem; }
         .pain-card strong { font-size: 1.1rem; color: var(--accent); }
 
-        /* Seção Funcionalidades - Glassmorphism Espelho */
-        .features { padding: 80px 0; }
+        /* Seção Funcionalidades - Mais margem embaixo (padding-bottom de 80px para 140px) */
+        .features { padding: 80px 0 140px; }
         .features-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
@@ -112,12 +121,12 @@
         }
         .feature-card i { font-size: 2.2rem; margin-bottom: 15px; display: block; color: var(--primary); }
 
-        /* Depoimentos - Bordas e destaque */
+        /* Depoimentos */
         .social-proof { padding: 80px 0; background: white; }
         .testimonials { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
         .testimonial-card { 
             padding: 35px; 
-            border: 2px solid rgba(99, 102, 241, 0.15); /* Borda adicionada */
+            border: 2px solid rgba(99, 102, 241, 0.15);
             border-radius: 24px;
             background: #fff;
             box-shadow: 0 15px 30px rgba(0,0,0,0.02);
@@ -125,17 +134,39 @@
         }
         .testimonial-card:hover { border-color: var(--primary); transform: translateY(-5px); }
 
-        /* Preço */
+        /* Novo Card de Preço (Layout do Print) */
         .pricing { padding: 80px 0; }
         .price-card { 
             max-width: 400px; 
             margin: 0 auto; 
-            padding: 50px 30px; 
-            border: 2px solid var(--primary); 
+            padding: 45px 35px; 
+            border: 1px solid var(--primary); /* Borda idêntica ao print */
             background: white;
-            border-radius: 30px;
+            border-radius: 24px; /* Raio arredondado do print */
             text-align: center;
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.08); /* Sombra suave */
         }
+        
+        .plan-name { color: var(--primary); font-weight: 800; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .price-amount { 
+            font-size: 3.8rem; 
+            font-weight: 800; 
+            color: var(--text-dark); 
+            margin: 15px 0 30px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: baseline; 
+            gap: 5px;
+        }
+        .price-suffix { font-size: 1.1rem; color: var(--text-muted); font-weight: 600; }
+        
+        .benefits-list { list-style: none; padding: 0; margin: 0 0 35px; text-align: left; }
+        .benefits-list li { margin-bottom: 18px; font-size: 1rem; color: #334155; display: flex; align-items: center; gap: 12px; font-weight: 500; }
+        .benefits-list li i { color: var(--success); font-size: 1.1rem; }
+        
+        .btn-block { width: 100%; padding: 18px 0; font-size: 1.1rem; }
+        .price-footer { font-size: 0.85rem; color: var(--text-muted); margin-top: 15px; font-weight: 400; }
 
         /* CTA Final */
         .cta-final { padding: 60px 0 100px; }
@@ -152,12 +183,11 @@
 
         /* Ajustes Mobile Finos */
         @media (max-width: 768px) {
-            header { padding: 130px 0 40px; }
+            header { padding: 160px 0 40px; } /* Ajuste de respiro mobile */
             h1 { padding: 0 10px; }
             .container { padding: 0 20px; }
             .section-header h2 { font-size: 1.6rem; }
             
-            /* Ajuste para carrossel no mobile parecer "infinito" nas bordas */
             .pain-carousel {
                 margin-left: -20px;
                 margin-right: -20px;
@@ -165,8 +195,7 @@
                 padding-right: 20px;
             }
 
-            .price-card { margin: 0 auto; width: 100%; }
-            .btn { width: 100%; }
+            .price-card { margin: 0 auto; width: 100%; padding: 40px 25px; }
         }
     </style>
 </head>
@@ -264,12 +293,22 @@
         </div>
     </section>
 
+    <!-- Card de Preços remodelado conforme imagem -->
     <section class="pricing container" id="preço">
         <div class="price-card">
-            <span style="color: var(--primary); font-weight: 700;">PLANO ÚNICO</span>
-            <div style="font-size: 3rem; font-weight: 800; margin: 15px 0;">R$9,90<span style="font-size: 1rem; color: var(--text-muted);">/mês</span></div>
-            <p style="margin-bottom: 25px; color: var(--text-muted);">Acesso total a todas as funcionalidades atuais e futuras.</p>
-            <a href="index.html" class="btn btn-primary" style="width: 100%;">Quero ser Pro</a>
+            <span class="plan-name">Plano Pro</span>
+            <div class="price-amount">R$9,90<span class="price-suffix">/mês</span></div>
+            
+            <ul class="benefits-list">
+                <li><i class="fas fa-check"></i> Atendimentos ilimitados</li>
+                <li><i class="fas fa-check"></i> Relatórios financeiros detalhados</li>
+                <li><i class="fas fa-check"></i> Cálculo automático de lucro</li>
+                <li><i class="fas fa-check"></i> Backup e exportação de dados</li>
+                <li><i class="fas fa-check"></i> Suporte prioritário</li>
+            </ul>
+
+            <a href="index.html" class="btn btn-primary btn-block">Quero Começar Agora</a>
+            <p class="price-footer">Sem fidelidade. Cancele em 1 clique.</p>
         </div>
     </section>
 
