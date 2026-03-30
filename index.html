@@ -15,9 +15,7 @@
             --success: #22c55e;
             --text-dark: #1e293b;
             --text-muted: #64748b;
-            --glass-white: rgba(255, 255, 255, 0.4);
-            --glass-red: rgba(244, 63, 94, 0.15);
-            --border: rgba(255, 255, 255, 0.6);
+            --nav-height: 68px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
@@ -26,208 +24,366 @@
             background: #f8fafc;
             color: var(--text-dark);
             overflow-x: hidden;
-            background-image: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%);
+            background-image:
+                radial-gradient(at 0% 0%, rgba(99,102,241,0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(168,85,247,0.06) 0px, transparent 50%);
         }
 
-        .container { 
-            max-width: 1100px; 
-            margin: 0 auto; 
-            padding: 0 25px; 
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 25px;
         }
 
-        .btn { display: inline-block; padding: 18px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; transition: 0.3s; cursor: pointer; border: none; text-align: center; width: auto; }
-        .btn-primary { background: var(--primary); color: white; box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3); }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(99, 102, 241, 0.4); }
-
-        /* Navbar */
-        nav { 
-            padding: 1rem 0; 
-            position: fixed; 
-            width: 100%; 
-            top: 0; 
-            z-index: 1000; 
-            background: rgba(248, 250, 252, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+        /* ── BOTÕES ── */
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            text-align: center;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
         }
-        .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.3rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 8px; }
-
-        /* Hero Section - Ajuste no padding-top para descer a hero */
-        header { 
-            padding: 180px 0 60px; /* Alterado de 140px para 180px */
-            text-align: center; 
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 20px rgba(99,102,241,0.3);
         }
-        h1 { font-size: clamp(1.8rem, 8vw, 3.2rem); line-height: 1.2; margin-bottom: 1.5rem; font-weight: 800; padding: 0 5px; }
-        .gradient-text { background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .subheadline { font-size: 1.05rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 2.5rem; line-height: 1.6; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(99,102,241,0.4); }
+        .btn-white {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .btn-white:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(0,0,0,0.15); }
+        .btn-block { width: 100%; display: block; padding: 18px 0; font-size: 1.05rem; }
 
-        /* Seção de Dor - Ajuste para Glassmorphism e Arrastar Corretamente */
-        .pain-section { 
-            padding: 80px 0; 
-            /* Adicionado um degradê leve de fundo para o glassmorphism dar mais contraste e não parecer sólido */
-            background: linear-gradient(135deg, rgba(244, 63, 94, 0.02) 0%, rgba(244, 63, 94, 0.08) 100%); 
+        /* ── NAVBAR ── */
+        nav {
+            height: var(--nav-height);
+            padding: 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(248,250,252,0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .logo { font-size: 1.3rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+
+        /* ── HERO ── */
+        header {
+            padding-top: calc(var(--nav-height) + 80px);
+            padding-bottom: 80px;
+            text-align: center;
+        }
+        h1 {
+            font-size: clamp(1.9rem, 7vw, 3.2rem);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subheadline {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+        .hero-cta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .hero-cta small {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ── SEÇÃO DOR ── */
+        .pain-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, rgba(244,63,94,0.03) 0%, rgba(244,63,94,0.09) 100%);
+            overflow: hidden;
         }
         .section-header { text-align: center; margin-bottom: 40px; padding: 0 10px; }
-        
-        .pain-carousel { 
-            display: flex; 
-            gap: 20px; 
-            overflow-x: auto; 
-            padding: 20px 0;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; 
-            scroll-padding: 0 20px;
-        }
-        .pain-carousel::-webkit-scrollbar { display: none; }
+        .section-header h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; margin-bottom: 10px; }
+        .section-header p { color: var(--text-muted); font-size: 1rem; }
 
-        .pain-card { 
-            width: 85%; /* Porcentagem garante que não fuja da tela em celulares pequenos */
-            max-width: 300px; 
-            flex: 0 0 auto;
-            scroll-snap-align: center;
-            padding: 30px; 
-            background: var(--glass-red);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px); /* Essencial para funcionar no Safari/iOS */
-            border: 1px solid rgba(244, 63, 94, 0.3);
+        /* Carrossel automático */
+        .carousel-track-wrap {
+            overflow: hidden;
+            width: 100%;
+            padding: 16px 0;
+            cursor: grab;
+            user-select: none;
+        }
+        .carousel-track-wrap:active { cursor: grabbing; }
+
+        .pain-carousel {
+            display: flex;
+            gap: 24px;
+            width: max-content;
+            animation: scrollCards 18s linear infinite;
+        }
+        .pain-carousel:hover { animation-play-state: paused; }
+
+        @keyframes scrollCards {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .pain-card {
+            flex: 0 0 280px;
+            padding: 30px 26px;
+            background: rgba(244,63,94,0.12);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(244,63,94,0.28);
             border-radius: 24px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            white-space: normal;
+            gap: 14px;
         }
         .pain-card i { color: var(--accent); font-size: 1.8rem; }
-        .pain-card strong { font-size: 1.1rem; color: var(--accent); }
+        .pain-card strong { font-size: 1.05rem; color: var(--accent); font-weight: 700; }
+        .pain-card p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; }
 
-        /* Seção Funcionalidades - Mais margem embaixo (padding-bottom de 80px para 140px) */
-        .features { padding: 80px 0 140px; }
-        .features-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 25px; 
+        /* ── FEATURES ── */
+        .features {
+            padding: 90px 0;
         }
-        .feature-card { 
-            padding: 40px 30px; 
-            text-align: center; 
-            background: rgba(255, 255, 255, 0.4);
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        .feature-card {
+            padding: 40px 30px;
+            text-align: center;
+            background: rgba(255,255,255,0.6);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.07);
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 8px 32px rgba(31,38,135,0.07);
             border-radius: 24px;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
+        .feature-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(99,102,241,0.12); }
         .feature-card i { font-size: 2.2rem; margin-bottom: 15px; display: block; color: var(--primary); }
+        .feature-card h3 { margin-bottom: 10px; font-size: 1.1rem; }
+        .feature-card p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; }
+        /* CTA dentro de features */
+        .features-cta { text-align: center; }
 
-        /* Depoimentos */
-        .social-proof { padding: 80px 0; background: white; }
-        .testimonials { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .testimonial-card { 
-            padding: 35px; 
-            border: 2px solid rgba(99, 102, 241, 0.15);
+        /* ── DEPOIMENTOS ── */
+        .social-proof {
+            padding: 90px 0;
+            background: white;
+        }
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 48px;
+        }
+        .testimonial-card {
+            padding: 35px;
+            border: 2px solid rgba(99,102,241,0.12);
             border-radius: 24px;
             background: #fff;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.03);
             transition: 0.3s;
         }
         .testimonial-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .testimonial-card p { color: var(--text-muted); line-height: 1.7; font-size: 0.97rem; }
+        /* CTA dentro de social proof */
+        .social-proof-cta { text-align: center; }
 
-        /* Novo Card de Preço (Layout do Print) */
-        .pricing { padding: 80px 0; }
-        .price-card { 
-            max-width: 400px; 
-            margin: 0 auto; 
-            padding: 45px 35px; 
-            border: 1px solid var(--primary); /* Borda idêntica ao print */
-            background: white;
-            border-radius: 24px; /* Raio arredondado do print */
+        /* ── PRICING ── */
+        .pricing {
+            padding: 90px 0;
+            background: linear-gradient(135deg, rgba(99,102,241,0.04) 0%, rgba(168,85,247,0.06) 100%);
+        }
+        /* Wrapper com fundo para o glass funcionar */
+        .pricing-bg {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            border-radius: 40px;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .pricing-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .price-card {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 48px 40px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 28px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.08); /* Sombra suave */
+            box-shadow:
+                0 24px 64px rgba(0,0,0,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.5);
+            position: relative;
+            z-index: 1;
         }
-        
-        .plan-name { color: var(--primary); font-weight: 800; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        
-        .price-amount { 
-            font-size: 3.8rem; 
-            font-weight: 800; 
-            color: var(--text-dark); 
-            margin: 15px 0 30px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: baseline; 
-            gap: 5px;
+        .plan-name {
+            color: rgba(255,255,255,0.85);
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            display: block;
         }
-        .price-suffix { font-size: 1.1rem; color: var(--text-muted); font-weight: 600; }
-        
-        .benefits-list { list-style: none; padding: 0; margin: 0 0 35px; text-align: left; }
-        .benefits-list li { margin-bottom: 18px; font-size: 1rem; color: #334155; display: flex; align-items: center; gap: 12px; font-weight: 500; }
-        .benefits-list li i { color: var(--success); font-size: 1.1rem; }
-        
-        .btn-block { width: 100%; padding: 18px 0; font-size: 1.1rem; }
-        .price-footer { font-size: 0.85rem; color: var(--text-muted); margin-top: 15px; font-weight: 400; }
+        .price-amount {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #fff;
+            margin: 16px 0 32px;
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 4px;
+            line-height: 1;
+        }
+        .price-suffix { font-size: 1.1rem; color: rgba(255,255,255,0.7); font-weight: 600; }
+        .benefits-list { list-style: none; padding: 0; margin: 0 0 36px; text-align: left; }
+        .benefits-list li {
+            margin-bottom: 16px;
+            font-size: 0.97rem;
+            color: rgba(255,255,255,0.9);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+        .benefits-list li i { color: #86efac; font-size: 1rem; flex-shrink: 0; }
+        .btn-glass {
+            display: block;
+            width: 100%;
+            padding: 18px 0;
+            background: white;
+            color: var(--primary);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 1.05rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        .btn-glass:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(0,0,0,0.2); }
+        .price-footer { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-top: 14px; }
 
-        /* CTA Final */
-        .cta-final { padding: 60px 0 100px; }
-        .cta-box { 
-            padding: 60px 30px; 
-            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
-            color: white; 
-            border-radius: 35px; 
+        /* ── CTA FINAL ── */
+        .cta-final { padding: 90px 0; }
+        .cta-box {
+            padding: 70px 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 36px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 24px;
+            box-shadow: 0 24px 60px rgba(99,102,241,0.25);
+        }
+        .cta-box h2 { font-size: clamp(1.5rem, 5vw, 2.2rem); font-weight: 800; }
+        .cta-box p { color: rgba(255,255,255,0.8); font-size: 1rem; max-width: 480px; }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
         }
 
-        /* Ajustes Mobile Finos */
+        /* ── MOBILE ── */
         @media (max-width: 768px) {
-            header { padding: 160px 0 40px; } /* Ajuste de respiro mobile */
-            h1 { padding: 0 10px; }
+            header { padding-top: calc(var(--nav-height) + 52px); padding-bottom: 60px; }
             .container { padding: 0 20px; }
             .section-header h2 { font-size: 1.6rem; }
-            
-            .pain-carousel {
-                margin-left: -20px;
-                margin-right: -20px;
-                padding-left: 20px;
-                padding-right: 20px;
-            }
-
-            .price-card { margin: 0 auto; width: 100%; padding: 40px 25px; }
+            .price-card { padding: 36px 24px; }
+            .pricing-bg { padding: 40px 16px; border-radius: 28px; }
+            .cta-box { padding: 50px 24px; border-radius: 28px; }
+            .features { padding: 70px 0; }
+            .social-proof { padding: 70px 0; }
+            .pricing { padding: 70px 0; }
+            .cta-final { padding: 70px 0; }
         }
     </style>
 </head>
 <body>
 
+    <!-- NAVBAR -->
     <nav id="navbar">
         <div class="container nav-content">
             <div class="logo">
                 <i class="fas fa-chart-pie"></i>
                 <span>FluxoFácil</span>
             </div>
-            <a href="index.html" class="btn btn-primary" style="padding: 10px 22px; font-size: 0.85rem;">Login</a>
+            <a href="#preço" class="btn btn-primary" style="padding: 10px 24px; font-size: 0.85rem;">Começar Agora</a>
         </div>
     </nav>
 
+    <!-- HERO -->
     <header class="container">
         <h1>Você sabe quanto <span class="gradient-text">realmente</span> está ganhando?</h1>
         <p class="subheadline">Organize seus atendimentos e pare de trabalhar no escuro com a ferramenta mais intuitiva do mercado.</p>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+        <div class="hero-cta">
             <a href="#preço" class="btn btn-primary">Começar por R$9,90/mês</a>
-            <span style="font-size: 0.8rem; color: var(--text-muted);"><i class="fas fa-shield-alt"></i> 7 dias de garantia</span>
+            <small><i class="fas fa-shield-alt"></i> 7 dias de garantia · Cancele quando quiser</small>
         </div>
     </header>
 
+    <!-- SEÇÃO DOR -->
     <section class="pain-section">
         <div class="container">
             <div class="section-header">
                 <h2>O caos acaba aqui.</h2>
-                <p>Arraste para o lado e veja se você se identifica:</p>
+                <p>Veja se você se identifica:</p>
             </div>
-            <!-- Carrossel Lateral -->
-            <div class="pain-carousel">
+        </div>
+        <!-- Carrossel automático — fora do container para ir de borda a borda -->
+        <div class="carousel-track-wrap">
+            <div class="pain-carousel" id="painCarousel">
+                <!-- Set 1 -->
                 <div class="pain-card">
                     <i class="fas fa-exclamation-circle"></i>
                     <strong>Falta de controle</strong>
@@ -236,20 +392,62 @@
                 <div class="pain-card">
                     <i class="fas fa-calendar-times"></i>
                     <strong>Agenda Bagunçada</strong>
-                    <p>Esquecimento de clientes e anotações perdidas em papéis ou conversas de WhatsApp.</p>
+                    <p>Esquecimento de clientes e anotações perdidas em papéis ou WhatsApp.</p>
                 </div>
                 <div class="pain-card">
                     <i class="fas fa-search-dollar"></i>
                     <strong>Lucro Invisível</strong>
                     <p>Você trabalha muito, mas tem a sensação de que não está sobrando nada.</p>
                 </div>
+                <div class="pain-card">
+                    <i class="fas fa-clock"></i>
+                    <strong>Tempo Perdido</strong>
+                    <p>Horas recontando dinheiro no fim do dia porque as contas não batem.</p>
+                </div>
+                <div class="pain-card">
+                    <i class="fas fa-ban"></i>
+                    <strong>Sem Histórico</strong>
+                    <p>Não sabe qual serviço dá mais lucro nem qual cliente volta mais.</p>
+                </div>
+                <!-- Set 2 — duplicado para loop infinito -->
+                <div class="pain-card">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <strong>Falta de controle</strong>
+                    <p>Dinheiro entra e sai, mas você não sabe para onde ele vai no fim do mês.</p>
+                </div>
+                <div class="pain-card">
+                    <i class="fas fa-calendar-times"></i>
+                    <strong>Agenda Bagunçada</strong>
+                    <p>Esquecimento de clientes e anotações perdidas em papéis ou WhatsApp.</p>
+                </div>
+                <div class="pain-card">
+                    <i class="fas fa-search-dollar"></i>
+                    <strong>Lucro Invisível</strong>
+                    <p>Você trabalha muito, mas tem a sensação de que não está sobrando nada.</p>
+                </div>
+                <div class="pain-card">
+                    <i class="fas fa-clock"></i>
+                    <strong>Tempo Perdido</strong>
+                    <p>Horas recontando dinheiro no fim do dia porque as contas não batem.</p>
+                </div>
+                <div class="pain-card">
+                    <i class="fas fa-ban"></i>
+                    <strong>Sem Histórico</strong>
+                    <p>Não sabe qual serviço dá mais lucro nem qual cliente volta mais.</p>
+                </div>
             </div>
+        </div>
+        <!-- CTA após seção de dor -->
+        <div style="text-align:center; margin-top: 44px;">
+            <a href="#preço" class="btn btn-primary">Resolver isso agora →</a>
         </div>
     </section>
 
+    <!-- FEATURES -->
     <section class="features container">
         <div class="section-header">
             <h2>Por que escolher o FluxoFácil?</h2>
+            <p>Tudo que você precisa, sem nada que atrapalhe.</p>
         </div>
         <div class="features-grid">
             <div class="feature-card">
@@ -268,67 +466,84 @@
                 <p>Funciona no celular como um aplicativo, mesmo totalmente offline.</p>
             </div>
         </div>
+        <div class="features-cta">
+            <a href="#preço" class="btn btn-primary">Quero organizar meu negócio</a>
+        </div>
     </section>
 
-    <section class="social-proof container">
-        <div class="section-header">
-            <span style="color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Depoimentos</span>
-            <h2 style="margin-top: 10px;">Quem usa, aprova</h2>
-        </div>
-        <div class="testimonials">
-            <div class="testimonial-card">
-                <div style="color: #fbbf24; margin-bottom: 10px;">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
-                <p>"O controle financeiro mudou meu jogo. Agora sei exatamente quanto cobrar pelos meus serviços."</p>
-                <span style="display: block; margin-top: 15px; font-weight: 700; color: var(--primary);">— Mariana Costa, Manicure</span>
+    <!-- DEPOIMENTOS -->
+    <section class="social-proof">
+        <div class="container">
+            <div class="section-header">
+                <span style="color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.82rem;">Depoimentos</span>
+                <h2 style="margin-top: 10px;">Quem usa, aprova</h2>
             </div>
-            <div class="testimonial-card">
-                <div style="color: #fbbf24; margin-bottom: 10px;">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <div class="testimonials">
+                <div class="testimonial-card">
+                    <div style="color: #fbbf24; margin-bottom: 12px; font-size: 0.9rem;">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p>"O controle financeiro mudou meu jogo. Agora sei exatamente quanto cobrar pelos meus serviços."</p>
+                    <span style="display: block; margin-top: 16px; font-weight: 700; color: var(--primary); font-size: 0.92rem;">— Mariana Costa, Manicure</span>
                 </div>
-                <p>"Simples e direto. Não preciso de curso para mexer. Uso todo dia entre um cliente e outro."</p>
-                <span style="display: block; margin-top: 15px; font-weight: 700; color: var(--primary);">— Ricardo Souza, Barbeiro</span>
+                <div class="testimonial-card">
+                    <div style="color: #fbbf24; margin-bottom: 12px; font-size: 0.9rem;">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p>"Simples e direto. Não preciso de curso para mexer. Uso todo dia entre um cliente e outro."</p>
+                    <span style="display: block; margin-top: 16px; font-weight: 700; color: var(--primary); font-size: 0.92rem;">— Ricardo Souza, Barbeiro</span>
+                </div>
+            </div>
+            <div class="social-proof-cta">
+                <a href="#preço" class="btn btn-primary">Fazer parte também →</a>
             </div>
         </div>
     </section>
 
-    <!-- Card de Preços remodelado conforme imagem -->
-    <section class="pricing container" id="preço">
-        <div class="price-card">
-            <span class="plan-name">Plano Pro</span>
-            <div class="price-amount">R$9,90<span class="price-suffix">/mês</span></div>
-            
-            <ul class="benefits-list">
-                <li><i class="fas fa-check"></i> Atendimentos ilimitados</li>
-                <li><i class="fas fa-check"></i> Relatórios financeiros detalhados</li>
-                <li><i class="fas fa-check"></i> Cálculo automático de lucro</li>
-                <li><i class="fas fa-check"></i> Backup e exportação de dados</li>
-                <li><i class="fas fa-check"></i> Suporte prioritário</li>
-            </ul>
-
-            <a href="index.html" class="btn btn-primary btn-block">Quero Começar Agora</a>
-            <p class="price-footer">Sem fidelidade. Cancele em 1 clique.</p>
+    <!-- PRICING -->
+    <section class="pricing" id="preço">
+        <div class="container">
+            <div class="section-header" style="margin-bottom: 48px;">
+                <h2>Um preço. Tudo incluído.</h2>
+                <p>Sem surpresas, sem fidelidade, sem complicação.</p>
+            </div>
+            <div class="pricing-bg">
+                <div class="price-card">
+                    <span class="plan-name">Plano Pro</span>
+                    <div class="price-amount">R$9,90<span class="price-suffix">/mês</span></div>
+                    <ul class="benefits-list">
+                        <li><i class="fas fa-check"></i> Atendimentos ilimitados</li>
+                        <li><i class="fas fa-check"></i> Relatórios financeiros detalhados</li>
+                        <li><i class="fas fa-check"></i> Cálculo automático de lucro</li>
+                        <li><i class="fas fa-check"></i> Backup e exportação de dados</li>
+                        <li><i class="fas fa-check"></i> Suporte prioritário</li>
+                    </ul>
+                    <a href="index.html" class="btn-glass">Quero Começar Agora</a>
+                    <p class="price-footer">Sem fidelidade. Cancele em 1 clique.</p>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- CTA FINAL -->
     <section class="cta-final container">
         <div class="cta-box">
-            <h2 style="font-size: clamp(1.5rem, 5vw, 2.2rem); margin-bottom: 20px;">Pronto para profissionalizar seu negócio?</h2>
-            <a href="index.html" class="btn" style="background: white; color: var(--primary);">Assinar Agora</a>
+            <h2>Pronto para profissionalizar seu negócio?</h2>
+            <p>Junte-se a centenas de profissionais que pararam de trabalhar no escuro.</p>
+            <a href="#preço" class="btn btn-white">Assinar por R$9,90/mês</a>
+            <small style="color: rgba(255,255,255,0.6); font-size: 0.8rem;"><i class="fas fa-shield-alt"></i> 7 dias de garantia · Cancele quando quiser</small>
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 40px 0; color: var(--text-muted); font-size: 0.8rem;">
-        <p>&copy; 2023 FluxoFácil. Cancele quando quiser.</p>
+    <footer>
+        <p>&copy; 2025 FluxoFácil. Cancele quando quiser.</p>
     </footer>
 
     <script>
-        // Efeito de scroll na navbar
+        // Scroll na navbar
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
-            if(window.scrollY > 50) nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.05)';
-            else nav.style.boxShadow = 'none';
+            nav.style.boxShadow = window.scrollY > 50 ? '0 5px 20px rgba(0,0,0,0.06)' : 'none';
         });
     </script>
 </body>
