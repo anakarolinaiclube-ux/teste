@@ -2,560 +2,156 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FluxoFácil | Gestão Inteligente</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criativos FluxoFácil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #6366f1;
             --secondary: #a855f7;
             --accent: #f43f5e;
-            --success: #22c55e;
-            --text-dark: #1e293b;
-            --text-muted: #64748b;
-            --nav-height: 68px;
+            --bg: #f0f2f5;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background: #ddd; padding: 40px 20px; display: flex; flex-direction: column; gap: 80px; align-items: center; }
 
-        body {
-            background: #f8fafc;
-            color: var(--text-dark);
-            overflow-x: hidden;
-            background-image:
-                radial-gradient(at 0% 0%, rgba(99,102,241,0.08) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(168,85,247,0.06) 0px, transparent 50%);
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 25px; /* Proteção lateral garantida */
-        }
-
-        /* ── BOTÕES ── */
-        .btn {
-            display: inline-block;
-            padding: 16px 32px;
-            border-radius: 50px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-            text-align: center;
-            font-size: 1rem;
-            font-family: 'Poppins', sans-serif;
-        }
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 10px 20px rgba(99,102,241,0.3);
-        }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(99,102,241,0.4); }
-        .btn-white {
+        /* --- ESTILO COMUM --- */
+        .creative-container {
+            width: 100%;
+            max-width: 400px; /* Formato Story/Mobile Ads */
+            height: 600px;
             background: white;
-            color: var(--primary);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        .btn-white:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(0,0,0,0.15); }
-        .btn-block { width: 100%; display: block; padding: 18px 0; font-size: 1.05rem; }
-
-        /* ── NAVBAR ── */
-        nav {
-            height: var(--nav-height);
-            padding: 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            background: rgba(248,250,252,0.85);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            display: flex;
-            align-items: center;
-        }
-        .nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .logo { font-size: 1.3rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; }
-
-        /* ── HERO ── */
-        .hero {
-            padding-top: 180px; /* Espaço amplo para fugir da navbar no desktop */
-            padding-bottom: 50px; 
-            text-align: center;
-        }
-        h1 {
-            font-size: clamp(1.9rem, 7vw, 3.2rem);
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-        }
-        .gradient-text {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .subheadline {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 2.5rem;
-            line-height: 1.7;
-        }
-        .hero-cta {
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 12px;
-        }
-        .hero-cta small {
-            font-size: 0.8rem;
-            color: var(--text-muted);
         }
 
-        /* ── SEÇÃO DOR ── */
-        .pain-section {
-            padding: 60px 0;
-            background: linear-gradient(135deg, rgba(244,63,94,0.03) 0%, rgba(244,63,94,0.09) 100%);
-            overflow: hidden;
-        }
-        .section-header { text-align: center; margin-bottom: 40px; padding: 0 10px; }
-        .section-header h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; margin-bottom: 10px; }
-        .section-header p { color: var(--text-muted); font-size: 1rem; }
-
-        /* Carrossel automático */
-        .carousel-track-wrap {
-            overflow: hidden;
-            width: 100%;
-            padding: 16px 0;
-            cursor: grab;
-            user-select: none;
-        }
-        .carousel-track-wrap:active { cursor: grabbing; }
-
-        .pain-carousel {
-            display: flex;
-            gap: 24px;
-            width: max-content;
-            animation: scrollCards 35s linear infinite; 
-        }
-        .pain-carousel:hover { animation-play-state: paused; }
-
-        @keyframes scrollCards {
-            0%   { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        .pain-card {
-            flex: 0 0 280px;
-            padding: 30px 26px;
-            background: rgba(244,63,94,0.12);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(244,63,94,0.28);
-            border-radius: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-        .pain-card i { color: var(--accent); font-size: 1.8rem; }
-        .pain-card strong { font-size: 1.05rem; color: var(--accent); font-weight: 700; }
-        .pain-card p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; }
+        /* --- MODELO 1: DEMONSTRAÇÃO DO APP --- */
+        .c1-bg { background: linear-gradient(135deg, #6366f1, #a855f7); height: 100%; padding: 30px; color: white; text-align: center; }
+        .c1-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 20px; line-height: 1.2; }
         
-        .pain-cta-wrapper {
-            text-align: center; 
-            margin-top: 40px;
-        }
-
-        /* ── FEATURES ── */
-        .features {
-            padding: 60px 0;
-        }
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-        }
-        .feature-card {
-            padding: 40px 30px;
-            text-align: center;
-            background: rgba(255,255,255,0.6);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255,255,255,0.8);
-            box-shadow: 0 8px 32px rgba(31,38,135,0.07);
-            border-radius: 24px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .feature-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(99,102,241,0.12); }
-        .feature-card i { font-size: 2.2rem; margin-bottom: 15px; display: block; color: var(--primary); }
-        .feature-card h3 { margin-bottom: 10px; font-size: 1.1rem; }
-        .feature-card p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; }
-
-        /* ── PRICING ── */
-        .pricing {
-            padding: 60px 0; 
-            background: linear-gradient(135deg, rgba(99,102,241,0.04) 0%, rgba(168,85,247,0.06) 100%);
-        }
-        .pricing-header {
-            margin-bottom: 40px;
-        }
-        .pricing-bg {
-            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-            border-radius: 40px;
-            padding: 60px 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        .pricing-bg::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.08) 0%, transparent 50%);
-            pointer-events: none;
-        }
-        .price-card {
-            max-width: 420px;
+        /* Simulação do Celular (Mockup CSS) */
+        .phone-mockup {
+            width: 220px;
+            height: 400px;
+            background: #111;
             margin: 0 auto;
-            padding: 48px 40px;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid rgba(255,255,255,0.4);
-            border-radius: 28px;
-            text-align: center;
-            box-shadow:
-                0 24px 64px rgba(0,0,0,0.2),
-                inset 0 1px 0 rgba(255,255,255,0.5);
+            border: 8px solid #333;
+            border-radius: 30px;
             position: relative;
-            z-index: 1;
-        }
-        .plan-name {
-            color: rgba(255,255,255,0.85);
-            font-weight: 800;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-            display: block;
-        }
-        .price-amount {
-            font-size: 4rem;
-            font-weight: 800;
-            color: #fff;
-            margin: 16px 0 32px;
-            display: flex;
-            justify-content: center;
-            align-items: baseline;
-            gap: 4px;
-            line-height: 1;
-        }
-        .price-suffix { font-size: 1.1rem; color: rgba(255,255,255,0.7); font-weight: 600; }
-        .benefits-list { list-style: none; padding: 0; margin: 0 0 36px; text-align: left; }
-        .benefits-list li {
-            margin-bottom: 16px;
-            font-size: 0.97rem;
-            color: rgba(255,255,255,0.9);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 500;
-        }
-        .benefits-list li i { color: #86efac; font-size: 1rem; flex-shrink: 0; }
-        .btn-glass {
-            display: block;
-            width: 100%;
-            padding: 18px 0;
-            background: white;
-            color: var(--primary);
-            font-family: 'Poppins', sans-serif;
-            font-weight: 800;
-            font-size: 1.05rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            transition: all 0.3s;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-        }
-        .btn-glass:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(0,0,0,0.2); }
-        .price-footer { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-top: 14px; }
-
-        /* ── DEPOIMENTOS ── */
-        .social-proof {
-            padding: 60px 0;
-            background: white;
-        }
-        .testimonials {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-        .testimonial-card {
-            padding: 35px;
-            border: 2px solid rgba(99,102,241,0.12);
-            border-radius: 24px;
-            background: #fff;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.03);
-            transition: 0.3s;
-        }
-        .testimonial-card:hover { border-color: var(--primary); transform: translateY(-5px); }
-        .testimonial-card p { color: var(--text-muted); line-height: 1.7; font-size: 0.97rem; }
-
-        /* ── CTA FINAL ── */
-        .cta-final { padding: 60px 0; }
-        .cta-box {
-            padding: 70px 30px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border-radius: 36px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 24px;
-            box-shadow: 0 24px 60px rgba(99,102,241,0.25);
-        }
-        .cta-box h2 { font-size: clamp(1.5rem, 5vw, 2.2rem); font-weight: 800; }
-        .cta-box p { color: rgba(255,255,255,0.8); font-size: 1rem; max-width: 480px; }
-
-        /* ── FOOTER ── */
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            color: var(--text-muted);
-            font-size: 0.82rem;
-            border-top: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            animation: float 4s ease-in-out infinite;
         }
 
-        /* ── MOBILE FIRST / AJUSTES FINOS ── */
-        @media (max-width: 768px) {
-            /* Como o container agora está por dentro, o padding desce a hero com precisão e garante a visibilidade da Headline */
-            .hero { padding-top: 140px; padding-bottom: 40px; } 
-            
-            .section-header h2 { font-size: 1.6rem; }
-            .price-card { padding: 36px 24px; }
-            .pricing-bg { padding: 40px 16px; border-radius: 28px; }
-            .cta-box { padding: 50px 24px; border-radius: 28px; }
-            
-            .pain-section { padding: 40px 0; }
-            .features { padding: 40px 0; }
-            .social-proof { padding: 40px 0; }
-            .pricing { padding: 40px 0; }
-            .cta-final { padding: 40px 0; }
-            
-            .section-header { margin-bottom: 24px; }
-            .pricing-header { margin-bottom: 24px; }
-            .pain-cta-wrapper { margin-top: 24px; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
+
+        /* Interface do App dentro do celular */
+        .app-screen { background: #f8fafc; height: 100%; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+        .app-header { height: 20px; background: #ddd; border-radius: 4px; width: 50%; margin-bottom: 5px; }
+        .app-card { background: white; border-radius: 8px; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .app-val { font-size: 0.8rem; font-weight: 700; color: #6366f1; }
+        .app-label { font-size: 0.5rem; color: #94a3b8; }
+        .app-chart { height: 60px; background: linear-gradient(to top, #eef2ff, #fff); border-bottom: 2px solid #6366f1; position: relative; }
+        .app-btn { background: #6366f1; height: 25px; border-radius: 5px; margin-top: auto; }
+
+        /* --- MODELO 2: DOR VS SOLUÇÃO --- */
+        .c2-top { height: 50%; background: #fff; padding: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .c2-bottom { height: 50%; background: #6366f1; padding: 30px; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .badge-red { background: #fee2e2; color: #ef4444; padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; margin-bottom: 10px; }
+        .badge-green { background: #dcfce7; color: #22c55e; padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; margin-bottom: 10px; }
+
+        /* --- MODELO 3: OFERTA AGRESSIVA --- */
+        .c3-content { padding: 40px; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: radial-gradient(circle at top right, #fff, #f0f2f5); }
+        .price-big { font-size: 5rem; font-weight: 900; color: #1e293b; line-height: 1; letter-spacing: -3px; }
+        .price-big span { font-size: 1.5rem; color: #6366f1; vertical-align: top; margin-right: 5px; }
+        .c3-footer { position: absolute; bottom: 0; width: 100%; background: #1e293b; color: white; padding: 20px; text-align: center; font-weight: 700; }
+
+        .btn-cta { background: #f43f5e; color: white; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; margin-top: 20px; box-shadow: 0 10px 20px rgba(244, 63, 94, 0.3); }
+
+        h4 { margin-bottom: 10px; color: #555; }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR -->
-    <nav id="navbar">
-        <div class="container nav-content">
-            <div class="logo">
-                <i class="fas fa-chart-pie"></i>
-                <span>FluxoFácil</span>
-            </div>
-            <!-- LINK EXTERNO AQUI -->
-            <a href="LINK_DO_CHECKOUT_AQUI" target="_blank" class="btn btn-primary" style="padding: 10px 24px; font-size: 0.85rem;">Começar Agora</a>
-        </div>
-    </nav>
-
-    <!-- HERO -->
-    <header class="hero">
-        <!-- Container envelopado por dentro resolve o conflito da margem com a Navbar -->
-        <div class="container">
-            <h1>Você sabe quanto <span class="gradient-text">realmente</span> está ganhando?</h1>
-            <p class="subheadline">Organize seus atendimentos e pare de trabalhar no escuro com a ferramenta mais intuitiva do mercado.</p>
-            <div class="hero-cta">
-                <!-- LINK EXTERNO AQUI -->
-                <a href="LINK_DO_CHECKOUT_AQUI" target="_blank" class="btn btn-primary">Começar por R$9,90/mês</a>
-                <small><i class="fas fa-shield-alt"></i> 7 dias de garantia · Cancele quando quiser</small>
-            </div>
-        </div>
-    </header>
-
-    <!-- SEÇÃO DOR -->
-    <section class="pain-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>O caos acaba aqui.</h2>
-                <p>Veja se você se identifica:</p>
-            </div>
-        </div>
-        <div class="carousel-track-wrap">
-            <div class="pain-carousel" id="painCarousel">
-                <div class="pain-card">
-                    <i class="fas fa-exclamation-circle"></i>
-                    <strong>Falta de controle</strong>
-                    <p>Dinheiro entra e sai, mas você não sabe para onde ele vai no fim do mês.</p>
-                </div>
-                <div class="pain-card">
-                    <i class="fas fa-calendar-times"></i>
-                    <strong>Agenda Bagunçada</strong>
-                    <p>Esquecimento de clientes e anotações perdidas em papéis ou WhatsApp.</p>
-                </div>
-                <div class="pain-card">
-                    <i class="fas fa-search-dollar"></i>
-                    <strong>Lucro Invisível</strong>
-                    <p>Você trabalha muito, mas tem a sensação de que não está sobrando nada.</p>
-                </div>
-                <div class="pain-card">
-                    <i class="fas fa-clock"></i>
-                    <strong>Tempo Perdido</strong>
-                    <p>Horas recontando dinheiro no fim do dia porque as contas não batem.</p>
-                </div>
-                <div class="pain-card">
-                    <i class="fas fa-ban"></i>
-                    <strong>Sem Histórico</strong>
-                    <p>Não sabe qual serviço dá mais lucro nem qual cliente volta mais.</p>
-                </div>
-                <!-- Duplicado para loop infinito suave -->
-                <div class="pain-card">
-                    <i class="fas fa-exclamation-circle"></i>
-                    <strong>Falta de controle</strong>
-                    <p>Dinheiro entra e sai, mas você não sabe para onde ele vai no fim do mês.</p>
-                </div>
-                <div class="pain-card">
-                    <i class="fas fa-calendar-times"></i>
-                    <strong>Agenda Bagunçada</strong>
-                    <p>Esquecimento de clientes e anotações perdidas em papéis ou WhatsApp.</p>
-                </div>
-                <div class="pain-card">
-                    <i class="fas fa-search-dollar"></i>
-                    <strong>Lucro Invisível</strong>
-                    <p>Você trabalha muito, mas tem a sensação de que não está sobrando nada.</p>
-                </div>
-                <div class="pain-card">
-                    <i class="fas fa-clock"></i>
-                    <strong>Tempo Perdido</strong>
-                    <p>Horas recontando dinheiro no fim do dia porque as contas não batem.</p>
-                </div>
-                <div class="pain-card">
-                    <i class="fas fa-ban"></i>
-                    <strong>Sem Histórico</strong>
-                    <p>Não sabe qual serviço dá mais lucro nem qual cliente volta mais.</p>
-                </div>
-            </div>
-        </div>
-        <div class="pain-cta-wrapper container">
-            <!-- LINK EXTERNO AQUI -->
-            <a href="LINK_DO_CHECKOUT_AQUI" target="_blank" class="btn btn-primary">Resolver isso agora →</a>
-        </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section class="features">
-        <div class="container">
-            <div class="section-header">
-                <h2>Por que escolher o FluxoFácil?</h2>
-                <p>Tudo que você precisa, sem nada que atrapalhe.</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <i class="fas fa-bolt"></i>
-                    <h3>Agilidade Total</h3>
-                    <p>Cadastre atendimentos em segundos. Interface limpa e sem menus complicados.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Insights Reais</h3>
-                    <p>Gráficos automáticos que mostram seu serviço mais vendido e sua evolução.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>Efeito App</h3>
-                    <p>Funciona no celular como um aplicativo, mesmo totalmente offline.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- PRICING -->
-    <section class="pricing" id="preço">
-        <div class="container">
-            <div class="section-header pricing-header">
-                <h2>Um preço. Tudo incluído.</h2>
-                <p>Sem surpresas, sem fidelidade, sem complicação.</p>
-            </div>
-            <div class="pricing-bg">
-                <div class="price-card">
-                    <span class="plan-name">Plano Pro</span>
-                    <div class="price-amount">R$9,90<span class="price-suffix">/mês</span></div>
-                    <ul class="benefits-list">
-                        <li><i class="fas fa-check"></i> Atendimentos ilimitados</li>
-                        <li><i class="fas fa-check"></i> Relatórios financeiros detalhados</li>
-                        <li><i class="fas fa-check"></i> Cálculo automático de lucro</li>
-                        <li><i class="fas fa-check"></i> Backup e exportação de dados</li>
-                        <li><i class="fas fa-check"></i> Suporte prioritário</li>
-                    </ul>
-                    <!-- LINK EXTERNO AQUI -->
-                    <a href="LINK_DO_CHECKOUT_AQUI" target="_blank" class="btn-glass">Quero Começar Agora</a>
-                    <p class="price-footer">Sem fidelidade. Cancele em 1 clique.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- DEPOIMENTOS -->
-    <section class="social-proof">
-        <div class="container">
-            <div class="section-header">
-                <span style="color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.82rem;">Depoimentos</span>
-                <h2 style="margin-top: 10px;">Quem usa, aprova</h2>
-            </div>
-            <div class="testimonials">
-                <div class="testimonial-card">
-                    <div style="color: #fbbf24; margin-bottom: 12px; font-size: 0.9rem;">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+    <!-- CRIATIVO 1: DEMONSTRAÇÃO VISUAL -->
+    <div>
+        <h4>1. Demonstração (Stories/Instagram)</h4>
+        <div class="creative-container">
+            <div class="c1-bg">
+                <div class="c1-title">Sua gestão na palma da mão, mesmo offline.</div>
+                <div class="phone-mockup">
+                    <div class="app-screen">
+                        <div class="app-header"></div>
+                        <div class="app-card">
+                            <div class="app-label">Faturamento Mensal</div>
+                            <div class="app-val">R$ 12.450,00</div>
+                        </div>
+                        <div class="app-chart"></div>
+                        <div class="app-card" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div class="app-label">Corte de Cabelo</div>
+                            <div class="app-val" style="font-size: 0.6rem;">+ R$ 50,00</div>
+                        </div>
+                        <div class="app-card" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div class="app-label">Barba Completa</div>
+                            <div class="app-val" style="font-size: 0.6rem;">+ R$ 35,00</div>
+                        </div>
+                        <div class="app-btn"></div>
                     </div>
-                    <p>"O controle financeiro mudou meu jogo. Agora sei exatamente quanto cobrar pelos meus serviços."</p>
-                    <span style="display: block; margin-top: 16px; font-weight: 700; color: var(--primary); font-size: 0.92rem;">— Mariana Costa, Manicure</span>
                 </div>
-                <div class="testimonial-card">
-                    <div style="color: #fbbf24; margin-bottom: 12px; font-size: 0.9rem;">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p>"Simples e direto. Não preciso de curso para mexer. Uso todo dia entre um cliente e outro."</p>
-                    <span style="display: block; margin-top: 16px; font-weight: 700; color: var(--primary); font-size: 0.92rem;">— Ricardo Souza, Barbeiro</span>
-                </div>
+                <div style="margin-top: 25px; font-size: 0.8rem; font-weight: 600;">FluxoFácil: Simples. Rápido. Lucrativo.</div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- CTA FINAL -->
-    <section class="cta-final">
-        <div class="container">
-            <div class="cta-box">
-                <h2>Pronto para profissionalizar seu negócio?</h2>
-                <p>Junte-se a centenas de profissionais que pararam de trabalhar no escuro.</p>
-                <!-- LINK EXTERNO AQUI -->
-                <a href="LINK_DO_CHECKOUT_AQUI" target="_blank" class="btn btn-white">Assinar por R$9,90/mês</a>
-                <small style="color: rgba(255,255,255,0.6); font-size: 0.8rem;"><i class="fas fa-shield-alt"></i> 7 dias de garantia · Cancele quando quiser</small>
+    <!-- CRIATIVO 2: ANTES VS DEPOIS -->
+    <div>
+        <h4>2. Comparativo (Dor vs Solução)</h4>
+        <div class="creative-container">
+            <div class="c2-top">
+                <span class="badge-red">O JEITO ANTIGO</span>
+                <i class="fas fa-book" style="font-size: 3rem; color: #94a3b8; margin: 15px 0;"></i>
+                <p style="font-weight: 600; color: #64748b;">Caderninho bagunçado, esquecimento e prejuízo.</p>
+            </div>
+            <div class="c2-bottom">
+                <span class="badge-green">COM FLUXOFÁCIL</span>
+                <i class="fas fa-magic" style="font-size: 3rem; color: #fff; margin: 15px 0;"></i>
+                <p style="font-weight: 600;">Controle total do lucro e agenda organizada em segundos.</p>
+                <a href="#" class="btn-cta" style="font-size: 0.8rem; padding: 10px 20px;">QUERO MUDAR ISSO</a>
             </div>
         </div>
-    </section>
+    </div>
 
-    <footer>
-        <p>&copy; 2025 FluxoFácil. Cancele quando quiser.</p>
-    </footer>
+    <!-- CRIATIVO 3: PREÇO AGRESSIVO -->
+    <div>
+        <h4>3. Oferta Direta (Foco em Preço)</h4>
+        <div class="creative-container">
+            <div class="c3-content">
+                <div style="color: #6366f1; font-weight: 700; letter-spacing: 2px;">OFERTA LIMITADA</div>
+                <div style="font-size: 1.2rem; font-weight: 700; margin-top: 10px;">Gestão profissional por:</div>
+                <div class="price-big"><span>R$</span>9,90</div>
+                <div style="color: #64748b; font-weight: 600;">POR MÊS</div>
+                
+                <ul style="text-align: left; margin: 25px 0; font-size: 0.9rem; list-style: none; color: #475569;">
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #22c55e;"></i> Atendimentos Ilimitados</li>
+                    <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: #22c55e;"></i> Relatórios de Lucro</li>
+                    <li><i class="fas fa-check-circle" style="color: #22c55e;"></i> Funciona sem internet</li>
+                </ul>
 
-    <script>
-        // Scroll na navbar
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            nav.style.boxShadow = window.scrollY > 50 ? '0 5px 20px rgba(0,0,0,0.06)' : 'none';
-        });
-    </script>
+                <a href="#" class="btn-cta">ASSINAR AGORA</a>
+            </div>
+            <div class="c3-footer">
+                7 DIAS DE GARANTIA INCONDICIONAL
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
