@@ -3,434 +3,416 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MeuFluxo | Controle Financeiro Simples para Autônomos</title>
+    <title>MeuFluxo | Controle Financeiro Inteligente para Autônomos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            /* Novas Cores */
-            --primary: #1e3a8a; /* Azul escuro - Confiança */
-            --bg-light: #f8fafc;
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            
-            /* Cores de Apoio Solicitadas */
-            --success: #10b981; /* Verde - Financeiro */
-            --success-light: #dcfce7;
-            --accent: #ea580c; /* Laranja - Destaques e Botões */
-            --accent-hover: #c2410c;
-            
-            /* Utilitários */
-            --danger: #ef4444;
-            --danger-light: #fee2e2;
-            --dark-section: #0f172a;
+            /* Paleta Dark Mode Moderna (Estilo PlannerFin) */
+            --bg-dark: #09090b; /* Fundo principal escuro */
+            --card-bg: #18181b; /* Fundo dos cartões */
+            --border: #27272a; /* Bordas sutis */
+            --primary: #3b82f6; /* Azul Tech */
+            --primary-hover: #2563eb;
+            --success: #10b981; /* Verde Dinheiro */
+            --text-main: #f8fafc; /* Texto claro */
+            --text-muted: #a1a1aa; /* Texto acinzentado */
+            --glow: rgba(59, 130, 246, 0.15);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--bg-light); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-        /* --- ANIMAÇÃO DE REVELAÇÃO --- */
+        /* --- UTILITÁRIOS --- */
+        .text-blue { color: var(--primary); }
+        .text-green { color: var(--success); }
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- TOP BAR PROMOCIONAL --- */
+        .top-bar {
+            background: rgba(59, 130, 246, 0.1); border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            color: var(--primary); text-align: center; padding: 8px 15px; font-size: 0.85rem; font-weight: 600;
+            display: flex; justify-content: center; align-items: center; gap: 8px;
+        }
 
         /* --- BOTÕES --- */
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
-            padding: 16px 28px; border-radius: 16px; font-weight: 800;
-            text-decoration: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer; border: none; font-size: 1rem; width: 100%; text-align: center;
+            padding: 16px 32px; border-radius: 12px; font-weight: 800; font-size: 1.05rem;
+            text-decoration: none; transition: all 0.3s; cursor: pointer; border: none; width: 100%;
+            text-transform: uppercase; letter-spacing: 0.5px;
         }
         .btn-primary {
-            background: var(--accent);
-            color: white; box-shadow: 0 10px 25px rgba(234, 88, 12, 0.25);
+            background: var(--primary); color: white;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
         }
-        .btn-primary:hover { transform: translateY(-3px); background: var(--accent-hover); box-shadow: 0 15px 30px rgba(234, 88, 12, 0.35); }
-        
-        .badge {
-            background: var(--success-light); color: #059669;
-            padding: 6px 14px; border-radius: 100px; font-size: 0.75rem;
-            font-weight: 800; display: inline-block; margin-bottom: 12px; text-transform: uppercase;
+        .btn-primary:hover { transform: translateY(-3px); background: var(--primary-hover); box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4); }
+        .btn-success { background: var(--success); color: white; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2); }
+        .btn-success:hover { background: #059669; transform: translateY(-2px); }
+
+        /* --- HERO SECTION --- */
+        .hero { padding: 80px 0 50px; text-align: center; }
+        .badge-hero {
+            display: inline-block; padding: 6px 14px; border-radius: 100px;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+            font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 25px;
         }
+        .hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); line-height: 1.1; font-weight: 800; margin-bottom: 25px; letter-spacing: -1px; }
+        .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px; }
 
-        /* --- NAVBAR --- */
-        nav {
-            height: 70px; display: flex; align-items: center; position: fixed;
-            width: 100%; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.05);
+        /* --- MARQUEE (BARRA DESLIZANTE) --- */
+        .marquee-container { overflow: hidden; white-space: nowrap; background: var(--primary); padding: 12px 0; margin: 40px 0; display: flex; transform: rotate(-1deg); width: 105%; margin-left: -2.5%; }
+        .marquee-content { display: inline-flex; animation: marquee 25s linear infinite; gap: 40px; color: white; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
+        .marquee-content span { display: flex; align-items: center; gap: 10px; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- BENTO GRID (O QUE VOCÊ TERÁ) --- */
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 15px; }
+        .bento-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 20px 0; }
+        .bento-card {
+            background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px;
+            padding: 30px; text-align: left; transition: 0.3s;
         }
-        .nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .logo { font-weight: 800; font-size: 1.2rem; color: var(--primary); display: flex; align-items: center; gap: 8px; }
-        .logo i { color: var(--success); }
+        .bento-card:hover { border-color: var(--primary); box-shadow: var(--glow); transform: translateY(-5px); }
+        .bento-icon { width: 50px; height: 50px; border-radius: 12px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary); margin-bottom: 20px; }
+        .bento-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .bento-card p { color: var(--text-muted); font-size: 0.95rem; }
 
-        /* --- HERO --- */
-        .hero { padding: 130px 0 60px; text-align: center; background: white; }
-        h1 { font-size: clamp(1.8rem, 7vw, 3.2rem); line-height: 1.1; font-weight: 800; margin-bottom: 20px; letter-spacing: -1px; }
-        .money-text { color: var(--success); }
-        .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 35px; }
-
-        /* --- SEÇÃO: ISSO É PRA VOCÊ SE (DORES) --- */
-        .pain-section { background: var(--dark-section); color: white; padding: 70px 0; }
-        .pain-header { text-align: center; margin-bottom: 40px; }
-        .pain-header h2 { font-size: 2rem; margin-bottom: 10px; }
-        .pain-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-        .pain-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 25px; border-radius: 20px; display: flex; align-items: flex-start; gap: 15px; }
-        .pain-card i { font-size: 1.5rem; color: var(--accent); margin-top: 3px; }
-        .pain-card p { font-size: 1.05rem; font-weight: 500; line-height: 1.4; margin: 0; }
-
-        /* --- SIMULADOR INTERATIVO --- */
-        .simulator-section { padding: 80px 0; }
-        .simulator-container {
-            background: white; border-radius: 30px; border: 1px solid rgba(0,0,0,0.06);
-            display: flex; flex-direction: column; box-shadow: 0 30px 60px rgba(0,0,0,0.05); overflow: hidden;
+        /* --- SIMULADOR / DEMONSTRATIVO --- */
+        .sim-wrapper {
+            background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px;
+            padding: 30px; margin: 60px auto; max-width: 900px; box-shadow: 0 30px 60px rgba(0,0,0,0.5);
         }
-        .sim-sidebar { padding: 25px; border-bottom: 1px solid #f1f5f9; background: #fafbfc; }
-        .profile-selector { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 15px; scrollbar-width: none; }
-        .profile-btn { padding: 10px 18px; border-radius: 12px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-weight: 700; white-space: nowrap; color: var(--text-muted); font-size: 0.85rem; transition: 0.3s; }
-        .profile-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-        
-        .service-item { padding: 14px; border-radius: 14px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; margin-bottom: 10px; cursor: pointer; background: white; transition: 0.2s; }
-        .service-item:hover { border-color: var(--success); transform: translateX(5px); }
-        .service-item strong { font-size: 0.9rem; }
-        .service-item span { color: var(--success); font-weight: 800; font-size: 0.9rem; }
+        .sim-header { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+        .sim-btn {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-muted);
+            padding: 8px 16px; border-radius: 100px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.3s;
+        }
+        .sim-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+        .sim-panels { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .sim-services { display: flex; flex-direction: column; gap: 10px; }
+        .sim-item {
+            display: flex; justify-content: space-between; align-items: center; padding: 15px;
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: 0.2s;
+        }
+        .sim-item:hover { background: rgba(16, 185, 129, 0.1); border-color: var(--success); }
+        .sim-item strong { font-size: 0.95rem; }
+        .sim-item span { color: var(--success); font-weight: 700; }
+        .sim-stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px; }
+        .sim-stat-box { background: rgba(0,0,0,0.2); border: 1px solid var(--border); padding: 15px; border-radius: 12px; text-align: center; }
+        .sim-stat-box small { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+        .sim-stat-box h4 { color: var(--success); font-size: 1.4rem; font-weight: 800; }
+        .chart-container { height: 200px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 12px; padding: 15px; }
 
-        .sim-dashboard { padding: 25px; flex: 1; }
-        .sim-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 25px; }
-        .stat-card { padding: 15px; background: var(--bg-light); border-radius: 16px; border: 1px solid #f1f5f9; }
-        .stat-card small { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
-        .stat-card h3 { color: var(--success); font-size: 1.2rem; }
+        /* --- AGITAÇÃO DO PROBLEMA (A VERDADE) --- */
+        .truth-section { padding: 80px 0; background: #000; text-align: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .truth-content { max-width: 800px; margin: 0 auto; }
+        .truth-icon { font-size: 3rem; color: #ef4444; margin-bottom: 20px; }
+        .truth-content h2 { font-size: 2rem; margin-bottom: 20px; line-height: 1.3; }
+        .truth-content p { font-size: 1.1rem; color: var(--text-muted); }
 
-        .charts-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-        .chart-box { height: 220px; background: white; border-radius: 20px; padding: 15px; border: 1px solid #f1f5f9; }
+        /* --- PARA QUEM É (CHECKLIST) --- */
+        .for-you-section { padding: 80px 0; }
+        .for-you-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 40px; display: flex; flex-direction: column; gap: 30px; }
+        .for-you-box h3 { font-size: 1.8rem; text-align: center; margin-bottom: 10px; }
+        .check-list-big { list-style: none; display: flex; flex-direction: column; gap: 15px; }
+        .check-list-big li { display: flex; align-items: flex-start; gap: 15px; font-size: 1.05rem; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid var(--border); }
+        .check-list-big li i { color: var(--success); font-size: 1.2rem; margin-top: 2px; }
 
-        /* --- SEÇÃO: PERFIS (FUNCIONA PARA QUEM VIVE DO PRÓPRIO TRABALHO) --- */
-        .profiles-section { padding: 60px 0; background: white; text-align: center; }
-        .profiles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
-        .profile-box { padding: 25px 15px; background: var(--bg-light); border-radius: 20px; border: 1px solid #e2e8f0; }
-        .profile-box i { font-size: 2rem; color: var(--accent); margin-bottom: 15px; }
-        .profile-box h4 { font-size: 1.1rem; margin-bottom: 5px; color: var(--primary); }
-        .profile-box p { font-size: 0.85rem; color: var(--text-muted); }
-
-        /* --- SEÇÃO ANTES E DEPOIS --- */
-        .comparison-section { padding: 80px 0; }
-        .comparison-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin-top: 40px; }
-        .comp-card { padding: 30px; border-radius: 24px; position: relative; }
-        .comp-card.before { background: var(--danger-light); border: 1px solid #fecaca; }
-        .comp-card.after { background: var(--success-light); border: 1px solid #bbf7d0; }
-        .comp-card h3 { font-size: 1.3rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-        .comp-card.before h3 { color: var(--danger); }
-        .comp-card.after h3 { color: #059669; }
-        .comp-list { list-style: none; }
-        .comp-list li { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px; font-weight: 600; font-size: 0.95rem; }
-        .comp-list li i { margin-top: 5px; }
-
-        /* --- SEÇÃO DEPOIMENTOS --- */
-        .testimonials-section { padding: 80px 0; background: white; text-align: center; }
-        .test-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 40px; }
-        .test-card { padding: 30px; background: var(--bg-light); border-radius: 20px; text-align: left; border: 1px solid #e2e8f0; }
-        .stars { color: #fbbf24; margin-bottom: 15px; font-size: 1.1rem; }
-        .test-text { font-style: italic; font-size: 0.95rem; color: var(--text-main); margin-bottom: 20px; line-height: 1.5; }
-        .test-author { display: flex; align-items: center; gap: 10px; }
-        .test-author-info strong { display: block; font-size: 0.95rem; color: var(--primary); }
-        .test-author-info span { font-size: 0.8rem; color: var(--text-muted); }
-
-        /* --- OFERTA REFINADA --- */
-        .offer-section { padding: 80px 0; text-align: center; background: var(--dark-section); color: white; }
+        /* --- CAIXA DE OFERTA (PRICING) --- */
+        .offer-wrapper { padding: 60px 0 100px; }
         .offer-card {
-            max-width: 450px; margin: 0 auto; background: white; padding: 50px 30px; border-radius: 35px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3); color: var(--text-main); position: relative;
+            background: var(--card-bg); border: 2px solid var(--primary); border-radius: 24px;
+            max-width: 500px; margin: 0 auto; overflow: hidden; position: relative;
+            box-shadow: 0 0 50px rgba(59, 130, 246, 0.15);
         }
-        .price-tag { margin: 15px 0 30px; }
-        .price-tag .amount { font-size: 2.8rem; font-weight: 800; color: var(--success); letter-spacing: -1px; }
-        .price-tag .period { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
-        .offer-benefits { text-align: left; margin: 25px 0; list-style: none; }
-        .offer-benefits li { padding: 12px 0; display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 0.95rem; border-bottom: 1px solid #f1f5f9; }
-        .offer-benefits li i { color: var(--success); font-size: 1.2rem; }
+        .offer-tag { background: var(--primary); color: white; text-align: center; padding: 12px; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .offer-body { padding: 40px 30px; }
+        .offer-list { list-style: none; margin-bottom: 30px; }
+        .offer-list li { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 0.95rem; color: #e2e8f0; }
+        .offer-list li i { color: var(--success); }
+        .price-box { text-align: center; margin-bottom: 30px; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 16px; border: 1px solid var(--border); }
+        .old-price { text-decoration: line-through; color: #ef4444; font-size: 1rem; font-weight: 600; }
+        .new-price { font-size: 3rem; font-weight: 900; color: var(--success); line-height: 1; margin: 5px 0; }
+        .new-price span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
+        .guarantee { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); }
+        
+        /* Contador */
+        .countdown-box { margin-top: 25px; text-align: center; }
+        .countdown-box p { font-size: 0.85rem; color: #ef4444; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; }
+        .timer { display: flex; justify-content: center; gap: 10px; }
+        .time-block { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; padding: 10px 15px; min-width: 70px; }
+        .time-block strong { display: block; font-size: 1.5rem; font-weight: 800; }
+        .time-block span { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- FAQ --- */
-        .faq-section { padding: 80px 0; background: white; }
-        .faq-header { text-align: center; margin-bottom: 40px; }
-        .faq-grid { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
-        .faq-item { background: var(--bg-light); border-radius: 16px; padding: 20px; border: 1px solid #e2e8f0; }
-        .faq-item h4 { font-size: 1.05rem; color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
-        .faq-item h4 i { color: var(--accent); }
-        .faq-item p { font-size: 0.95rem; color: var(--text-muted); margin: 0; }
+        /* --- FAQ ACCORDION --- */
+        .faq-section { padding: 60px 0; max-width: 800px; margin: 0 auto; }
+        details { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 15px; overflow: hidden; transition: 0.3s; }
+        summary { padding: 20px; font-weight: 600; font-size: 1.05rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--primary); transition: 0.3s; }
+        details[open] summary::after { transform: rotate(180deg); }
+        details p { padding: 0 20px 20px; color: var(--text-muted); font-size: 0.95rem; }
 
-        /* --- RESPONSIVIDADE DESKTOP --- */
-        @media (min-width: 992px) {
-            .pain-grid { grid-template-columns: repeat(3, 1fr); }
-            .simulator-container { flex-direction: row; height: 600px; }
-            .sim-sidebar { width: 380px; border-bottom: none; border-right: 1px solid #f1f5f9; padding: 35px; }
-            .sim-dashboard { padding: 35px; overflow-y: auto; }
-            .sim-stats { grid-template-columns: repeat(4, 1fr); }
-            .charts-grid { grid-template-columns: 1.5fr 1fr; }
-            .profiles-grid { grid-template-columns: repeat(4, 1fr); }
-            .comparison-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
-            .test-grid { grid-template-columns: repeat(3, 1fr); }
-            .nav-content .btn { width: auto; }
+        /* --- RESPONSIVIDADE --- */
+        @media (min-width: 768px) {
+            .bento-grid { grid-template-columns: repeat(2, 1fr); }
+            .for-you-box { padding: 50px; }
+            .sim-panels { grid-template-columns: 1fr 1.5fr; gap: 30px; }
+        }
+        @media (min-width: 1024px) {
+            .bento-grid { grid-template-columns: repeat(4, 1fr); }
+            .hero-btns { display: flex; gap: 15px; justify-content: center; }
+            .hero-btns .btn { width: auto; min-width: 250px; }
         }
 
-        footer { padding: 50px 0; text-align: center; color: var(--text-muted); font-size: 0.85rem; background: var(--dark-section); border-top: 1px solid rgba(255,255,255,0.1); }
+        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text-muted); background: #000; }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="container nav-content">
-            <div class="logo"><i class="fas fa-wallet"></i> MeuFluxo</div>
-            <a href="#oferta" class="btn btn-primary cta-link" style="width: auto; padding: 10px 20px; font-size: 0.85rem;">Quero Organizar</a>
-        </div>
-    </nav>
+    <div class="top-bar">
+        <i class="fas fa-bolt"></i> Restam apenas 14 acessos promocionais.
+    </div>
 
-    <header class="hero">
-        <div class="container">
-            <span class="badge"><i class="fas fa-check-circle"></i> Feito para autônomos</span>
-            <h1>Trabalha muito e não vê a cor do <span class="money-text">dinheiro?</span></h1>
-            <p>Assuma o controle do seu suor. Troque os papéis perdidos e as contas de cabeça por um painel simples e rápido direto no seu celular.</p>
-            <a href="#oferta" class="btn btn-primary cta-link" style="max-width: 350px; font-size: 1.1rem;">Quero ver meu lucro real</a>
+    <header class="hero container reveal active">
+        <div class="badge-hero">
+            <i class="fas fa-chart-pie text-blue"></i> Mais de 5.000 autônomos organizados
+        </div>
+        <h1>Só precisa de 2 minutos por dia para ver <span class="text-green">seu dinheiro finalmente sobrar!</span></h1>
+        <p>Pare de perder dinheiro por falta de estratégia. Retome o controle financeiro do seu trabalho com um painel automático, mais fácil de usar do que mandar um áudio no WhatsApp.</p>
+        
+        <div class="hero-btns">
+            <a href="#oferta" class="btn btn-primary cta-link">ACESSAR AGORA</a>
         </div>
     </header>
 
-    <!-- SEÇÃO: DORES / IDENTIFICAÇÃO -->
-    <section class="pain-section">
-        <div class="container reveal">
-            <div class="pain-header">
-                <h2>Isso é pra você se...</h2>
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span>💅 MANICURES E BELEZA</span>
+            <span>•</span>
+            <span>✂️ BARBEARIAS</span>
+            <span>•</span>
+            <span>🚗 MOTORISTAS DE APP</span>
+            <span>•</span>
+            <span>🍔 LANCHONETES E DOCES</span>
+            <span>•</span>
+            <span>📦 VENDAS EM GERAL</span>
+            <span>•</span>
+            <span>🛠️ PRESTADORES DE SERVIÇO</span>
+            <span>•</span>
+            <!-- Repetição para loop contínuo -->
+            <span>💅 MANICURES E BELEZA</span>
+            <span>•</span>
+            <span>✂️ BARBEARIAS</span>
+            <span>•</span>
+            <span>🚗 MOTORISTAS DE APP</span>
+            <span>•</span>
+            <span>🍔 LANCHONETES E DOCES</span>
+            <span>•</span>
+            <span>📦 VENDAS EM GERAL</span>
+            <span>•</span>
+            <span>🛠️ PRESTADORES DE SERVIÇO</span>
+        </div>
+    </div>
+
+    <section class="container reveal">
+        <div class="section-title">
+            <h2 style="font-size: 1.8rem; font-weight: 600; color: var(--text-muted);">No <span style="color: white; font-weight: 800;">MeuFluxo</span> você terá:</h2>
+        </div>
+        
+        <div class="bento-grid">
+            <div class="bento-card">
+                <div class="bento-icon"><i class="fas fa-hand-pointer"></i></div>
+                <h3>Registros em 2 toques</h3>
+                <p>Abra no celular, toque no serviço que acabou de fazer e pronto. Venda registrada sem complicação.</p>
             </div>
-            <div class="pain-grid">
-                <div class="pain-card">
-                    <i class="fas fa-question-circle"></i>
-                    <p>Você trabalha o dia inteiro e não sabe quanto realmente ganhou no fim do mês.</p>
+            <div class="bento-card">
+                <div class="bento-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Dashboard Automático</h3>
+                <p>O sistema calcula sozinho o quanto entrou, tira seus custos e te mostra o lucro limpo no bolso.</p>
+            </div>
+            <div class="bento-card">
+                <div class="bento-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3>Celular & PC</h3>
+                <p>Acesse de qualquer dispositivo sem precisar instalar nada pesado. Tudo salvo na nuvem com segurança.</p>
+            </div>
+            <div class="bento-card">
+                <div class="bento-icon"><i class="fas fa-history"></i></div>
+                <h3>Histórico Completo</h3>
+                <p>Nunca mais perca o controle do que vendeu na semana passada ou quem te pagou no cartão e no pix.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SIMULADOR ESTILO APP -->
+    <section class="container reveal">
+        <div class="section-title" style="margin-top: 60px;">
+            <h2>Veja como funciona na prática</h2>
+            <p style="color: var(--text-muted);">Toque nos botões abaixo e veja o painel reagir na hora.</p>
+        </div>
+
+        <div class="sim-wrapper">
+            <div class="sim-header">
+                <button class="sim-btn active" onclick="setProfile('manicure')">Manicure / Beleza</button>
+                <button class="sim-btn" onclick="setProfile('barbeiro')">Barbearia</button>
+                <button class="sim-btn" onclick="setProfile('app')">Motorista App</button>
+            </div>
+
+            <div class="sim-panels">
+                <!-- Coluna de Ação -->
+                <div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; font-weight: 700;">👆 Simular novo registro</p>
+                    <div class="sim-services" id="serviceList">
+                        <!-- Gerado via JS -->
+                    </div>
                 </div>
-                <div class="pain-card">
-                    <i class="fas fa-book-dead"></i>
-                    <p>Anota seus atendimentos no WhatsApp, em papéis que somem ou tenta guardar de cabeça.</p>
-                </div>
-                <div class="pain-card">
-                    <i class="fas fa-money-bill-wave"></i>
-                    <p>Sente que o dinheiro entra, mas não sabe pra onde vai na hora de pagar as contas.</p>
+
+                <!-- Coluna de Resultados -->
+                <div>
+                    <div class="sim-stats-grid">
+                        <div class="sim-stat-box"><small>Entrou Hoje</small><h4 id="statToday">R$ 0</h4></div>
+                        <div class="sim-stat-box"><small>Total Mês</small><h4 id="statMonth">R$ 2.500</h4></div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="mainChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SIMULADOR INTERATIVO -->
-    <section class="simulator-section">
+    <section class="truth-section reveal">
+        <div class="container truth-content">
+            <i class="fas fa-exclamation-triangle truth-icon"></i>
+            <h2>Você sabia que 80% dos autônomos não sabem exatamente qual foi o lucro real do mês?</h2>
+            <p>A verdade é que a maioria "ACHA" que sabe quanto ganha. Mas quando mistura o dinheiro do negócio com as contas de casa, percebe que o dinheiro foi embora como água e não sobrou nada para investir ou descansar.</p>
+        </div>
+    </section>
+
+    <section class="for-you-section container reveal">
+        <div class="for-you-box">
+            <h3>O MeuFluxo é para você que...</h3>
+            <ul class="check-list-big">
+                <li><i class="fas fa-check-circle"></i> Trabalha o dia inteiro e sente que o dinheiro some no fim do mês.</li>
+                <li><i class="fas fa-check-circle"></i> Anota as vendas num caderno que rasga ou perde nas mensagens do WhatsApp.</li>
+                <li><i class="fas fa-check-circle"></i> Quer saber exatamente o lucro de cada serviço tirando os custos de material.</li>
+                <li><i class="fas fa-check-circle"></i> Deseja ter uma reserva financeira mas nunca sabe quando o dinheiro permite guardar.</li>
+                <li><i class="fas fa-check-circle"></i> Não tem tempo ou paciência para aprender a usar planilhas de Excel complicadas.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="offer-wrapper reveal" id="oferta">
         <div class="container">
-            <div style="text-align: center; margin-bottom: 40px;" class="reveal">
-                <h2>Veja como é fácil anotar uma venda</h2>
-                <p style="color: var(--text-muted);">Esqueça planilhas complicadas. Bastam 2 toques no celular.</p>
+            <div class="section-title">
+                <h2>Pare de trabalhar no escuro.</h2>
+                <p style="color: var(--text-muted);">Escolha profissionalizar o seu trabalho hoje mesmo.</p>
             </div>
 
-            <div class="simulator-container reveal">
-                <div class="sim-sidebar">
-                    <div class="profile-selector">
-                        <button class="profile-btn active" onclick="setProfile('manicure')">Manicure</button>
-                        <button class="profile-btn" onclick="setProfile('barbeiro')">Barbearia</button>
-                        <button class="profile-btn" onclick="setProfile('hamburgueria')">Lanches</button>
-                    </div>
-                    <div class="service-list" id="serviceList"></div>
-                    <p style="font-size: 0.8rem; color: var(--accent); font-weight: 600; text-align: center; margin-top: 15px; background: #fff7ed; padding: 10px; border-radius: 10px;">
-                        👆 Toque nas opções acima para simular
-                    </p>
-                </div>
-
-                <div class="sim-dashboard">
-                    <div class="sim-stats">
-                        <div class="stat-card"><small>Entrou Hoje</small><h3 id="statToday">R$ 0</h3></div>
-                        <div class="stat-card"><small>Total no Mês</small><h3 id="statMonth">R$ 2.500</h3></div>
-                        <div class="stat-card"><small>Média por cliente</small><h3 id="statTicket">R$ 45</h3></div>
-                        <div class="stat-card"><small>Mais Vendido</small><h3 id="statTop" style="font-size: 0.85rem; color: var(--primary);">---</h3></div>
-                    </div>
-                    
-                    <div class="charts-grid">
-                        <div class="chart-box"><canvas id="mainChart"></canvas></div>
-                        <div class="chart-box"><canvas id="serviceChart"></canvas></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SEÇÃO: PERFIS -->
-    <section class="profiles-section">
-        <div class="container reveal">
-            <h2>Funciona perfeitamente para quem vive do próprio trabalho</h2>
-            <div class="profiles-grid">
-                <div class="profile-box">
-                    <i class="fas fa-car"></i>
-                    <h4>Motoristas</h4>
-                    <p>Controle de corridas e gastos com combustível no dia a dia.</p>
-                </div>
-                <div class="profile-box">
-                    <i class="fas fa-cut"></i>
-                    <h4>Barbeiros</h4>
-                    <p>Saiba quantos cortes fez e quanto de comissão precisa separar.</p>
-                </div>
-                <div class="profile-box">
-                    <i class="fas fa-spa"></i>
-                    <h4>Profissionais da Beleza</h4>
-                    <p>Controle clientes, unhas, cabelos e saiba o lucro de cada serviço.</p>
-                </div>
-                <div class="profile-box">
-                    <i class="fas fa-hamburger"></i>
-                    <h4>Pequenos Negócios</h4>
-                    <p>Vende lanches ou doces? Separe o custo dos ingredientes do seu lucro.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SEÇÃO ANTES E DEPOIS -->
-    <section class="comparison-section" style="background: white;">
-        <div class="container">
-            <div style="text-align: center;" class="reveal">
-                <h2>O que a falta de organização te custa?</h2>
-            </div>
-
-            <div class="comparison-grid">
-                <!-- ANTES -->
-                <div class="comp-card before reveal">
-                    <h3><i class="fas fa-times-circle"></i> A vida sem o MeuFluxo</h3>
-                    <ul class="comp-list">
-                        <li><i class="fas fa-times" style="color: var(--danger);"></i> Anotações perdidas em papéis ou no meio do WhatsApp.</li>
-                        <li><i class="fas fa-times" style="color: var(--danger);"></i> Mistura o dinheiro do aluguel de casa com o dinheiro do negócio.</li>
-                        <li><i class="fas fa-times" style="color: var(--danger);"></i> Sensação terrível de "trocar dinheiro" sem nunca crescer.</li>
-                    </ul>
-                </div>
-
-                <!-- DEPOIS -->
-                <div class="comp-card after reveal">
-                    <h3><i class="fas fa-check-circle"></i> A vida com o MeuFluxo</h3>
-                    <ul class="comp-list">
-                        <li><i class="fas fa-check" style="color: var(--success);"></i> Vendas e atendimentos registrados em apenas 2 toques.</li>
-                        <li><i class="fas fa-check" style="color: var(--success);"></i> O sistema separa automaticamente o que é custo e o que é lucro.</li>
-                        <li><i class="fas fa-check" style="color: var(--success);"></i> Clareza total e paz mental para saber que as contas estão pagas.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- DEPOIMENTOS -->
-    <section class="testimonials-section">
-        <div class="container reveal">
-            <h2>Quem usa, não volta pros cadernos</h2>
-            <div class="test-grid">
-                <div class="test-card">
-                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="test-text">"Antes eu anotava tudo num caderno e no fim do dia estava morta de cansaço pra somar. Agora, entre uma cliente e outra, aperto dois botões e o celular já me diz quanto ganhei. Mudou minha vida!"</p>
-                    <div class="test-author-info">
-                        <strong>Ana Lúcia</strong>
-                        <span>Manicure</span>
-                    </div>
-                </div>
-                <div class="test-card">
-                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="test-text">"Achava que aplicativo de gestão era coisa pra empresa grande, cheio de complicação. O MeuFluxo é tão direto ao ponto que eu uso rapidinho no carro esperando a próxima corrida tocar."</p>
-                    <div class="test-author-info">
-                        <strong>Roberto S.</strong>
-                        <span>Motorista de App</span>
-                    </div>
-                </div>
-                <div class="test-card">
-                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="test-text">"Eu vivia misturando o dinheiro de casa com o da barbearia. Hoje eu vejo o lucro limpo no gráfico, deu até pra começar a guardar dinheiro pra reformar o salão."</p>
-                    <div class="test-author-info">
-                        <strong>Marcos Vinícius</strong>
-                        <span>Barbeiro</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- OFERTA REFINADA -->
-    <section class="offer-section" id="oferta">
-        <div class="container reveal">
-            <h2 style="margin-bottom: 40px;">Chegou a hora de profissionalizar seu bolso</h2>
             <div class="offer-card">
-                <span class="badge" style="background: var(--success-light); color: #059669;">Liberação Imediata</span>
-                <h3 style="font-size: 1.5rem; font-weight: 800; margin-top: 10px;">Acesso Completo</h3>
-                
-                <div class="price-tag">
-                    <span class="amount">R$ 9,90</span>
-                    <span class="period">/mês</span>
-                </div>
-                
-                <ul class="offer-benefits">
-                    <li><i class="fas fa-check-circle"></i> Cadastre todas as suas vendas</li>
-                    <li><i class="fas fa-check-circle"></i> Painel simples de lucros</li>
-                    <li><i class="fas fa-check-circle"></i> Resumo financeiro pelo celular</li>
-                    <li><i class="fas fa-check-circle"></i> Cancele quando quiser, sem multas</li>
-                </ul>
+                <div class="offer-tag">🔥 DESCONTO DE LANÇAMENTO OFF</div>
+                <div class="offer-body">
+                    
+                    <div class="price-box">
+                        <p class="old-price">de R$ 19,90</p>
+                        <p class="new-price">R$ 9,90<span>/mês</span></p>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">Acesso imediato • Cancele quando quiser</p>
+                    </div>
 
-                <a href="#" class="btn btn-primary cta-link" style="font-size: 1.1rem; padding: 20px; margin-top: 15px;">Começar a Organizar Agora</a>
+                    <ul class="offer-list">
+                        <li><i class="fas fa-check"></i> Dashboard financeiro completo</li>
+                        <li><i class="fas fa-check"></i> Registros ilimitados de atendimentos</li>
+                        <li><i class="fas fa-check"></i> Separação de custos e lucros automática</li>
+                        <li><i class="fas fa-check"></i> Histórico em nuvem (não perde se trocar de celular)</li>
+                        <li><i class="fas fa-check"></i> Funciona no Celular, Tablet e Computador</li>
+                        <li><i class="fas fa-check"></i> Suporte prioritário via WhatsApp</li>
+                    </ul>
 
-                <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #f1f5f9; display: flex; align-items: center; gap: 15px; text-align: left;">
-                    <i class="fas fa-shield-alt" style="font-size: 2rem; color: var(--primary);"></i>
-                    <p style="font-size: 0.85rem; font-weight: 600; line-height: 1.3; color: var(--text-muted);">Teste sem medo por 7 dias. Se achar complicado, devolvemos seu dinheiro na hora.</p>
+                    <a href="#" class="btn btn-success cta-link" style="width: 100%;">GARANTIR ACESSO AGORA</a>
+
+                    <div class="countdown-box">
+                        <p>Oferta encerra em:</p>
+                        <div class="timer">
+                            <div class="time-block"><strong id="hrs">02</strong><span>Hrs</span></div>
+                            <div style="font-size: 1.5rem; font-weight: 800; align-self: center;">:</div>
+                            <div class="time-block"><strong id="mins">59</strong><span>Min</span></div>
+                            <div style="font-size: 1.5rem; font-weight: 800; align-self: center;">:</div>
+                            <div class="time-block"><strong id="secs">54</strong><span>Seg</span></div>
+                        </div>
+                    </div>
+
+                    <div class="guarantee">
+                        <i class="fas fa-shield-alt text-blue" style="font-size: 1.5rem;"></i>
+                        <span><strong>Garantia de 7 dias.</strong> Se não gostar da plataforma, devolvemos 100% do seu dinheiro com apenas um clique.</span>
+                    </div>
+
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="faq-section">
-        <div class="container reveal">
-            <div class="faq-header">
-                <h2>Dúvidas Frequentes</h2>
-            </div>
-            <div class="faq-grid">
-                <div class="faq-item">
-                    <h4><i class="fas fa-chevron-right"></i> Preciso saber usar tecnologia ou entender de finanças?</h4>
-                    <p>Não! Se você sabe mandar mensagem no WhatsApp, vai saber usar o MeuFluxo. Ele foi criado exatamente para quem não gosta de planilhas complicadas.</p>
-                </div>
-                <div class="faq-item">
-                    <h4><i class="fas fa-chevron-right"></i> Funciona no meu celular? Preciso instalar?</h4>
-                    <p>Funciona em qualquer celular com internet. Você não precisa baixar nada da loja de aplicativos e não ocupa espaço na memória do seu telefone.</p>
-                </div>
-                <div class="faq-item">
-                    <h4><i class="fas fa-chevron-right"></i> Posso cancelar quando eu quiser?</h4>
-                    <p>Com certeza. Não temos fidelidade, nem multas. Você cancela com um clique a hora que desejar.</p>
-                </div>
-                <div class="faq-item">
-                    <h4><i class="fas fa-chevron-right"></i> Meus dados ficam seguros?</h4>
-                    <p>Sim. Usamos proteção de ponta. Apenas você tem acesso aos números do seu negócio mediante sua senha pessoal.</p>
-                </div>
-            </div>
+    <section class="faq-section reveal">
+        <div class="section-title">
+            <h2>Perguntas Frequentes</h2>
         </div>
+        
+        <details>
+            <summary>Preciso saber usar computador ou Excel?</summary>
+            <p>De forma alguma. O MeuFluxo foi desenhado para ser tão fácil quanto usar as redes sociais no celular. Tudo é focado em botões grandes e claros.</p>
+        </details>
+        <details>
+            <summary>Tem aplicativo para baixar?</summary>
+            <p>Você não precisa ocupar a memória do seu celular baixando aplicativos da loja. O MeuFluxo funciona diretamente pelo navegador de qualquer celular com internet.</p>
+        </details>
+        <details>
+            <summary>Posso cancelar se eu não gostar?</summary>
+            <p>Com certeza. Não temos contrato de fidelidade. Você pode cancelar a sua assinatura a qualquer momento com apenas um botão na plataforma.</p>
+        </details>
+        <details>
+            <summary>Como recebo meu acesso?</summary>
+            <p>Imediatamente após a confirmação do pagamento, você receberá o link de acesso, seu login e senha diretamente no e-mail cadastrado e no seu WhatsApp.</p>
+        </details>
     </section>
 
     <footer>
         <div class="container">
-            <p style="color: #94a3b8;">&copy; 2024 MeuFluxo. Feito para quem trabalha por conta própria.</p>
+            <p>© 2024 MeuFluxo. Todos os direitos reservados.</p>
+            <p style="margin-top: 10px; opacity: 0.5;">Este site não é afiliado ao Facebook ou a qualquer entidade do Facebook. Protegemos rigorosamente os dados dos nossos usuários.</p>
         </div>
     </footer>
 
     <script>
-        // --- CONFIGURAÇÃO CENTRAL DE CHECKOUT ---
-        const CHECKOUT_URL = "https://meufluxo-pi.vercel.app/"; // <--- Altere aqui o seu link
+        // Configuração Global de Cores para o Gráfico se adaptar ao Dark Mode
+        Chart.defaults.color = '#a1a1aa';
+        Chart.defaults.borderColor = 'rgba(255,255,255,0.05)';
+        Chart.defaults.font.family = "'Inter', sans-serif";
 
-        // Aplica o link em todos os CTAs
+        // --- CHECKOUT URL ---
+        const CHECKOUT_URL = "https://meufluxo-pi.vercel.app/"; 
         document.querySelectorAll('.cta-link').forEach(el => el.href = CHECKOUT_URL);
 
         // --- LÓGICA DO SIMULADOR ---
         const profiles = {
-            manicure: { services:[{ id: 'm1', name: 'Mão simples', price: 30 }, { id: 'm2', name: 'Pé e Mão', price: 60 }, { id: 'm3', name: 'Alongamento', price: 120 }], initial:[5, 3, 2] },
-            barbeiro: { services:[{ id: 'b1', name: 'Corte', price: 35 }, { id: 'b2', name: 'Barba', price: 25 }, { id: 'b3', name: 'Cabelo + Barba', price: 55 }], initial: [8, 4, 6] },
-            hamburgueria: { services:[{ id: 'h1', name: 'X-Bacon', price: 28 }, { id: 'h2', name: 'Combo Completo', price: 45 }, { id: 'h3', name: 'Refrigerante', price: 8 }], initial:[12, 10, 15] }
+            manicure: { services:[{ id: 'm1', name: 'Mão simples', price: 30 }, { id: 'm2', name: 'Pé e Mão', price: 65 }, { id: 'm3', name: 'Alongamento', price: 120 }], initial:[5, 3, 2] },
+            barbeiro: { services:[{ id: 'b1', name: 'Corte Degradê', price: 40 }, { id: 'b2', name: 'Barba Terapia', price: 30 }, { id: 'b3', name: 'Combo Completo', price: 65 }], initial: [8, 4, 6] },
+            app: { services:[{ id: 'a1', name: 'Corrida Curta', price: 12 }, { id: 'a2', name: 'Corrida Média', price: 25 }, { id: 'a3', name: 'Viagem Longa', price: 60 }], initial:[15, 8, 3] }
         };
 
         let currentProfile = 'manicure';
         let stats = { today: 0, month: 2200, count: 35, services: {} };
-        let mainChart, serviceChart;
+        let mainChart;
 
         function setProfile(id) {
             currentProfile = id;
-            document.querySelectorAll('.profile-btn').forEach(btn => btn.classList.toggle('active', btn.innerText.toLowerCase().includes(id.substring(0,3))));
+            document.querySelectorAll('.sim-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.innerText.toLowerCase().includes(id === 'app' ? 'app' : id.substring(0,4)));
+            });
             stats = { today: 0, month: 2200, count: 35, services: {} };
             profiles[id].services.forEach((s, i) => stats.services[s.id] = profiles[id].initial[i]);
             renderServices();
@@ -442,9 +424,21 @@
             list.innerHTML = '';
             profiles[currentProfile].services.forEach(s => {
                 const div = document.createElement('div');
-                div.className = 'service-item';
-                div.innerHTML = `<strong>${s.name}</strong><span>R$ ${s.price}</span>`;
-                div.onclick = () => { stats.today += s.price; stats.month += s.price; stats.count++; stats.services[s.id]++; updateDashboard(); };
+                div.className = 'sim-item';
+                div.innerHTML = `<strong>${s.name}</strong><span>+ R$ ${s.price}</span>`;
+                div.onclick = () => { 
+                    stats.today += s.price; 
+                    stats.month += s.price; 
+                    stats.count++; 
+                    stats.services[s.id]++; 
+                    
+                    // Efeito visual no clique
+                    div.style.transform = 'scale(0.98)';
+                    div.style.backgroundColor = 'rgba(16, 185, 129, 0.2)';
+                    setTimeout(() => { div.style.transform = 'scale(1)'; div.style.backgroundColor = ''; }, 150);
+                    
+                    updateDashboard(); 
+                };
                 list.appendChild(div);
             });
         }
@@ -452,35 +446,70 @@
         function updateDashboard() {
             document.getElementById('statToday').innerText = `R$ ${stats.today}`;
             document.getElementById('statMonth').innerText = `R$ ${stats.month}`;
-            document.getElementById('statTicket').innerText = `R$ ${(stats.month / stats.count).toFixed(0)}`;
-            let top = "---", max = 0;
-            profiles[currentProfile].services.forEach(s => { if(stats.services[s.id] > max) { max = stats.services[s.id]; top = s.name; } });
-            document.getElementById('statTop').innerText = top;
             if(mainChart) updateCharts();
         }
 
         function initCharts() {
             const ctx1 = document.getElementById('mainChart').getContext('2d');
+            
+            // Gradiente para o gráfico estilo "Neon Blue/Green"
+            let gradient = ctx1.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(16, 185, 129, 0.5)');
+            gradient.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
+
             mainChart = new Chart(ctx1, {
                 type: 'line',
-                data: { labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Hoje'], datasets:[{ data:[400, 350, 500, 450, 600, 0], borderColor: '#10b981', tension: 0.4, fill: true, backgroundColor: 'rgba(16, 185, 129, 0.1)' }]},
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-            });
-
-            const ctx2 = document.getElementById('serviceChart').getContext('2d');
-            serviceChart = new Chart(ctx2, {
-                type: 'doughnut',
-                data: { labels: [], datasets: [{ data: [], backgroundColor:['#1e3a8a', '#10b981', '#ea580c'] }]},
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } } }
+                data: { 
+                    labels:['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Hoje'], 
+                    datasets:[{ 
+                        label: 'Ganhos R$',
+                        data:[400, 350, 500, 450, 600, 0], 
+                        borderColor: '#10b981', 
+                        borderWidth: 3,
+                        pointBackgroundColor: '#18181b',
+                        pointBorderColor: '#10b981',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        tension: 0.4, 
+                        fill: true, 
+                        backgroundColor: gradient 
+                    }]
+                },
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { beginAtZero: true, border: { dash: [5, 5] } }
+                    }
+                }
             });
         }
 
         function updateCharts() {
             mainChart.data.datasets[0].data[5] = stats.today;
             mainChart.update();
-            serviceChart.data.labels = profiles[currentProfile].services.map(s => s.name);
-            serviceChart.data.datasets[0].data = profiles[currentProfile].services.map(s => stats.services[s.id]);
-            serviceChart.update();
+        }
+
+        // --- CONTADOR REGRESSIVO ---
+        function startTimer(duration) {
+            let timer = duration, hours, minutes, seconds;
+            setInterval(function () {
+                hours = parseInt(timer / 3600, 10);
+                minutes = parseInt((timer % 3600) / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                document.getElementById('hrs').textContent = hours;
+                document.getElementById('mins').textContent = minutes;
+                document.getElementById('secs').textContent = seconds;
+
+                if (--timer < 0) { timer = duration; }
+            }, 1000);
         }
 
         // --- SCROLL REVEAL ANIMATION ---
@@ -489,15 +518,20 @@
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
+                if (elementTop < windowHeight - 100) {
                     reveals[i].classList.add("active");
                 }
             }
         }
         window.addEventListener("scroll", reveal);
 
-        window.onload = () => { initCharts(); setProfile('manicure'); reveal(); };
+        window.onload = () => { 
+            initCharts(); 
+            setProfile('manicure'); 
+            reveal(); 
+            // Inicia contador com 2 horas, 59 minutos e 54 segundos
+            startTimer(2 * 3600 + 59 * 60 + 54);
+        };
     </script>
 </body>
 </html>
