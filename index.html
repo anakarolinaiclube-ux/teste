@@ -10,21 +10,17 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            /* Paleta refinada — harmônica e com menos saturação agressiva */
             --bg-light: #f6f8fb;
             --card-bg: #ffffff;
             --border: #e4e9f0;
-
-            --primary: #f97316;       /* laranja — CTAs */
+            --primary: #f97316;
             --primary-hover: #ea580c;
-            --success: #10b981;       /* verde — valores financeiros */
-            --secondary: #7c6ff7;     /* roxo suavizado — destaques secundários */
+            --success: #10b981;
+            --secondary: #7c6ff7;
             --secondary-light: rgba(124,111,247,0.10);
             --secondary-border: rgba(124,111,247,0.22);
-
             --text-main: #1a2235;
             --text-muted: #64748b;
-            --glow-orange: rgba(249,115,22,0.15);
         }
 
         /* ── RESET ── */
@@ -38,35 +34,13 @@
             line-height: 1.6;
             overflow-x: hidden;
             width: 100%;
-            position: relative;
         }
 
-        .container { 
-            max-width: 1100px; 
-            margin: 0 auto; 
-            padding: 0 20px; 
-            width: 100%;
-        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; width: 100%; }
 
-        /* ── UTILITÁRIOS ── */
-        .text-purple { color: var(--secondary); }
-        .text-green  { color: var(--success); }
-
-        /* Reveal animado por scroll */
-        .reveal {
-            opacity: 0;
-            transform: translateY(32px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-        }
+        /* Reveal animado */
+        .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* Itens do checklist surgem em cascata */
-        .check-item {
-            opacity: 0;
-            transform: translateX(-24px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-        }
-        .check-item.active { opacity: 1; transform: translateX(0); }
 
         /* ── TOP BAR ── */
         .top-bar {
@@ -84,388 +58,125 @@
         }
 
         /* ── LOGO ── */
-        .logo-container {
-            text-align: center;
-            padding: 28px 20px 0;
-        }
-        .logo-text {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 900;
-            font-size: 1.7rem;
-            letter-spacing: -1.5px;
-            color: var(--text-main);
-        }
-        /* Ícone circular colorido */
-        .logo-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--secondary), #a78bfa);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 1rem;
-            box-shadow: 0 4px 12px rgba(124,111,247,0.35);
-            flex-shrink: 0;
-        }
+        .logo-container { text-align: center; padding: 28px 20px 0; }
+        .logo-text { display: inline-flex; align-items: center; gap: 10px; font-weight: 900; font-size: 1.7rem; color: var(--text-main); }
+        .logo-icon { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, var(--secondary), #a78bfa); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1rem; box-shadow: 0 4px 12px rgba(124,111,247,0.35); flex-shrink: 0; }
         .logo-meu { color: var(--secondary); }
         .logo-fluxo { color: var(--text-main); }
         .logo-dot { color: var(--primary); }
 
         /* ── BOTÕES ── */
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 800;
-            font-size: 1.05rem;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-            width: 100%;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 16px 32px; border-radius: 12px; font-weight: 800; font-size: 1.05rem;
+            text-decoration: none; transition: all 0.3s; cursor: pointer; border: none; width: 100%;
+            text-transform: uppercase; letter-spacing: 0.5px;
         }
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 10px 25px rgba(249,115,22,0.28);
-        }
-        .btn-primary:hover { transform: translateY(-3px); background: var(--primary-hover); box-shadow: 0 15px 30px rgba(249,115,22,0.38); }
-        .btn-success {
-            background: var(--success);
-            color: white;
-            box-shadow: 0 10px 25px rgba(16,185,129,0.22);
-        }
-        .btn-success:hover { background: #059669; transform: translateY(-2px); }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 10px 25px rgba(249,115,22,0.28); }
+        .btn-success { background: var(--success); color: white; box-shadow: 0 10px 25px rgba(16,185,129,0.22); }
         .btn-wrapper { width: 100%; padding: 0 10px; max-width: 360px; margin: 0 auto; display: flex; justify-content: center; }
 
         /* ── HERO ── */
         .hero { padding: 44px 0 52px; text-align: center; }
-        .badge-hero {
-            display: inline-block;
-            padding: 6px 16px;
-            border-radius: 100px;
-            background: var(--secondary-light);
-            border: 1px solid var(--secondary-border);
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--secondary);
-            margin-bottom: 26px;
-        }
-        .hero h1 {
-            font-size: clamp(1.9rem, 6vw, 3.4rem);
-            line-height: 1.12;
-            font-weight: 800;
-            margin-bottom: 22px;
-            letter-spacing: -1px;
-            color: var(--text-main);
-        }
+        .badge-hero { display: inline-block; padding: 6px 16px; border-radius: 100px; background: var(--secondary-light); border: 1px solid var(--secondary-border); font-size: 0.85rem; font-weight: 700; color: var(--secondary); margin-bottom: 26px; }
+        .hero h1 { font-size: clamp(1.9rem, 6vw, 3.4rem); line-height: 1.12; font-weight: 800; margin-bottom: 22px; color: var(--text-main); }
         .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 680px; margin: 0 auto 38px; }
 
         /* ── MARQUEE ── */
-        .marquee-container {
-            overflow: hidden;
-            white-space: nowrap;
-            background: var(--secondary);
-            padding: 13px 0;
-            margin: 44px 0;
-            display: flex;
-            transform: rotate(-1deg);
-            width: 100%;
-        }
-        .marquee-content {
-            display: inline-flex;
-            animation: marquee 25s linear infinite;
-            gap: 40px;
-            color: white;
-            font-weight: 700;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .marquee-content span { display: flex; align-items: center; gap: 10px; }
+        .marquee-container { overflow: hidden; background: var(--secondary); padding: 13px 0; margin: 44px 0; display: flex; transform: rotate(-1deg); width: 100%; }
+        .marquee-content { display: inline-flex; animation: marquee 25s linear infinite; gap: 40px; color: white; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* ── BENTO GRID ── */
         .section-title { text-align: center; margin-bottom: 48px; }
         .section-title h2 { font-size: 2.1rem; font-weight: 800; margin-bottom: 12px; color: var(--text-main); }
-        .section-title p { color: var(--text-muted); }
-
-        .bento-grid { display: grid; grid-template-columns: 1fr; gap: 18px; padding: 4px 0; }
-        .bento-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 28px;
-            text-align: left;
-            transition: all 0.3s;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.03);
-        }
-        .bento-card:hover { border-color: var(--secondary); box-shadow: 0 10px 30px rgba(124,111,247,0.1); transform: translateY(-4px); }
-        .bento-icon {
-            width: 48px; height: 48px;
-            border-radius: 12px;
-            background: var(--secondary-light);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.4rem; color: var(--secondary);
-            margin-bottom: 18px;
-        }
-        .bento-card h3 { font-size: 1.15rem; margin-bottom: 8px; color: var(--text-main); font-weight: 700; }
+        .bento-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+        .bento-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 28px; box-shadow: 0 4px 14px rgba(0,0,0,0.03); }
+        .bento-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--secondary-light); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: var(--secondary); margin-bottom: 18px; }
+        .bento-card h3 { font-size: 1.15rem; margin-bottom: 8px; font-weight: 700; }
         .bento-card p { color: var(--text-muted); font-size: 0.93rem; }
 
         /* ── SIMULADOR ── */
-        .sim-wrapper {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 20px;
-            margin: 60px auto;
-            max-width: 900px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.07);
-            overflow: hidden;
-            width: 100%;
-        }
-        .sim-header {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding: 2px 0 12px;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
-        .sim-header::-webkit-scrollbar { display: none; }
-
-        .sim-btn {
-            background: var(--bg-light);
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            padding: 9px 16px;
-            border-radius: 100px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.83rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-        .sim-btn.active { background: var(--secondary); border-color: var(--secondary); color: white; }
-
+        .sim-wrapper { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 20px; margin: 60px auto 15px; max-width: 900px; box-shadow: 0 20px 50px rgba(0,0,0,0.07); overflow: hidden; }
+        .sim-header { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+        .sim-btn { background: var(--bg-light); border: 1px solid var(--border); padding: 9px 16px; border-radius: 100px; font-size: 0.83rem; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+        .sim-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); }
         .sim-panels { display: grid; grid-template-columns: 1fr; gap: 20px; }
-
-        .sim-services { display: flex; flex-direction: column; gap: 10px; }
-        .sim-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px;
-            background: var(--bg-light);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.2s;
-            min-width: 0;
-        }
-        .sim-item:hover { background: rgba(16,185,129,0.06); border-color: var(--success); }
-        .sim-item strong { 
-            font-size: 0.93rem; 
-            color: var(--text-main); 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            min-width: 0; 
-            overflow: hidden; 
-            text-overflow: ellipsis; 
-            white-space: nowrap; 
-        }
-        .sim-item span { 
-            color: var(--success); 
-            font-weight: 700; 
-            white-space: nowrap; 
-            flex-shrink: 0; 
-            margin-left: 10px; 
-            font-size: 0.9rem;
-        }
-
-        .sim-stats-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 10px; 
-            margin-bottom: 16px; 
-            width: 100%;
-        }
-        .sim-stat-box {
-            background: var(--bg-light);
-            border: 1px solid var(--border);
-            padding: 12px 8px;
-            border-radius: 12px;
-            text-align: center;
-            min-width: 0;
-        }
-        .sim-stat-box small { 
-            color: var(--text-muted); 
-            font-size: 0.65rem; 
-            text-transform: uppercase; 
-            font-weight: 700; 
-            letter-spacing: 0.5px; 
-            display: block; 
-            margin-bottom: 4px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .sim-stat-box h4 { 
-            color: var(--success); 
-            font-size: 1.1rem; 
-            font-weight: 800; 
-            white-space: nowrap;
-        }
-
+        .sim-item { display: flex; justify-content: space-between; align-items: center; padding: 14px; background: var(--bg-light); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: 0.2s; }
+        .sim-item strong { font-size: 0.93rem; display: flex; align-items: center; gap: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .sim-item span { color: var(--success); font-weight: 700; margin-left: 10px; }
+        .sim-stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+        .sim-stat-box { background: var(--bg-light); border: 1px solid var(--border); padding: 12px 8px; border-radius: 12px; text-align: center; }
+        .sim-stat-box small { color: var(--text-muted); font-size: 0.65rem; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 4px; }
+        .sim-stat-box h4 { font-size: 1.1rem; font-weight: 800; color: var(--success); }
         .chart-container { height: 200px; background: var(--bg-light); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+        .sim-disclaimer { text-align: center; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 60px; padding: 0 20px; line-height: 1.4; }
 
-        /* ── "VOCÊ SABIA" + CTA INTEGRADO ── */
-        .truth-section {
-            padding: 80px 0;
-            background: #fff8f3;
-            border-top: 1px solid #ffe4cc;
-            border-bottom: 1px solid #ffe4cc;
-            text-align: center;
-        }
+        /* ── TRUTH SECTION ── */
+        .truth-section { padding: 80px 0; background: #fff8f3; border-top: 1px solid #ffe4cc; border-bottom: 1px solid #ffe4cc; text-align: center; }
         .truth-content { max-width: 800px; margin: 0 auto; }
         .truth-icon { font-size: 3rem; color: #f97316; margin-bottom: 20px; }
-        .truth-content h2 { font-size: 1.9rem; margin-bottom: 20px; line-height: 1.3; color: var(--text-main); font-weight: 800; }
+        .truth-content h2 { font-size: 1.9rem; margin-bottom: 20px; font-weight: 800; }
         .truth-content p { font-size: 1.08rem; color: var(--text-muted); margin-bottom: 36px; }
-        /* CTA integrado na seção "você sabia" */
-        .truth-cta { display: flex; justify-content: center; }
 
         /* ── PARA QUEM É ── */
-        .for-you-section { padding: 60px 0 80px; }
-        .for-you-box {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        }
-        .for-you-box h3 { font-size: 1.75rem; text-align: center; margin-bottom: 8px; color: var(--text-main); font-weight: 800; }
+        .for-you-section { padding: 60px 0 40px; }
+        .for-you-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .for-you-box h3 { font-size: 1.75rem; text-align: center; margin-bottom: 24px; font-weight: 800; }
         .check-list-big { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-        .check-list-big li {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            font-size: 1.02rem;
-            background: var(--bg-light);
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            color: var(--text-main);
-        }
+        .check-list-big li { display: flex; align-items: flex-start; gap: 14px; font-size: 1.02rem; background: var(--bg-light); padding: 15px; border-radius: 12px; border: 1px solid var(--border); }
         .check-list-big li i { color: var(--success); font-size: 1.15rem; margin-top: 2px; flex-shrink: 0; }
 
-        /* ── PRICING ── */
-        .offer-wrapper { padding: 60px 0 100px; }
-        .offer-card {
-            background: var(--card-bg);
-            border: 2px solid var(--primary);
-            border-radius: 24px;
-            max-width: 500px;
-            width: 100%;
-            margin: 0 auto;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 20px 50px rgba(249,115,22,0.14);
-        }
-        .offer-tag {
-            background: var(--primary);
-            color: white;
-            text-align: center;
-            padding: 12px;
-            font-weight: 800;
-            font-size: 1.05rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        /* ── PRICING (AJUSTE ESPAÇAMENTO) ── */
+        .offer-wrapper { padding: 20px 0 60px; } /* Reduzido de 60px para 20px */
+        .offer-card { background: var(--card-bg); border: 2px solid var(--primary); border-radius: 24px; max-width: 500px; margin: 0 auto; overflow: hidden; box-shadow: 0 20px 50px rgba(249,115,22,0.14); position: relative; }
+        .offer-tag { background: var(--primary); color: white; text-align: center; padding: 12px; font-weight: 800; font-size: 1.05rem; }
         .offer-body { padding: 36px 24px; }
+        .price-box { text-align: center; margin-bottom: 28px; padding: 20px; background: rgba(249,115,22,0.05); border-radius: 16px; }
+        .old-price { text-decoration: line-through; color: #ef4444; font-weight: 600; }
+        .new-price { font-size: 2.9rem; font-weight: 900; color: var(--success); line-height: 1; }
         .offer-list { list-style: none; margin-bottom: 28px; }
-        .offer-list li { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 0.95rem; color: var(--text-main); font-weight: 500; }
+        .offer-list li { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 0.95rem; font-weight: 500; }
         .offer-list li i { color: var(--success); }
-        .price-box {
-            text-align: center;
-            margin-bottom: 28px;
-            padding: 20px;
-            background: rgba(249,115,22,0.05);
-            border-radius: 16px;
-            border: 1px solid rgba(249,115,22,0.1);
-        }
-        .old-price { text-decoration: line-through; color: #ef4444; font-size: 1rem; font-weight: 600; }
-        .new-price { font-size: 2.9rem; font-weight: 900; color: var(--success); line-height: 1; margin: 6px 0; }
-        .new-price span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
-        .guarantee { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 24px; font-size: 0.85rem; color: var(--text-muted); text-align: left; line-height: 1.4; }
 
-        /* Contador */
-        .countdown-box { margin-top: 24px; text-align: center; }
-        .countdown-box p { font-size: 0.85rem; color: #ef4444; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; }
-        .timer { display: flex; justify-content: center; gap: 10px; }
-        .time-block { background: var(--bg-light); border: 1px solid var(--border); color: var(--text-main); border-radius: 8px; padding: 10px 14px; min-width: 68px; }
-        .time-block strong { display: block; font-size: 1.5rem; font-weight: 800; }
-        .time-block span { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-
-        /* ── FAQ ── */
-        .faq-section { padding: 60px 0; max-width: 800px; margin: 0 auto; }
-        details { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 14px; overflow: hidden; transition: 0.3s; }
-        summary { padding: 20px; font-weight: 600; font-size: 1.02rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); font-family: 'Poppins', sans-serif; }
-        summary::-webkit-details-marker { display: none; }
+        /* ── FAQ (AJUSTE ESPAÇAMENTO) ── */
+        .faq-section { padding: 20px 0 60px; max-width: 800px; margin: 0 auto; } /* Reduzido de 60px para 20px */
+        details { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 14px; overflow: hidden; }
+        summary { padding: 20px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
         summary::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--primary); transition: 0.3s; }
         details[open] summary::after { transform: rotate(180deg); }
         details p { padding: 0 20px 20px; color: var(--text-muted); font-size: 0.93rem; }
 
-        /* ── RESPONSIVIDADE ── */
+        /* ── POPUP PROVA SOCIAL ── */
+        .purchase-popup {
+            position: fixed; bottom: 20px; left: 20px; background: white; padding: 12px 18px;
+            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: flex;
+            align-items: center; gap: 12px; z-index: 9999; transform: translateY(180%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid var(--border);
+        }
+        .purchase-popup.show { transform: translateY(0); }
+        .popup-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--secondary-light); color: var(--secondary); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.8rem; flex-shrink: 0; }
+        .popup-info p { font-size: 0.75rem; color: var(--text-main); margin: 0; line-height: 1.3; font-weight: 500; }
+        .popup-info strong { color: var(--primary); }
+        .popup-info span { font-size: 0.65rem; color: var(--text-muted); display: block; }
+
+        /* Responsividade Simulador */
         @media (max-width: 480px) {
-            .sim-wrapper { padding: 15px; }
             .sim-stat-box h4 { font-size: 0.95rem; }
-            .sim-item { padding: 12px 10px; }
             .sim-item strong { font-size: 0.85rem; }
-            .sim-item span { font-size: 0.85rem; margin-left: 5px; }
+            .purchase-popup { left: 10px; right: 10px; bottom: 15px; } /* Mobile centralizado um pouco melhor */
         }
-        
-        @media (min-width: 640px) {
-            .sim-panels { grid-template-columns: 1fr 1.4fr; gap: 24px; }
-            .sim-wrapper { padding: 28px; }
-            .sim-stat-box h4 { font-size: 1.2rem; }
-            .sim-stat-box small { font-size: 0.68rem; }
-        }
-        @media (min-width: 768px) {
-            .bento-grid { grid-template-columns: repeat(2, 1fr); }
-            .for-you-box { padding: 48px; }
-            .offer-body { padding: 40px 30px; }
-        }
-        @media (min-width: 1024px) {
-            .bento-grid { grid-template-columns: repeat(4, 1fr); }
-        }
+        @media (min-width: 640px) { .sim-panels { grid-template-columns: 1fr 1.4fr; gap: 24px; } }
+        @media (min-width: 768px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .bento-grid { grid-template-columns: repeat(4, 1fr); } }
 
         footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); font-size: 0.83rem; color: var(--text-muted); background: var(--bg-light); }
     </style>
 </head>
 <body>
 
-    <!-- TOP BAR -->
-    <div class="top-bar">
-        <i class="fas fa-bolt"></i> Restam apenas 14 acessos promocionais.
-    </div>
+    <div class="top-bar"><i class="fas fa-bolt"></i> Restam apenas 14 acessos promocionais.</div>
 
-    <!-- LOGO MELHORADA -->
     <div class="logo-container">
         <div class="logo-text">
             <div class="logo-icon"><i class="fas fa-chart-line"></i></div>
@@ -473,215 +184,137 @@
         </div>
     </div>
 
-    <!-- HERO -->
     <header class="hero container reveal active">
-        <div class="badge-hero">
-            <i class="fas fa-chart-pie"></i> Mais de 5.000 autônomos organizados
-        </div>
+        <div class="badge-hero"><i class="fas fa-chart-pie"></i> Mais de 5.000 autônomos organizados</div>
         <h1>Só precisa de 2 minutos por dia para ver <span class="text-green">seu dinheiro finalmente sobrar!</span></h1>
-        <p>Pare de perder dinheiro por falta de controle. Retome o comando financeiro do seu trabalho com um painel automático, mais fácil de usar do que mandar um áudio no WhatsApp.</p>
+        <p>Pare de perder dinheiro por falta de controle. Retome o comando financeiro do seu trabalho com um painel automático.</p>
         <div class="btn-wrapper">
-            <a href="#oferta" class="btn btn-primary cta-link">ACESSAR AGORA</a>
+            <a href="#" class="btn btn-primary cta-link">ACESSAR AGORA</a>
         </div>
     </header>
 
-    <!-- MARQUEE -->
     <div class="marquee-container">
         <div class="marquee-content">
-            <span>💅 MANICURES E BELEZA</span><span>•</span>
-            <span>✂️ BARBEARIAS</span><span>•</span>
-            <span>🚗 MOTORISTAS DE APP</span><span>•</span>
-            <span>🍔 LANCHONETES E DOCES</span><span>•</span>
-            <span>📦 VENDAS EM GERAL</span><span>•</span>
-            <span>🛠️ PRESTADORES DE SERVIÇO</span><span>•</span>
-            <span>💅 MANICURES E BELEZA</span><span>•</span>
-            <span>✂️ BARBEARIAS</span><span>•</span>
-            <span>🚗 MOTORISTAS DE APP</span><span>•</span>
-            <span>🍔 LANCHONETES E DOCES</span><span>•</span>
-            <span>📦 VENDAS EM GERAL</span><span>•</span>
-            <span>🛠️ PRESTADORES DE SERVIÇO</span>
+            <span>💅 MANICURES</span><span>•</span><span>✂️ BARBEARIAS</span><span>•</span><span>🚗 MOTORISTAS</span><span>•</span><span>🍔 LANCHONETES</span><span>•</span><span>📦 VENDAS</span><span>•</span><span>🛠️ PRESTADORES</span><span>•</span>
+            <span>💅 MANICURES</span><span>•</span><span>✂️ BARBEARIAS</span><span>•</span><span>🚗 MOTORISTAS</span><span>•</span><span>🍔 LANCHONETES</span><span>•</span><span>📦 VENDAS</span><span>•</span><span>🛠️ PRESTADORES</span>
         </div>
     </div>
 
-    <!-- BENTO GRID -->
     <section class="container reveal">
-        <div class="section-title">
-            <h2>No <span style="color: var(--secondary);">MeuFluxo</span> você terá:</h2>
-        </div>
+        <div class="section-title"><h2>No <span style="color: var(--secondary);">MeuFluxo</span> você terá:</h2></div>
         <div class="bento-grid">
-            <div class="bento-card">
-                <div class="bento-icon"><i class="fas fa-hand-pointer"></i></div>
-                <h3>Registros em 2 toques</h3>
-                <p>Abra no celular, toque no serviço que acabou de fazer e pronto. Venda registrada sem complicação.</p>
-            </div>
-            <div class="bento-card">
-                <div class="bento-icon"><i class="fas fa-chart-line"></i></div>
-                <h3>Dashboard Automático</h3>
-                <p>O sistema calcula sozinho o quanto entrou, tira seus custos e te mostra o lucro limpo no bolso.</p>
-            </div>
-            <div class="bento-card">
-                <div class="bento-icon"><i class="fas fa-mobile-alt"></i></div>
-                <h3>Celular & PC</h3>
-                <p>Acesse de qualquer dispositivo sem precisar instalar nada pesado. Tudo salvo na nuvem com segurança.</p>
-            </div>
-            <div class="bento-card">
-                <div class="bento-icon"><i class="fas fa-history"></i></div>
-                <h3>Histórico Completo</h3>
-                <p>Nunca mais perca o controle do que vendeu na semana passada ou quem te pagou no cartão e no pix.</p>
-            </div>
+            <div class="bento-card"><div class="bento-icon"><i class="fas fa-hand-pointer"></i></div><h3>Registros Rápidos</h3><p>Abra no celular, toque no serviço e pronto. Venda registrada.</p></div>
+            <div class="bento-card"><div class="bento-icon"><i class="fas fa-chart-line"></i></div><h3>Lucro Automático</h3><p>O sistema calcula sozinho o quanto entrou e o lucro limpo.</p></div>
+            <div class="bento-card"><div class="bento-icon"><i class="fas fa-mobile-alt"></i></div><h3>100% Online</h3><p>Acesse de qualquer dispositivo sem precisar instalar nada.</p></div>
+            <div class="bento-card"><div class="bento-icon"><i class="fas fa-history"></i></div><h3>Histórico</h3><p>Nunca mais perca o controle do que vendeu na semana passada.</p></div>
         </div>
     </section>
 
-    <!-- SIMULADOR -->
     <section class="container reveal">
-        <div class="section-title" style="margin-top: 64px;">
-            <h2>Veja como funciona na prática</h2>
-            <p>Toque nos botões abaixo e veja o painel reagir na hora.</p>
-        </div>
-
+        <div class="section-title" style="margin-top: 64px;"><h2>Veja como funciona na prática</h2><p>Toque nos botões abaixo e veja o painel reagir.</p></div>
         <div class="sim-wrapper">
             <div class="sim-header">
                 <button class="sim-btn active" onclick="setProfile('manicure')">Manicure / Beleza</button>
                 <button class="sim-btn" onclick="setProfile('barbeiro')">Barbearia</button>
                 <button class="sim-btn" onclick="setProfile('app')">Motorista App</button>
             </div>
-
             <div class="sim-panels">
-                <!-- Coluna de Ação -->
                 <div>
-                    <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; font-weight: 700;">👆 Simular registros</p>
                     <div class="sim-services" id="serviceList"></div>
                     <div id="expenseBtn" class="sim-item" style="margin-top: 10px; border-color: #fca5a5; background: #fef2f2;" onclick="addExpense()">
-                        <strong><i class="fas fa-minus-circle" style="color: #ef4444;"></i> Adicionar Despesa</strong>
-                        <span style="color: #ef4444; flex-shrink:0;">- R$ 25</span>
+                        <strong><i class="fas fa-minus-circle" style="color: #ef4444;"></i> Adicionar Despesa</strong><span>- R$ 25</span>
                     </div>
                 </div>
-
-                <!-- Coluna de Resultados -->
                 <div>
                     <div class="sim-stats-grid">
                         <div class="sim-stat-box"><small>Entrou Hoje</small><h4 id="statToday">R$ 0</h4></div>
                         <div class="sim-stat-box"><small>Saiu Hoje</small><h4 id="statOutToday" style="color: #ef4444;">R$ 0</h4></div>
                         <div class="sim-stat-box"><small>Total Mês</small><h4 id="statMonth" style="color: var(--text-main);">R$ 2.500</h4></div>
-                        <div class="sim-stat-box" style="background: rgba(16,185,129,0.05); border-color: rgba(16,185,129,0.3);"><small>Lucro do Mês</small><h4 id="statNetMonth">R$ 2.100</h4></div>
+                        <div class="sim-stat-box" style="background: rgba(16,185,129,0.05);"><small>Lucro Mês</small><h4 id="statNetMonth">R$ 2.100</h4></div>
                     </div>
-                    <div class="chart-container">
-                        <canvas id="mainChart"></canvas>
-                    </div>
+                    <div class="chart-container"><canvas id="mainChart"></canvas></div>
                 </div>
             </div>
         </div>
+        <p class="sim-disclaimer">
+            <i class="fas fa-info-circle"></i> <strong>Atenção:</strong> Este painel é um demonstrativo interativo. 
+            No seu acesso exclusivo, você poderá <strong>editar todos os nomes de serviços e valores</strong> para adaptá-los exatamente ao seu negócio.
+        </p>
     </section>
 
-    <!-- "VOCÊ SABIA" + CTA INTEGRADO -->
     <section class="truth-section reveal">
         <div class="container truth-content">
             <div class="truth-icon"><i class="fas fa-exclamation-triangle"></i></div>
-            <h2>Você sabia que 80% dos autônomos não sabem exatamente qual foi o lucro real do mês?</h2>
-            <p>A verdade é que a maioria "ACHA" que sabe quanto ganha. Mas quando mistura o dinheiro do negócio com as contas de casa, percebe que o dinheiro foi embora como água e não sobrou nada para investir ou descansar.</p>
-            <!-- CTA encaixado no container desta seção -->
-            <div class="truth-cta">
-                <div class="btn-wrapper">
-                    <a href="#oferta" class="btn btn-primary cta-link">Quero organizar meu dinheiro agora</a>
-                </div>
-            </div>
+            <h2>80% dos autônomos não sabem o lucro real do mês.</h2>
+            <p>Quando você mistura o dinheiro do trabalho com as contas de casa, o dinheiro some. O MeuFluxo resolve isso em segundos.</p>
+            <div class="btn-wrapper"><a href="#" class="btn btn-primary cta-link">Quero organizar meu dinheiro</a></div>
         </div>
     </section>
 
-    <!-- PARA QUEM É -->
     <section class="for-you-section container">
         <div class="for-you-box">
             <h3>O MeuFluxo é para você que...</h3>
             <ul class="check-list-big">
-                <li class="check-item"><i class="fas fa-check-circle"></i> Trabalha o dia inteiro e sente que o dinheiro some no fim do mês.</li>
-                <li class="check-item"><i class="fas fa-check-circle"></i> Anota as vendas num caderno que rasga ou perde nas mensagens do WhatsApp.</li>
-                <li class="check-item"><i class="fas fa-check-circle"></i> Quer saber exatamente o lucro de cada serviço tirando os custos de material.</li>
-                <li class="check-item"><i class="fas fa-check-circle"></i> Deseja ter uma reserva financeira mas nunca sabe quando o dinheiro permite guardar.</li>
-                <li class="check-item"><i class="fas fa-check-circle"></i> Não tem tempo ou paciência para aprender a usar planilhas de Excel complicadas.</li>
+                <li class="check-item"><i class="fas fa-check-circle"></i> Sente que o dinheiro some no fim do mês.</li>
+                <li class="check-item"><i class="fas fa-check-circle"></i> Anota as vendas num caderno ou mensagens de WhatsApp.</li>
+                <li class="check-item"><i class="fas fa-check-circle"></i> Quer saber o lucro de cada serviço tirando os custos.</li>
             </ul>
         </div>
     </section>
 
-    <!-- OFERTA -->
     <section class="offer-wrapper reveal" id="oferta">
         <div class="container">
-            <div class="section-title">
-                <h2>Pare de trabalhar no escuro.</h2>
-                <p style="color: var(--text-muted);">Escolha profissionalizar o seu trabalho hoje mesmo.</p>
-            </div>
+            <div class="section-title"><h2>Pare de trabalhar no escuro.</h2><p>Escolha profissionalizar o seu trabalho hoje mesmo.</p></div>
             <div class="offer-card">
                 <div class="offer-tag">🔥 DESCONTO DE LANÇAMENTO</div>
                 <div class="offer-body">
                     <div class="price-box">
                         <p class="old-price">de R$ 19,90</p>
                         <p class="new-price">R$ 9,90<span>/mês</span></p>
-                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">Acesso imediato • Cancele quando quiser</p>
                     </div>
                     <ul class="offer-list">
                         <li><i class="fas fa-check"></i> Dashboard financeiro completo</li>
-                        <li><i class="fas fa-check"></i> Registros ilimitados de atendimentos</li>
-                        <li><i class="fas fa-check"></i> Separação de custos e lucros automática</li>
-                        <li><i class="fas fa-check"></i> Histórico em nuvem (não perde se trocar de celular)</li>
-                        <li><i class="fas fa-check"></i> Funciona no Celular, Tablet e Computador</li>
+                        <li><i class="fas fa-check"></i> Registros ilimitados</li>
+                        <li><i class="fas fa-check"></i> Separação de custos automática</li>
                         <li><i class="fas fa-check"></i> Suporte prioritário via WhatsApp</li>
                     </ul>
-                    <a href="#" class="btn btn-success cta-link" style="width: 100%;">GARANTIR ACESSO AGORA</a>
-                    <div class="countdown-box">
-                        <p>Oferta encerra em:</p>
-                        <div class="timer">
-                            <div class="time-block"><strong id="hrs">02</strong><span>Hrs</span></div>
-                            <div style="font-size: 1.5rem; font-weight: 800; align-self: center; color: var(--text-main);">:</div>
-                            <div class="time-block"><strong id="mins">59</strong><span>Min</span></div>
-                            <div style="font-size: 1.5rem; font-weight: 800; align-self: center; color: var(--text-main);">:</div>
-                            <div class="time-block"><strong id="secs">54</strong><span>Seg</span></div>
-                        </div>
-                    </div>
-                    <div class="guarantee">
-                        <i class="fas fa-shield-alt" style="font-size: 1.8rem; color: var(--primary);"></i>
-                        <span><strong>Garantia de 7 dias.</strong> Se não gostar da plataforma, devolvemos 100% do seu dinheiro com apenas um clique.</span>
+                    <a href="#" class="btn btn-success cta-link">GARANTIR ACESSO AGORA</a>
+                    <div class="guarantee" style="margin-top: 20px; font-size: 0.8rem; text-align: center; color: var(--text-muted);">
+                        <i class="fas fa-shield-alt"></i> Garantia de 7 dias. Risco zero.
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
     <section class="faq-section reveal">
-        <div class="section-title">
-            <h2>Perguntas Frequentes</h2>
-        </div>
-        <details>
-            <summary>Preciso saber usar computador ou Excel?</summary>
-            <p>De forma alguma. O MeuFluxo foi desenhado para ser tão fácil quanto usar as redes sociais no celular. Tudo é focado em botões grandes e claros.</p>
-        </details>
-        <details>
-            <summary>Tem aplicativo para baixar?</summary>
-            <p>Você não precisa ocupar a memória do seu celular baixando aplicativos da loja. O MeuFluxo funciona diretamente pelo navegador de qualquer celular com internet.</p>
-        </details>
-        <details>
-            <summary>Posso cancelar se eu não gostar?</summary>
-            <p>Com certeza. Não temos contrato de fidelidade. Você pode cancelar a sua assinatura a qualquer momento com apenas um botão na plataforma.</p>
-        </details>
-        <details>
-            <summary>Como recebo meu acesso?</summary>
-            <p>Imediatamente após a confirmação do pagamento, você receberá o link de acesso, seu login e senha diretamente no e-mail cadastrado e no seu WhatsApp.</p>
-        </details>
+        <div class="section-title"><h2>Perguntas Frequentes</h2></div>
+        <details><summary>Preciso saber usar Excel?</summary><p>Não. O MeuFluxo é focado em botões grandes e facilidade total pelo celular.</p></details>
+        <details><summary>Tem aplicativo para baixar?</summary><p>Não precisa ocupar memória. Ele funciona direto no navegador do seu celular.</p></details>
+        <details><summary>Como recebo meu acesso?</summary><p>Imediatamente após o pagamento via E-mail e WhatsApp.</p></details>
     </section>
+
+    <!-- POPUP PROVA SOCIAL -->
+    <div id="purchase-popup" class="purchase-popup">
+        <div class="popup-avatar" id="popup-initials">JP</div>
+        <div class="popup-info">
+            <p><strong id="popup-name">João</strong> acabou de adquirir o <strong>acesso promocional</strong>.</p>
+            <span id="popup-time">há 2 minutos</span>
+        </div>
+    </div>
 
     <footer>
         <div class="container">
             <p>© 2025 MeuFluxo. Todos os direitos reservados.</p>
-            <p style="margin-top: 10px; opacity: 0.7;">Este site não é afiliado ao Facebook ou a qualquer entidade do Facebook. Protegemos rigorosamente os dados dos nossos usuários.</p>
         </div>
     </footer>
 
     <script>
-        Chart.defaults.color = '#64748b';
-        Chart.defaults.borderColor = '#e4e9f0';
-        Chart.defaults.font.family = "'Poppins', sans-serif";
-
-        const CHECKOUT_URL = "https://meufluxo-pi.vercel.app/";
-        document.querySelectorAll('.cta-link').forEach(el => el.href = CHECKOUT_URL);
+        // ── CONFIGURAÇÃO: ADICIONE SEU LINK DE CHECKOUT AQUI ──
+        const SEU_LINK_DE_CHECKOUT = "https://seu-link-aqui.com"; 
+        
+        // Aplica o link em todos os botões CTA
+        document.querySelectorAll('.cta-link').forEach(el => el.href = SEU_LINK_DE_CHECKOUT);
 
         // ── SIMULADOR ──
         const profiles = {
@@ -689,139 +322,86 @@
             barbeiro: { services:[{ id:'b1', name:'Corte Degradê', price:40 },{ id:'b2', name:'Barba Terapia', price:30 },{ id:'b3', name:'Combo Completo', price:65 }], initial:[8,4,6] },
             app:      { services:[{ id:'a1', name:'Corrida Curta', price:12 },{ id:'a2', name:'Corrida Média', price:25 },{ id:'a3', name:'Viagem Longa', price:60 }], initial:[15,8,3] }
         };
-        let currentProfile = 'manicure';
-        let stats = { today:0, outToday:0, month:2500, outMonth:400, count:35, services:{} };
+        let stats = { today:0, outToday:0, month:2500, outMonth:400 };
         let mainChart;
 
         function setProfile(id) {
-            currentProfile = id;
-            document.querySelectorAll('.sim-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.innerText.toLowerCase().includes(id === 'app' ? 'app' : id.substring(0,4)));
-            });
-            stats = { today:0, outToday:0, month:2500, outMonth:400, count:35, services:{} };
-            profiles[id].services.forEach((s,i) => stats.services[s.id] = profiles[id].initial[i]);
-            renderServices();
+            document.querySelectorAll('.sim-btn').forEach(btn => btn.classList.toggle('active', btn.innerText.toLowerCase().includes(id.substring(0,3))));
+            renderServices(id);
             updateDashboard();
         }
 
-        function renderServices() {
+        function renderServices(id) {
             const list = document.getElementById('serviceList');
             list.innerHTML = '';
-            profiles[currentProfile].services.forEach(s => {
+            profiles[id].services.forEach(s => {
                 const div = document.createElement('div');
                 div.className = 'sim-item';
                 div.innerHTML = `<strong>${s.name}</strong><span>+ R$ ${s.price}</span>`;
-                div.onclick = () => {
-                    stats.today += s.price; stats.month += s.price; stats.count++;
-                    stats.services[s.id]++;
-                    div.style.transform = 'scale(0.98)';
-                    div.style.backgroundColor = 'rgba(16,185,129,0.1)';
-                    setTimeout(() => { div.style.transform = ''; div.style.backgroundColor = ''; }, 150);
-                    updateDashboard();
-                };
+                div.onclick = () => { stats.today += s.price; stats.month += s.price; updateDashboard(); };
                 list.appendChild(div);
             });
         }
 
-        function addExpense() {
-            stats.outToday += 25; stats.outMonth += 25;
-            const btn = document.getElementById('expenseBtn');
-            btn.style.transform = 'scale(0.98)';
-            btn.style.backgroundColor = '#fee2e2';
-            setTimeout(() => { btn.style.transform = ''; btn.style.backgroundColor = '#fef2f2'; }, 150);
-            updateDashboard();
-        }
+        function addExpense() { stats.outToday += 25; stats.outMonth += 25; updateDashboard(); }
 
         function updateDashboard() {
-            document.getElementById('statToday').innerText     = `R$ ${stats.today}`;
-            document.getElementById('statOutToday').innerText  = `R$ ${stats.outToday}`;
-            document.getElementById('statMonth').innerText     = `R$ ${stats.month}`;
-            document.getElementById('statNetMonth').innerText  = `R$ ${stats.month - stats.outMonth}`;
-            if(mainChart) updateCharts();
+            document.getElementById('statToday').innerText = `R$ ${stats.today}`;
+            document.getElementById('statOutToday').innerText = `R$ ${stats.outToday}`;
+            document.getElementById('statMonth').innerText = `R$ ${stats.month}`;
+            document.getElementById('statNetMonth').innerText = `R$ ${stats.month - stats.outMonth}`;
+            if(mainChart) { mainChart.data.datasets[0].data[5] = stats.today; mainChart.update(); }
         }
 
         function initCharts() {
             const ctx = document.getElementById('mainChart').getContext('2d');
-            let gradient = ctx.createLinearGradient(0, 0, 0, 200);
-            gradient.addColorStop(0, 'rgba(16,185,129,0.18)');
-            gradient.addColorStop(1, 'rgba(16,185,129,0.0)');
             mainChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: ['Seg','Ter','Qua','Qui','Sex','Hoje'],
-                    datasets: [{
-                        label: 'Entradas R$',
-                        data: [400,350,500,450,600,0],
-                        borderColor: '#10b981',
-                        borderWidth: 2.5,
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: '#10b981',
-                        pointBorderWidth: 2,
-                        pointRadius: 4,
-                        tension: 0.4,
-                        fill: true,
-                        backgroundColor: gradient
-                    }]
+                    datasets: [{ label: 'Entradas', data: [400,350,500,450,600,0], borderColor: '#10b981', tension: 0.4, fill: true, backgroundColor: 'rgba(16,185,129,0.1)' }]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { grid: { display: false } },
-                        y: { beginAtZero: true, border: { dash: [4,4] } }
-                    }
-                }
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
         }
 
-        function updateCharts() {
-            mainChart.data.datasets[0].data[5] = stats.today;
-            mainChart.update();
+        // ── PROVA SOCIAL (POPUP) ──
+        const names = ["Ricardo", "Ana Paula", "Marcos", "Juliana", "Felipe", "Beatriz", "Lucas", "Cláudia", "Renato", "Patrícia"];
+        const popup = document.getElementById('purchase-popup');
+        
+        function showPopup() {
+            const name = names[Math.floor(Math.random() * names.length)];
+            document.getElementById('popup-name').innerText = name;
+            document.getElementById('popup-initials').innerText = name.substring(0, 2).toUpperCase();
+            document.getElementById('popup-time').innerText = `há ${Math.floor(Math.random() * 10) + 1} minutos`;
+            
+            popup.classList.add('show');
+            setTimeout(() => { popup.classList.remove('show'); }, 4000); // Fica visível por 4s
         }
 
-        // ── CONTADOR REGRESSIVO ──
-        function startTimer(duration) {
-            let timer = duration;
-            setInterval(() => {
-                const h = String(Math.floor(timer / 3600)).padStart(2,'0');
-                const m = String(Math.floor((timer % 3600) / 60)).padStart(2,'0');
-                const s = String(timer % 60).padStart(2,'0');
-                document.getElementById('hrs').textContent  = h;
-                document.getElementById('mins').textContent = m;
-                document.getElementById('secs').textContent = s;
-                if (--timer < 0) timer = duration;
-            }, 1000);
+        // Intervalo entre popups (entre 12 e 25 segundos para não cansar)
+        function scheduleNextPopup() {
+            const delay = Math.floor(Math.random() * (25000 - 12000 + 1)) + 12000;
+            setTimeout(() => {
+                showPopup();
+                scheduleNextPopup();
+            }, delay);
         }
 
-        // ── SCROLL REVEAL GERAL ──
-        function reveal() {
-            document.querySelectorAll('.reveal').forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 50) {
-                    el.classList.add('active');
-                }
-            });
-        }
-
-        // ── CHECKLIST COM ANIMAÇÃO EM CASCATA ──
-        function revealChecklist() {
-            document.querySelectorAll('.check-item').forEach((item, i) => {
-                const top = item.getBoundingClientRect().top;
-                if (top < window.innerHeight - 40) {
-                    setTimeout(() => item.classList.add('active'), i * 120);
-                }
-            });
-        }
-
-        window.addEventListener('scroll', () => { reveal(); revealChecklist(); });
-
+        // ── INICIALIZAÇÃO ──
         window.onload = () => {
             initCharts();
             setProfile('manicure');
-            reveal();
-            revealChecklist();
-            startTimer(2 * 3600 + 59 * 60 + 54);
+            setTimeout(showPopup, 3000); // Primeiro popup após 3 segundos
+            scheduleNextPopup();
         };
+
+        // Scroll Reveal simples
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.reveal').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active');
+            });
+        });
     </script>
 </body>
 </html>
