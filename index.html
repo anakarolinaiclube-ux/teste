@@ -29,17 +29,17 @@
 
         /* ── RESET ── */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        /* FIX SAMBA: overflow-x no html E body — única forma confiável de bloquear scroll lateral em todos os browsers mobile */
+        html { scroll-behavior: smooth; overflow-x: hidden; }
 
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-light);
             color: var(--text-main);
             line-height: 1.6;
-            /* FIX: impede samba lateral no mobile */
             overflow-x: hidden;
             width: 100%;
-            max-width: 100vw;
+            position: relative;
         }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
@@ -167,17 +167,21 @@
         .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 680px; margin: 0 auto 38px; }
 
         /* ── MARQUEE ── */
+        /* FIX SAMBA: o marquee girado precisava de um wrapper que contenha o overflow */
+        .marquee-outer {
+            overflow: hidden;       /* contém o elemento girado sem causar scroll */
+            width: 100%;
+            margin: 44px 0;
+        }
         .marquee-container {
             overflow: hidden;
             white-space: nowrap;
             background: var(--secondary);
             padding: 13px 0;
-            margin: 44px 0;
             display: flex;
             transform: rotate(-1deg);
-            /* FIX: evita scroll horizontal no mobile */
-            width: 105%;
-            margin-left: -2.5%;
+            width: 106%;
+            margin-left: -3%;
         }
         .marquee-content {
             display: inline-flex;
@@ -193,7 +197,7 @@
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* ── BENTO GRID ── */
-        .section-title { text-align: center; margin-bottom: 48px; }
+        .section-title { text-align: center; margin-bottom: 32px; }
         .section-title h2 { font-size: 2.1rem; font-weight: 800; margin-bottom: 12px; color: var(--text-main); }
         .section-title p { color: var(--text-muted); }
 
@@ -263,24 +267,24 @@
         /* FIX: em mobile, o painel fica em coluna e não transborda */
         .sim-panels { display: grid; grid-template-columns: 1fr; gap: 20px; }
 
-        .sim-services { display: flex; flex-direction: column; gap: 10px; }
+        .sim-services { display: flex; flex-direction: column; gap: 8px; }
         .sim-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px;
+            padding: 11px 12px;
             background: var(--bg-light);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
             transition: 0.2s;
-            /* FIX: evita que o texto estoure o card */
             min-width: 0;
             overflow: hidden;
+            gap: 8px;
         }
         .sim-item:hover { background: rgba(16,185,129,0.06); border-color: var(--success); }
-        .sim-item strong { font-size: 0.93rem; color: var(--text-main); display: flex; align-items: center; gap: 8px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .sim-item span { color: var(--success); font-weight: 700; white-space: nowrap; flex-shrink: 0; margin-left: 8px; }
+        .sim-item strong { font-size: 0.86rem; color: var(--text-main); display: flex; align-items: center; gap: 6px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+        .sim-item span { color: var(--success); font-weight: 700; white-space: nowrap; flex-shrink: 0; font-size: 0.86rem; }
 
         .sim-stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
         .sim-stat-box {
@@ -338,7 +342,7 @@
         .check-list-big li i { color: var(--success); font-size: 1.15rem; margin-top: 2px; flex-shrink: 0; }
 
         /* ── PRICING ── */
-        .offer-wrapper { padding: 60px 0 100px; }
+        .offer-wrapper { padding: 30px 0 100px; }
         .offer-card {
             background: var(--card-bg);
             border: 2px solid var(--primary);
@@ -386,7 +390,7 @@
         .time-block span { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
         /* ── FAQ ── */
-        .faq-section { padding: 60px 0; max-width: 800px; margin: 0 auto; }
+        .faq-section { padding: 30px 0 60px; max-width: 800px; margin: 0 auto; }
         details { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 14px; overflow: hidden; transition: 0.3s; }
         summary { padding: 20px; font-weight: 600; font-size: 1.02rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); font-family: 'Poppins', sans-serif; }
         summary::-webkit-details-marker { display: none; }
@@ -406,6 +410,54 @@
         }
         @media (min-width: 1024px) {
             .bento-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        /* ── NOTIFICAÇÕES FALSAS ── */
+        .toast-notif {
+            position: fixed;
+            bottom: 24px;
+            left: 16px;
+            z-index: 9999;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 13px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            max-width: 300px;
+            width: calc(100vw - 32px);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .toast-notif.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .toast-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary), #a78bfa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+        }
+        .toast-body { flex: 1; min-width: 0; }
+        .toast-body strong { display: block; font-size: 0.82rem; color: var(--text-main); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .toast-body span { font-size: 0.75rem; color: var(--text-muted); }
+        .toast-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            flex-shrink: 0;
         }
 
         footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); font-size: 0.83rem; color: var(--text-muted); background: var(--bg-light); }
@@ -439,6 +491,7 @@
     </header>
 
     <!-- MARQUEE -->
+    <div class="marquee-outer">
     <div class="marquee-container">
         <div class="marquee-content">
             <span>💅 MANICURES E BELEZA</span><span>•</span>
@@ -454,6 +507,7 @@
             <span>📦 VENDAS EM GERAL</span><span>•</span>
             <span>🛠️ PRESTADORES DE SERVIÇO</span>
         </div>
+    </div>
     </div>
 
     <!-- BENTO GRID -->
@@ -621,6 +675,16 @@
         </details>
     </section>
 
+    <!-- NOTIFICAÇÃO FALSA -->
+    <div class="toast-notif" id="toastNotif">
+        <div class="toast-avatar" id="toastAvatar">M</div>
+        <div class="toast-body">
+            <strong id="toastName">Maria S. acabou de garantir acesso</strong>
+            <span id="toastTime">agora mesmo</span>
+        </div>
+        <div class="toast-dot"></div>
+    </div>
+
     <footer>
         <div class="container">
             <p>© 2025 MeuFluxo. Todos os direitos reservados.</p>
@@ -765,6 +829,45 @@
                 }
             });
         }
+
+        // ── NOTIFICAÇÕES FALSAS ──
+        const toastPeople = [
+            { name: 'Mariana S.',   msg: 'acabou de garantir acesso promocional' },
+            { name: 'Ricardo O.',   msg: 'acaba de se cadastrar no MeuFluxo' },
+            { name: 'Fernanda L.',  msg: 'garantiu o plano com desconto' },
+            { name: 'Carlos M.',    msg: 'acabou de garantir acesso' },
+            { name: 'Juliana R.',   msg: 'acaba de entrar na plataforma' },
+            { name: 'Anderson P.',  msg: 'garantiu o último acesso disponível' },
+            { name: 'Priscila T.',  msg: 'acabou de se cadastrar agora' },
+            { name: 'Diego F.',     msg: 'acabou de garantir acesso promocional' },
+            { name: 'Camila N.',    msg: 'entrou na plataforma há pouco' },
+            { name: 'Bruno A.',     msg: 'garantiu acesso com desconto de lançamento' },
+        ];
+
+        const timeLabels = ['agora mesmo', 'há 1 minuto', 'há 2 minutos', 'há instantes'];
+
+        function showToast() {
+            const person = toastPeople[Math.floor(Math.random() * toastPeople.length)];
+            const timeLabel = timeLabels[Math.floor(Math.random() * timeLabels.length)];
+            const initial = person.name.charAt(0).toUpperCase();
+
+            document.getElementById('toastAvatar').textContent = initial;
+            document.getElementById('toastName').textContent = `${person.name} ${person.msg}`;
+            document.getElementById('toastTime').textContent = timeLabel;
+
+            const el = document.getElementById('toastNotif');
+            el.classList.add('show');
+
+            // Desaparece após 4s
+            setTimeout(() => el.classList.remove('show'), 4000);
+        }
+
+        // Primeira notificação após 6s, depois intervalo aleatório entre 18s e 35s
+        setTimeout(function scheduleNext() {
+            showToast();
+            const next = 18000 + Math.random() * 17000; // 18s a 35s
+            setTimeout(scheduleNext, next);
+        }, 6000);
 
         window.addEventListener('scroll', () => { reveal(); revealChecklist(); });
 
