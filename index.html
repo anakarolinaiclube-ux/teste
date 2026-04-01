@@ -10,35 +10,44 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            /* Paleta Dark Mode Moderna (Estilo PlannerFin) */
-            --bg-dark: #09090b; /* Fundo principal escuro */
-            --card-bg: #18181b; /* Fundo dos cartões */
-            --border: #27272a; /* Bordas sutis */
-            --primary: #3b82f6; /* Azul Tech */
-            --primary-hover: #2563eb;
-            --success: #10b981; /* Verde Dinheiro */
-            --text-main: #f8fafc; /* Texto claro */
-            --text-muted: #a1a1aa; /* Texto acinzentado */
-            --glow: rgba(59, 130, 246, 0.15);
+            /* Nova Paleta Light Mode (Clara e Equilibrada) */
+            --bg-light: #f8fafc; /* Fundo principal off-white */
+            --card-bg: #ffffff; /* Fundo dos cartões */
+            --border: #e2e8f0; /* Bordas sutis */
+            
+            /* Cores Solicitadas */
+            --primary: #f97316; /* Laranja - Ações e Destaques */
+            --primary-hover: #ea580c;
+            --success: #10b981; /* Verde - Valores financeiros e confirmações */
+            --secondary: #8b5cf6; /* Roxo - Detalhes e elementos secundários */
+            
+            /* Textos */
+            --text-main: #0f172a; /* Texto escuro */
+            --text-muted: #64748b; /* Texto acinzentado */
+            --glow: rgba(249, 115, 22, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        body { background-color: var(--bg-light); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
         /* --- UTILITÁRIOS --- */
-        .text-blue { color: var(--primary); }
+        .text-purple { color: var(--secondary); }
         .text-green { color: var(--success); }
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* --- TOP BAR PROMOCIONAL --- */
         .top-bar {
-            background: rgba(59, 130, 246, 0.1); border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-            color: var(--primary); text-align: center; padding: 8px 15px; font-size: 0.85rem; font-weight: 600;
+            background: rgba(249, 115, 22, 0.1); border-bottom: 1px solid rgba(249, 115, 22, 0.2);
+            color: var(--primary-hover); text-align: center; padding: 8px 15px; font-size: 0.85rem; font-weight: 700;
             display: flex; justify-content: center; align-items: center; gap: 8px;
         }
 
+        /* --- LOGO CONTAINER --- */
+        .logo-container { text-align: center; padding: 25px 20px 0; }
+        .logo-text { font-weight: 900; font-size: 1.8rem; color: var(--secondary); letter-spacing: -1px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        
         /* --- BOTÕES --- */
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
@@ -48,112 +57,125 @@
         }
         .btn-primary {
             background: var(--primary); color: white;
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3);
         }
-        .btn-primary:hover { transform: translateY(-3px); background: var(--primary-hover); box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4); }
+        .btn-primary:hover { transform: translateY(-3px); background: var(--primary-hover); box-shadow: 0 15px 30px rgba(249, 115, 22, 0.4); }
         .btn-success { background: var(--success); color: white; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2); }
         .btn-success:hover { background: #059669; transform: translateY(-2px); }
+        
+        /* Ajuste Mobile para Botões (Não encostar nas bordas) */
+        .btn-wrapper { width: 100%; padding: 0 10px; max-width: 350px; margin: 0 auto; display: flex; justify-content: center; }
 
         /* --- HERO SECTION --- */
-        .hero { padding: 80px 0 50px; text-align: center; }
+        .hero { padding: 40px 0 50px; text-align: center; }
         .badge-hero {
             display: inline-block; padding: 6px 14px; border-radius: 100px;
-            background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-            font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 25px;
+            background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2);
+            font-size: 0.85rem; font-weight: 700; color: var(--secondary); margin-bottom: 25px;
         }
-        .hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); line-height: 1.1; font-weight: 800; margin-bottom: 25px; letter-spacing: -1px; }
+        .hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); line-height: 1.1; font-weight: 800; margin-bottom: 25px; letter-spacing: -1px; color: var(--text-main); }
         .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px; }
 
         /* --- MARQUEE (BARRA DESLIZANTE) --- */
-        .marquee-container { overflow: hidden; white-space: nowrap; background: var(--primary); padding: 12px 0; margin: 40px 0; display: flex; transform: rotate(-1deg); width: 105%; margin-left: -2.5%; }
+        .marquee-container { overflow: hidden; white-space: nowrap; background: var(--secondary); padding: 12px 0; margin: 40px 0; display: flex; transform: rotate(-1deg); width: 105%; margin-left: -2.5%; }
         .marquee-content { display: inline-flex; animation: marquee 25s linear infinite; gap: 40px; color: white; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
         .marquee-content span { display: flex; align-items: center; gap: 10px; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* --- BENTO GRID (O QUE VOCÊ TERÁ) --- */
         .section-title { text-align: center; margin-bottom: 50px; }
-        .section-title h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 15px; }
+        .section-title h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 15px; color: var(--text-main); }
         .bento-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 20px 0; }
         .bento-card {
             background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px;
-            padding: 30px; text-align: left; transition: 0.3s;
+            padding: 30px; text-align: left; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.02);
         }
-        .bento-card:hover { border-color: var(--primary); box-shadow: var(--glow); transform: translateY(-5px); }
-        .bento-icon { width: 50px; height: 50px; border-radius: 12px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary); margin-bottom: 20px; }
-        .bento-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .bento-card:hover { border-color: var(--secondary); box-shadow: 0 10px 30px rgba(139, 92, 246, 0.1); transform: translateY(-5px); }
+        .bento-icon { width: 50px; height: 50px; border-radius: 12px; background: rgba(139, 92, 246, 0.1); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--secondary); margin-bottom: 20px; }
+        .bento-card h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--text-main); }
         .bento-card p { color: var(--text-muted); font-size: 0.95rem; }
 
         /* --- SIMULADOR / DEMONSTRATIVO --- */
         .sim-wrapper {
             background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px;
-            padding: 30px; margin: 60px auto; max-width: 900px; box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            padding: 20px; margin: 60px auto; max-width: 900px; box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+            box-sizing: border-box; overflow: hidden;
         }
         .sim-header { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+        .sim-header::-webkit-scrollbar { display: none; }
         .sim-btn {
-            background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-muted);
-            padding: 8px 16px; border-radius: 100px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.3s;
+            background: var(--bg-light); border: 1px solid var(--border); color: var(--text-muted);
+            padding: 10px 18px; border-radius: 100px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.3s;
+            white-space: nowrap;
         }
-        .sim-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
-        .sim-panels { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .sim-btn.active { background: var(--secondary); border-color: var(--secondary); color: white; }
+        .sim-panels { display: grid; grid-template-columns: 1fr; gap: 25px; }
+        
         .sim-services { display: flex; flex-direction: column; gap: 10px; }
         .sim-item {
             display: flex; justify-content: space-between; align-items: center; padding: 15px;
-            background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: 0.2s;
+            background: var(--bg-light); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: 0.2s;
         }
-        .sim-item:hover { background: rgba(16, 185, 129, 0.1); border-color: var(--success); }
-        .sim-item strong { font-size: 0.95rem; }
+        .sim-item:hover { background: rgba(16, 185, 129, 0.05); border-color: var(--success); }
+        .sim-item strong { font-size: 0.95rem; color: var(--text-main); display: flex; align-items: center; gap: 8px;}
         .sim-item span { color: var(--success); font-weight: 700; }
-        .sim-stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px; }
-        .sim-stat-box { background: rgba(0,0,0,0.2); border: 1px solid var(--border); padding: 15px; border-radius: 12px; text-align: center; }
-        .sim-stat-box small { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; display: block; margin-bottom: 5px; }
-        .sim-stat-box h4 { color: var(--success); font-size: 1.4rem; font-weight: 800; }
-        .chart-container { height: 200px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 12px; padding: 15px; }
+        
+        /* Box de Estatísticas - Atualizado para 2x2 */
+        .sim-stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+        .sim-stat-box { background: var(--bg-light); border: 1px solid var(--border); padding: 12px; border-radius: 12px; text-align: center; }
+        .sim-stat-box small { color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+        .sim-stat-box h4 { color: var(--success); font-size: 1.25rem; font-weight: 800; }
+        
+        .chart-container { height: 200px; background: var(--bg-light); border: 1px solid var(--border); border-radius: 12px; padding: 15px; }
 
         /* --- AGITAÇÃO DO PROBLEMA (A VERDADE) --- */
-        .truth-section { padding: 80px 0; background: #000; text-align: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .truth-section { padding: 80px 0; background: #fff7ed; text-align: center; border-top: 1px solid #ffedd5; border-bottom: 1px solid #ffedd5; }
         .truth-content { max-width: 800px; margin: 0 auto; }
         .truth-icon { font-size: 3rem; color: #ef4444; margin-bottom: 20px; }
-        .truth-content h2 { font-size: 2rem; margin-bottom: 20px; line-height: 1.3; }
+        .truth-content h2 { font-size: 2rem; margin-bottom: 20px; line-height: 1.3; color: var(--text-main); }
         .truth-content p { font-size: 1.1rem; color: var(--text-muted); }
 
+        /* --- CTA INTERMEDIÁRIO --- */
+        .mid-cta-section { padding: 60px 0 20px; text-align: center; background: var(--bg-light); }
+
         /* --- PARA QUEM É (CHECKLIST) --- */
-        .for-you-section { padding: 80px 0; }
-        .for-you-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 40px; display: flex; flex-direction: column; gap: 30px; }
-        .for-you-box h3 { font-size: 1.8rem; text-align: center; margin-bottom: 10px; }
+        .for-you-section { padding: 60px 0 80px; }
+        .for-you-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 30px; display: flex; flex-direction: column; gap: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .for-you-box h3 { font-size: 1.8rem; text-align: center; margin-bottom: 10px; color: var(--text-main); }
         .check-list-big { list-style: none; display: flex; flex-direction: column; gap: 15px; }
-        .check-list-big li { display: flex; align-items: flex-start; gap: 15px; font-size: 1.05rem; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid var(--border); }
+        .check-list-big li { display: flex; align-items: flex-start; gap: 15px; font-size: 1.05rem; background: var(--bg-light); padding: 15px; border-radius: 12px; border: 1px solid var(--border); color: var(--text-main); }
         .check-list-big li i { color: var(--success); font-size: 1.2rem; margin-top: 2px; }
 
         /* --- CAIXA DE OFERTA (PRICING) --- */
         .offer-wrapper { padding: 60px 0 100px; }
         .offer-card {
             background: var(--card-bg); border: 2px solid var(--primary); border-radius: 24px;
-            max-width: 500px; margin: 0 auto; overflow: hidden; position: relative;
-            box-shadow: 0 0 50px rgba(59, 130, 246, 0.15);
+            max-width: 500px; width: 100%; margin: 0 auto; overflow: hidden; position: relative;
+            box-shadow: 0 20px 50px rgba(249, 115, 22, 0.15); box-sizing: border-box;
         }
         .offer-tag { background: var(--primary); color: white; text-align: center; padding: 12px; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
-        .offer-body { padding: 40px 30px; }
+        .offer-body { padding: 40px 25px; }
         .offer-list { list-style: none; margin-bottom: 30px; }
-        .offer-list li { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 0.95rem; color: #e2e8f0; }
+        .offer-list li { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 0.95rem; color: var(--text-main); font-weight: 500;}
         .offer-list li i { color: var(--success); }
-        .price-box { text-align: center; margin-bottom: 30px; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 16px; border: 1px solid var(--border); }
+        .price-box { text-align: center; margin-bottom: 30px; padding: 20px; background: rgba(249, 115, 22, 0.05); border-radius: 16px; border: 1px solid rgba(249, 115, 22, 0.1); }
         .old-price { text-decoration: line-through; color: #ef4444; font-size: 1rem; font-weight: 600; }
         .new-price { font-size: 3rem; font-weight: 900; color: var(--success); line-height: 1; margin: 5px 0; }
         .new-price span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
-        .guarantee { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); }
+        .guarantee { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 25px; font-size: 0.85rem; color: var(--text-muted); text-align: left; line-height: 1.4; }
         
         /* Contador */
         .countdown-box { margin-top: 25px; text-align: center; }
         .countdown-box p { font-size: 0.85rem; color: #ef4444; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; }
         .timer { display: flex; justify-content: center; gap: 10px; }
-        .time-block { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; padding: 10px 15px; min-width: 70px; }
+        .time-block { background: var(--bg-light); border: 1px solid var(--border); color: var(--text-main); border-radius: 8px; padding: 10px 15px; min-width: 70px; }
         .time-block strong { display: block; font-size: 1.5rem; font-weight: 800; }
         .time-block span { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
         /* --- FAQ ACCORDION --- */
         .faq-section { padding: 60px 0; max-width: 800px; margin: 0 auto; }
         details { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 15px; overflow: hidden; transition: 0.3s; }
-        summary { padding: 20px; font-weight: 600; font-size: 1.05rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary { padding: 20px; font-weight: 600; font-size: 1.05rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); }
         summary::-webkit-details-marker { display: none; }
         summary::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--primary); transition: 0.3s; }
         details[open] summary::after { transform: rotate(180deg); }
@@ -164,14 +186,14 @@
             .bento-grid { grid-template-columns: repeat(2, 1fr); }
             .for-you-box { padding: 50px; }
             .sim-panels { grid-template-columns: 1fr 1.5fr; gap: 30px; }
+            .sim-wrapper { padding: 30px; }
+            .offer-body { padding: 40px 30px; }
         }
         @media (min-width: 1024px) {
             .bento-grid { grid-template-columns: repeat(4, 1fr); }
-            .hero-btns { display: flex; gap: 15px; justify-content: center; }
-            .hero-btns .btn { width: auto; min-width: 250px; }
         }
 
-        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text-muted); background: #000; }
+        footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text-muted); background: var(--bg-light); }
     </style>
 </head>
 <body>
@@ -180,14 +202,20 @@
         <i class="fas fa-bolt"></i> Restam apenas 14 acessos promocionais.
     </div>
 
+    <!-- LOGO ADICIONADA -->
+    <div class="logo-container">
+        <div class="logo-text"><i class="fas fa-wallet" style="color: var(--success);"></i> MeuFluxo</div>
+    </div>
+
     <header class="hero container reveal active">
         <div class="badge-hero">
-            <i class="fas fa-chart-pie text-blue"></i> Mais de 5.000 autônomos organizados
+            <i class="fas fa-chart-pie"></i> Mais de 5.000 autônomos organizados
         </div>
         <h1>Só precisa de 2 minutos por dia para ver <span class="text-green">seu dinheiro finalmente sobrar!</span></h1>
         <p>Pare de perder dinheiro por falta de estratégia. Retome o controle financeiro do seu trabalho com um painel automático, mais fácil de usar do que mandar um áudio no WhatsApp.</p>
         
-        <div class="hero-btns">
+        <!-- WRAPPER ADICIONADO PARA PADDING MOBILE NO BOTÃO -->
+        <div class="btn-wrapper">
             <a href="#oferta" class="btn btn-primary cta-link">ACESSAR AGORA</a>
         </div>
     </header>
@@ -223,7 +251,7 @@
 
     <section class="container reveal">
         <div class="section-title">
-            <h2 style="font-size: 1.8rem; font-weight: 600; color: var(--text-muted);">No <span style="color: white; font-weight: 800;">MeuFluxo</span> você terá:</h2>
+            <h2 style="font-size: 1.8rem; font-weight: 600; color: var(--text-muted);">No <span style="color: var(--secondary); font-weight: 800;">MeuFluxo</span> você terá:</h2>
         </div>
         
         <div class="bento-grid">
@@ -267,18 +295,30 @@
             <div class="sim-panels">
                 <!-- Coluna de Ação -->
                 <div>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; font-weight: 700;">👆 Simular novo registro</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; font-weight: 700;">👆 Simular registros</p>
+                    
                     <div class="sim-services" id="serviceList">
                         <!-- Gerado via JS -->
                     </div>
+
+                    <!-- NOVO BOTÃO DE DESPESA ESTATICO -->
+                    <div id="expenseBtn" class="sim-item" style="margin-top: 10px; border-color: #fca5a5; background: #fef2f2;" onclick="addExpense()">
+                        <strong><i class="fas fa-minus-circle" style="color: #ef4444;"></i> Adicionar Despesa</strong>
+                        <span style="color: #ef4444;">- R$ 25</span>
+                    </div>
+
                 </div>
 
                 <!-- Coluna de Resultados -->
                 <div>
+                    <!-- NOVOS INDICADORES ADICIONADOS (GRID 2x2) -->
                     <div class="sim-stats-grid">
                         <div class="sim-stat-box"><small>Entrou Hoje</small><h4 id="statToday">R$ 0</h4></div>
-                        <div class="sim-stat-box"><small>Total Mês</small><h4 id="statMonth">R$ 2.500</h4></div>
+                        <div class="sim-stat-box"><small>Saiu Hoje</small><h4 id="statOutToday" style="color: #ef4444;">R$ 0</h4></div>
+                        <div class="sim-stat-box"><small>Total Mês</small><h4 id="statMonth" style="color: var(--text-main);">R$ 2.500</h4></div>
+                        <div class="sim-stat-box" style="background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.3);"><small>Lucro do Mês</small><h4 id="statNetMonth">R$ 2.100</h4></div>
                     </div>
+                    
                     <div class="chart-container">
                         <canvas id="mainChart"></canvas>
                     </div>
@@ -292,6 +332,13 @@
             <i class="fas fa-exclamation-triangle truth-icon"></i>
             <h2>Você sabia que 80% dos autônomos não sabem exatamente qual foi o lucro real do mês?</h2>
             <p>A verdade é que a maioria "ACHA" que sabe quanto ganha. Mas quando mistura o dinheiro do negócio com as contas de casa, percebe que o dinheiro foi embora como água e não sobrou nada para investir ou descansar.</p>
+        </div>
+    </section>
+
+    <!-- NOVO CTA INTERMEDIÁRIO -->
+    <section class="mid-cta-section container reveal">
+        <div class="btn-wrapper">
+            <a href="#oferta" class="btn btn-primary cta-link">Quero organizar meu dinheiro agora</a>
         </div>
     </section>
 
@@ -340,15 +387,15 @@
                         <p>Oferta encerra em:</p>
                         <div class="timer">
                             <div class="time-block"><strong id="hrs">02</strong><span>Hrs</span></div>
-                            <div style="font-size: 1.5rem; font-weight: 800; align-self: center;">:</div>
+                            <div style="font-size: 1.5rem; font-weight: 800; align-self: center; color: var(--text-main);">:</div>
                             <div class="time-block"><strong id="mins">59</strong><span>Min</span></div>
-                            <div style="font-size: 1.5rem; font-weight: 800; align-self: center;">:</div>
+                            <div style="font-size: 1.5rem; font-weight: 800; align-self: center; color: var(--text-main);">:</div>
                             <div class="time-block"><strong id="secs">54</strong><span>Seg</span></div>
                         </div>
                     </div>
 
                     <div class="guarantee">
-                        <i class="fas fa-shield-alt text-blue" style="font-size: 1.5rem;"></i>
+                        <i class="fas fa-shield-alt" style="font-size: 1.8rem; color: var(--primary);"></i>
                         <span><strong>Garantia de 7 dias.</strong> Se não gostar da plataforma, devolvemos 100% do seu dinheiro com apenas um clique.</span>
                     </div>
 
@@ -383,14 +430,14 @@
     <footer>
         <div class="container">
             <p>© 2024 MeuFluxo. Todos os direitos reservados.</p>
-            <p style="margin-top: 10px; opacity: 0.5;">Este site não é afiliado ao Facebook ou a qualquer entidade do Facebook. Protegemos rigorosamente os dados dos nossos usuários.</p>
+            <p style="margin-top: 10px; opacity: 0.7;">Este site não é afiliado ao Facebook ou a qualquer entidade do Facebook. Protegemos rigorosamente os dados dos nossos usuários.</p>
         </div>
     </footer>
 
     <script>
-        // Configuração Global de Cores para o Gráfico se adaptar ao Dark Mode
-        Chart.defaults.color = '#a1a1aa';
-        Chart.defaults.borderColor = 'rgba(255,255,255,0.05)';
+        // Configuração Global de Cores para o Gráfico se adaptar ao Light Mode
+        Chart.defaults.color = '#64748b';
+        Chart.defaults.borderColor = '#e2e8f0';
         Chart.defaults.font.family = "'Inter', sans-serif";
 
         // --- CHECKOUT URL ---
@@ -405,7 +452,9 @@
         };
 
         let currentProfile = 'manicure';
-        let stats = { today: 0, month: 2200, count: 35, services: {} };
+        
+        // Nova estrutura de status (Incluindo saídas/despesas)
+        let stats = { today: 0, outToday: 0, month: 2500, outMonth: 400, count: 35, services: {} };
         let mainChart;
 
         function setProfile(id) {
@@ -413,7 +462,8 @@
             document.querySelectorAll('.sim-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.innerText.toLowerCase().includes(id === 'app' ? 'app' : id.substring(0,4)));
             });
-            stats = { today: 0, month: 2200, count: 35, services: {} };
+            // Reseta valores básicos para simulação limpa ao trocar de perfil
+            stats = { today: 0, outToday: 0, month: 2500, outMonth: 400, count: 35, services: {} };
             profiles[id].services.forEach((s, i) => stats.services[s.id] = profiles[id].initial[i]);
             renderServices();
             updateDashboard();
@@ -434,7 +484,7 @@
                     
                     // Efeito visual no clique
                     div.style.transform = 'scale(0.98)';
-                    div.style.backgroundColor = 'rgba(16, 185, 129, 0.2)';
+                    div.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
                     setTimeout(() => { div.style.transform = 'scale(1)'; div.style.backgroundColor = ''; }, 150);
                     
                     updateDashboard(); 
@@ -443,18 +493,39 @@
             });
         }
 
+        // Função do Novo Botão de Despesa
+        function addExpense() {
+            stats.outToday += 25;
+            stats.outMonth += 25;
+            
+            const btn = document.getElementById('expenseBtn');
+            btn.style.transform = 'scale(0.98)';
+            btn.style.backgroundColor = '#fee2e2';
+            setTimeout(() => { btn.style.transform = 'scale(1)'; btn.style.backgroundColor = '#fef2f2'; }, 150);
+            
+            updateDashboard();
+        }
+
         function updateDashboard() {
+            // Atualizando as 4 caixinhas
             document.getElementById('statToday').innerText = `R$ ${stats.today}`;
+            document.getElementById('statOutToday').innerText = `R$ ${stats.outToday}`;
             document.getElementById('statMonth').innerText = `R$ ${stats.month}`;
+            
+            // Calculo Dinâmico: Lucro = Entrada - Saída
+            let lucroMes = stats.month - stats.outMonth;
+            document.getElementById('statNetMonth').innerText = `R$ ${lucroMes}`;
+
+            // O Gráfico segue mapeando as entradas do dia atual
             if(mainChart) updateCharts();
         }
 
         function initCharts() {
             const ctx1 = document.getElementById('mainChart').getContext('2d');
             
-            // Gradiente para o gráfico estilo "Neon Blue/Green"
+            // Gradiente claro para o gráfico
             let gradient = ctx1.createLinearGradient(0, 0, 0, 400);
-            gradient.addColorStop(0, 'rgba(16, 185, 129, 0.5)');
+            gradient.addColorStop(0, 'rgba(16, 185, 129, 0.2)');
             gradient.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
 
             mainChart = new Chart(ctx1, {
@@ -462,11 +533,11 @@
                 data: { 
                     labels:['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Hoje'], 
                     datasets:[{ 
-                        label: 'Ganhos R$',
+                        label: 'Entradas R$',
                         data:[400, 350, 500, 450, 600, 0], 
                         borderColor: '#10b981', 
                         borderWidth: 3,
-                        pointBackgroundColor: '#18181b',
+                        pointBackgroundColor: '#ffffff',
                         pointBorderColor: '#10b981',
                         pointBorderWidth: 2,
                         pointRadius: 4,
@@ -518,7 +589,7 @@
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                if (elementTop < windowHeight - 100) {
+                if (elementTop < windowHeight - 50) {
                     reveals[i].classList.add("active");
                 }
             }
