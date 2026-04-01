@@ -29,20 +29,24 @@
 
         /* ── RESET ── */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
 
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-light);
             color: var(--text-main);
             line-height: 1.6;
-            /* FIX: impede samba lateral no mobile */
             overflow-x: hidden;
             width: 100%;
-            max-width: 100vw;
+            position: relative;
         }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            width: 100%;
+        }
 
         /* ── UTILITÁRIOS ── */
         .text-purple { color: var(--secondary); }
@@ -175,9 +179,7 @@
             margin: 44px 0;
             display: flex;
             transform: rotate(-1deg);
-            /* FIX: evita scroll horizontal no mobile */
-            width: 105%;
-            margin-left: -2.5%;
+            width: 100%;
         }
         .marquee-content {
             display: inline-flex;
@@ -228,7 +230,6 @@
             margin: 60px auto;
             max-width: 900px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.07);
-            /* FIX: impede corte lateral no mobile */
             overflow: hidden;
             width: 100%;
         }
@@ -236,9 +237,8 @@
             display: flex;
             gap: 8px;
             margin-bottom: 20px;
-            /* FIX: scroll interno sem vazar para fora */
             overflow-x: auto;
-            padding-bottom: 8px;
+            padding: 2px 0 12px;
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
         }
@@ -260,7 +260,6 @@
         }
         .sim-btn.active { background: var(--secondary); border-color: var(--secondary); color: white; }
 
-        /* FIX: em mobile, o painel fica em coluna e não transborda */
         .sim-panels { display: grid; grid-template-columns: 1fr; gap: 20px; }
 
         .sim-services { display: flex; flex-direction: column; gap: 10px; }
@@ -274,24 +273,62 @@
             border-radius: 12px;
             cursor: pointer;
             transition: 0.2s;
-            /* FIX: evita que o texto estoure o card */
             min-width: 0;
-            overflow: hidden;
         }
         .sim-item:hover { background: rgba(16,185,129,0.06); border-color: var(--success); }
-        .sim-item strong { font-size: 0.93rem; color: var(--text-main); display: flex; align-items: center; gap: 8px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .sim-item span { color: var(--success); font-weight: 700; white-space: nowrap; flex-shrink: 0; margin-left: 8px; }
+        .sim-item strong { 
+            font-size: 0.93rem; 
+            color: var(--text-main); 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            min-width: 0; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            white-space: nowrap; 
+        }
+        .sim-item span { 
+            color: var(--success); 
+            font-weight: 700; 
+            white-space: nowrap; 
+            flex-shrink: 0; 
+            margin-left: 10px; 
+            font-size: 0.9rem;
+        }
 
-        .sim-stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+        .sim-stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 10px; 
+            margin-bottom: 16px; 
+            width: 100%;
+        }
         .sim-stat-box {
             background: var(--bg-light);
             border: 1px solid var(--border);
-            padding: 12px;
+            padding: 12px 8px;
             border-radius: 12px;
             text-align: center;
+            min-width: 0;
         }
-        .sim-stat-box small { color: var(--text-muted); font-size: 0.68rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; display: block; margin-bottom: 4px; }
-        .sim-stat-box h4 { color: var(--success); font-size: 1.2rem; font-weight: 800; }
+        .sim-stat-box small { 
+            color: var(--text-muted); 
+            font-size: 0.65rem; 
+            text-transform: uppercase; 
+            font-weight: 700; 
+            letter-spacing: 0.5px; 
+            display: block; 
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .sim-stat-box h4 { 
+            color: var(--success); 
+            font-size: 1.1rem; 
+            font-weight: 800; 
+            white-space: nowrap;
+        }
 
         .chart-container { height: 200px; background: var(--bg-light); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
 
@@ -395,9 +432,19 @@
         details p { padding: 0 20px 20px; color: var(--text-muted); font-size: 0.93rem; }
 
         /* ── RESPONSIVIDADE ── */
+        @media (max-width: 480px) {
+            .sim-wrapper { padding: 15px; }
+            .sim-stat-box h4 { font-size: 0.95rem; }
+            .sim-item { padding: 12px 10px; }
+            .sim-item strong { font-size: 0.85rem; }
+            .sim-item span { font-size: 0.85rem; margin-left: 5px; }
+        }
+        
         @media (min-width: 640px) {
             .sim-panels { grid-template-columns: 1fr 1.4fr; gap: 24px; }
             .sim-wrapper { padding: 28px; }
+            .sim-stat-box h4 { font-size: 1.2rem; }
+            .sim-stat-box small { font-size: 0.68rem; }
         }
         @media (min-width: 768px) {
             .bento-grid { grid-template-columns: repeat(2, 1fr); }
