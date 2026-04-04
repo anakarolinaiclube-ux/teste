@@ -1,11 +1,9 @@
---- START OF FILE index (78).html ---
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MeuFluxo | Controle Financeiro Inteligente para Autônomos</title>
+    <title>Previsio | Controle Financeiro Inteligente para Autônomos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -366,7 +364,7 @@
         .truth-cta { display: flex; justify-content: center; }
 
         /* ── PARA QUEM É ── */
-        .for-you-section { padding: 60px 0 80px; }
+        .for-you-section { padding: 60px 0 30px; } /* Reduzido de 80px para 30px */
         .for-you-box {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -393,7 +391,7 @@
         .check-list-big li i { color: var(--success); font-size: 1.15rem; margin-top: 2px; flex-shrink: 0; }
 
         /* ── PRICING ── */
-        .offer-wrapper { padding: 60px 0 100px; }
+        .offer-wrapper { padding: 20px 0 30px; } /* Reduzido de 60px/100px para 20px/30px */
         .offer-card {
             background: var(--card-bg);
             border: 2px solid var(--primary);
@@ -441,36 +439,13 @@
         .time-block span { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
         /* ── FAQ ── */
-        .faq-section { padding: 60px 0; max-width: 800px; margin: 0 auto; }
+        .faq-section { padding: 20px 0 60px; max-width: 800px; margin: 0 auto; } /* Reduzido padding top de 60px para 20px */
         details { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 14px; overflow: hidden; transition: 0.3s; }
         summary { padding: 20px; font-weight: 600; font-size: 1.02rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); font-family: 'Poppins', sans-serif; }
         summary::-webkit-details-marker { display: none; }
         summary::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--primary); transition: 0.3s; }
         details[open] summary::after { transform: rotate(180deg); }
         details p { padding: 0 20px 20px; color: var(--text-muted); font-size: 0.93rem; }
-
-        /* ── POP-UP DE COMPRA ── */
-        .purchase-popup {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: white;
-            padding: 12px 18px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 9999;
-            transform: translateY(150%);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-left: 4px solid var(--success);
-            max-width: 280px;
-        }
-        .purchase-popup.active { transform: translateY(0); }
-        .purchase-popup i { color: var(--success); font-size: 1.2rem; }
-        .purchase-popup p { font-size: 0.8rem; color: var(--text-main); font-weight: 500; margin: 0; }
-        .purchase-popup span { font-weight: 700; color: var(--text-main); }
 
         /* ── RESPONSIVIDADE ── */
         @media (max-width: 480px) {
@@ -479,7 +454,6 @@
             .sim-item { padding: 12px 10px; }
             .sim-item strong { font-size: 0.85rem; }
             .sim-item span { font-size: 0.85rem; margin-left: 5px; }
-            .purchase-popup { left: 10px; right: 10px; bottom: 10px; max-width: none; }
         }
         
         @media (min-width: 640px) {
@@ -507,11 +481,11 @@
         <i class="fas fa-bolt"></i> Restam apenas 14 acessos promocionais.
     </div>
 
-    <!-- LOGO MELHORADA -->
+    <!-- LOGO -->
     <div class="logo-container">
         <div class="logo-text">
             <div class="logo-icon"><i class="fas fa-chart-line"></i></div>
-            <span><span class="logo-meu">Meu</span><span class="logo-fluxo">Fluxo</span><span class="logo-dot">.</span></span>
+            <span><span class="logo-meu">Pre</span><span class="logo-fluxo">visio</span><span class="logo-dot">.</span></span>
         </div>
     </div>
 
@@ -523,7 +497,8 @@
         <h1>Só precisa de 2 minutos por dia para ver <span class="text-green">seu dinheiro finalmente sobrar!</span></h1>
         <p>Pare de perder dinheiro por falta de controle. Retome o comando financeiro do seu trabalho com um painel automático, mais fácil de usar do que mandar um áudio no WhatsApp.</p>
         <div class="btn-wrapper">
-            <a href="#oferta" class="btn btn-primary cta-link">ACESSAR AGORA</a>
+            <!-- Este botão mantém a âncora interna conforme solicitado -->
+            <a href="#oferta" class="btn btn-primary">ACESSAR AGORA</a>
         </div>
     </header>
 
@@ -548,7 +523,7 @@
     <!-- BENTO GRID -->
     <section class="container reveal">
         <div class="section-title">
-            <h2>No <span style="color: var(--secondary);">MeuFluxo</span> você terá:</h2>
+            <h2>No <span style="color: var(--secondary);">Previsio</span> você terá:</h2>
         </div>
         <div class="bento-grid">
             <div class="bento-card">
@@ -614,7 +589,6 @@
             </div>
         </div>
 
-        <!-- AVISO ABAIXO DO SIMULADOR -->
         <div class="sim-notice-card">
             <i class="fas fa-info-circle"></i>
             <p><strong>Atenção:</strong> As opções acima são apenas exemplos. No seu painel <strong>você poderá cadastrar e editar</strong> todos os seus serviços e valores exatamente como você trabalha.</p>
@@ -627,10 +601,10 @@
             <div class="truth-icon"><i class="fas fa-exclamation-triangle"></i></div>
             <h2>Você sabia que 80% dos autônomos não sabem exatamente qual foi o lucro real do mês?</h2>
             <p>A verdade é que a maioria "ACHA" que sabe quanto ganha. Mas quando mistura o dinheiro do negócio com as contas de casa, percebe que o dinheiro foi embora como água e não sobrou nada para investir ou descansar.</p>
-            <!-- CTA encaixado no container desta seção -->
             <div class="truth-cta">
                 <div class="btn-wrapper">
-                    <a href="#oferta" class="btn btn-primary cta-link">Quero organizar meu dinheiro agora</a>
+                    <!-- CTA externo -->
+                    <a href="#" class="btn btn-primary cta-external">Quero organizar meu dinheiro agora</a>
                 </div>
             </div>
         </div>
@@ -639,7 +613,7 @@
     <!-- PARA QUEM É -->
     <section class="for-you-section container">
         <div class="for-you-box">
-            <h3>O MeuFluxo é para você que...</h3>
+            <h3>O Previsio é para você que...</h3>
             <ul class="check-list-big">
                 <li class="check-item"><i class="fas fa-check-circle"></i> Trabalha o dia inteiro e sente que o dinheiro some no fim do mês.</li>
                 <li class="check-item"><i class="fas fa-check-circle"></i> Anota as vendas num caderno que rasga ou perde nas mensagens do WhatsApp.</li>
@@ -673,7 +647,8 @@
                         <li><i class="fas fa-check"></i> Funciona no Celular, Tablet e Computador</li>
                         <li><i class="fas fa-check"></i> Suporte prioritário via WhatsApp</li>
                     </ul>
-                    <a href="#" class="btn btn-success cta-link" style="width: 100%;">GARANTIR ACESSO AGORA</a>
+                    <!-- CTA externo -->
+                    <a href="#" class="btn btn-success cta-external" style="width: 100%;">GARANTIR ACESSO AGORA</a>
                     <div class="countdown-box">
                         <p>Oferta encerra em:</p>
                         <div class="timer">
@@ -700,11 +675,11 @@
         </div>
         <details>
             <summary>Preciso saber usar computador ou Excel?</summary>
-            <p>De forma alguma. O MeuFluxo foi desenhado para ser tão fácil quanto usar as redes sociais no celular. Tudo é focado em botões grandes e claros.</p>
+            <p>De forma alguma. O Previsio foi desenhado para ser tão fácil quanto usar as redes sociais no celular. Tudo é focado em botões grandes e claros.</p>
         </details>
         <details>
             <summary>Tem aplicativo para baixar?</summary>
-            <p>Você não precisa ocupar a memória do seu celular baixando aplicativos da loja. O MeuFluxo funciona diretamente pelo navegador de qualquer celular com internet.</p>
+            <p>Você não precisa ocupar a memória do seu celular baixando aplicativos da loja. O Previsio funciona diretamente pelo navegador de qualquer celular com internet.</p>
         </details>
         <details>
             <summary>Posso cancelar se eu não gostar?</summary>
@@ -716,15 +691,9 @@
         </details>
     </section>
 
-    <!-- POP-UP NOTIFICAÇÃO -->
-    <div class="purchase-popup" id="purchasePopup">
-        <i class="fas fa-check-circle"></i>
-        <p id="purchaseText"><span>Maria</span> acabou de adquirir o acesso promocional.</p>
-    </div>
-
     <footer>
         <div class="container">
-            <p>© 2025 MeuFluxo. Todos os direitos reservados.</p>
+            <p>© 2025 Previsio. Todos os direitos reservados.</p>
             <p style="margin-top: 10px; opacity: 0.7;">Este site não é afiliado ao Facebook ou a qualquer entidade do Facebook. Protegemos rigorosamente os dados dos nossos usuários.</p>
         </div>
     </footer>
@@ -734,8 +703,11 @@
         Chart.defaults.borderColor = '#e4e9f0';
         Chart.defaults.font.family = "'Poppins', sans-serif";
 
-        const CHECKOUT_URL = "https://meufluxo-pi.vercel.app/";
-        document.querySelectorAll('.cta-link').forEach(el => el.href = CHECKOUT_URL);
+        // COLOQUE SEU LINK DE CHECKOUT ABAIXO
+        const MEU_LINK_CHECKOUT = "SEU_LINK_DE_CHECKOUT_AQUI";
+        
+        // Aplica o link apenas nos CTAs externos
+        document.querySelectorAll('.cta-external').forEach(el => el.href = MEU_LINK_CHECKOUT);
 
         // ── SIMULADOR ──
         const profiles = {
@@ -867,34 +839,6 @@
             });
         }
 
-        // ── POP-UP DE COMPRA (FAKE SOCIAL PROOF) ──
-        const names = ["Ricardo", "Juliana", "Marcos", "Ana Paula", "Douglas", "Sabrina", "Felipe", "Carla", "Beatriz", "João Pedro", "Renata", "Tiago"];
-        const cities = ["São Paulo", "Rio de Janeiro", "Curitiba", "Belo Horizonte", "Salvador", "Porto Alegre", "Brasília", "Recife"];
-
-        function showPurchasePopup() {
-            const popup = document.getElementById('purchasePopup');
-            const text = document.getElementById('purchaseText');
-            const randomName = names[Math.floor(Math.random() * names.length)];
-            const randomCity = cities[Math.floor(Math.random() * cities.length)];
-            
-            text.innerHTML = `<span>${randomName}</span> (${randomCity}) acabou de adquirir o acesso promocional.`;
-            
-            popup.classList.add('active');
-            
-            setTimeout(() => {
-                popup.classList.remove('active');
-            }, 5000); // Fica visível por 5 segundos
-        }
-
-        function startPurchaseLoop() {
-            // Primeiro pop-up após 4 segundos
-            setTimeout(() => {
-                showPurchasePopup();
-                // Loop com intervalos saudáveis (entre 12 a 20 segundos para não cansar)
-                setInterval(showPurchasePopup, Math.floor(Math.random() * (20000 - 12000) + 12000));
-            }, 4000);
-        }
-
         window.addEventListener('scroll', () => { reveal(); revealChecklist(); });
 
         window.onload = () => {
@@ -903,7 +847,6 @@
             reveal();
             revealChecklist();
             startTimer(2 * 3600 + 59 * 60 + 54);
-            startPurchaseLoop();
         };
     </script>
 </body>
