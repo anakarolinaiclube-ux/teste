@@ -1,3 +1,5 @@
+--- START OF FILE index (78).html ---
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -227,7 +229,7 @@
             border: 1px solid var(--border);
             border-radius: 24px;
             padding: 20px;
-            margin: 60px auto;
+            margin: 0 auto;
             max-width: 900px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.07);
             overflow: hidden;
@@ -332,6 +334,22 @@
 
         .chart-container { height: 200px; background: var(--bg-light); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
 
+        /* NOVO: Card de Aviso do Simulador */
+        .sim-notice-card {
+            max-width: 900px;
+            margin: 20px auto 60px;
+            background: var(--secondary-light);
+            border: 1px dashed var(--secondary);
+            border-radius: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: left;
+        }
+        .sim-notice-card i { color: var(--secondary); font-size: 1.3rem; }
+        .sim-notice-card p { font-size: 0.88rem; color: var(--text-main); font-weight: 500; line-height: 1.4; }
+
         /* ── "VOCÊ SABIA" + CTA INTEGRADO ── */
         .truth-section {
             padding: 80px 0;
@@ -431,6 +449,29 @@
         details[open] summary::after { transform: rotate(180deg); }
         details p { padding: 0 20px 20px; color: var(--text-muted); font-size: 0.93rem; }
 
+        /* ── POP-UP DE COMPRA ── */
+        .purchase-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 12px 18px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 9999;
+            transform: translateY(150%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-left: 4px solid var(--success);
+            max-width: 280px;
+        }
+        .purchase-popup.active { transform: translateY(0); }
+        .purchase-popup i { color: var(--success); font-size: 1.2rem; }
+        .purchase-popup p { font-size: 0.8rem; color: var(--text-main); font-weight: 500; margin: 0; }
+        .purchase-popup span { font-weight: 700; color: var(--text-main); }
+
         /* ── RESPONSIVIDADE ── */
         @media (max-width: 480px) {
             .sim-wrapper { padding: 15px; }
@@ -438,6 +479,7 @@
             .sim-item { padding: 12px 10px; }
             .sim-item strong { font-size: 0.85rem; }
             .sim-item span { font-size: 0.85rem; margin-left: 5px; }
+            .purchase-popup { left: 10px; right: 10px; bottom: 10px; max-width: none; }
         }
         
         @media (min-width: 640px) {
@@ -571,6 +613,12 @@
                 </div>
             </div>
         </div>
+
+        <!-- AVISO ABAIXO DO SIMULADOR -->
+        <div class="sim-notice-card">
+            <i class="fas fa-info-circle"></i>
+            <p><strong>Atenção:</strong> As opções acima são apenas exemplos. No seu painel <strong>você poderá cadastrar e editar</strong> todos os seus serviços e valores exatamente como você trabalha.</p>
+        </div>
     </section>
 
     <!-- "VOCÊ SABIA" + CTA INTEGRADO -->
@@ -667,6 +715,12 @@
             <p>Imediatamente após a confirmação do pagamento, você receberá o link de acesso, seu login e senha diretamente no e-mail cadastrado e no seu WhatsApp.</p>
         </details>
     </section>
+
+    <!-- POP-UP NOTIFICAÇÃO -->
+    <div class="purchase-popup" id="purchasePopup">
+        <i class="fas fa-check-circle"></i>
+        <p id="purchaseText"><span>Maria</span> acabou de adquirir o acesso promocional.</p>
+    </div>
 
     <footer>
         <div class="container">
@@ -813,6 +867,34 @@
             });
         }
 
+        // ── POP-UP DE COMPRA (FAKE SOCIAL PROOF) ──
+        const names = ["Ricardo", "Juliana", "Marcos", "Ana Paula", "Douglas", "Sabrina", "Felipe", "Carla", "Beatriz", "João Pedro", "Renata", "Tiago"];
+        const cities = ["São Paulo", "Rio de Janeiro", "Curitiba", "Belo Horizonte", "Salvador", "Porto Alegre", "Brasília", "Recife"];
+
+        function showPurchasePopup() {
+            const popup = document.getElementById('purchasePopup');
+            const text = document.getElementById('purchaseText');
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const randomCity = cities[Math.floor(Math.random() * cities.length)];
+            
+            text.innerHTML = `<span>${randomName}</span> (${randomCity}) acabou de adquirir o acesso promocional.`;
+            
+            popup.classList.add('active');
+            
+            setTimeout(() => {
+                popup.classList.remove('active');
+            }, 5000); // Fica visível por 5 segundos
+        }
+
+        function startPurchaseLoop() {
+            // Primeiro pop-up após 4 segundos
+            setTimeout(() => {
+                showPurchasePopup();
+                // Loop com intervalos saudáveis (entre 12 a 20 segundos para não cansar)
+                setInterval(showPurchasePopup, Math.floor(Math.random() * (20000 - 12000) + 12000));
+            }, 4000);
+        }
+
         window.addEventListener('scroll', () => { reveal(); revealChecklist(); });
 
         window.onload = () => {
@@ -821,6 +903,7 @@
             reveal();
             revealChecklist();
             startTimer(2 * 3600 + 59 * 60 + 54);
+            startPurchaseLoop();
         };
     </script>
 </body>
