@@ -82,7 +82,6 @@ body {
   position: relative; overflow: hidden;
 }
 
-/* AJUSTE DO QUIZ PARA STEPS */
 .q-step { display: none; }
 .q-step.active { display: block; animation: slide-in 0.4s ease forwards; }
 
@@ -144,7 +143,6 @@ body {
   padding: 5rem 1.25rem 4rem; text-align: center;
   position: relative; overflow: hidden;
 }
-/* Efeito de Ondas no fundo */
 .hero-bg-waves {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4;
   overflow: hidden; pointer-events: none;
@@ -251,7 +249,48 @@ h2 { font-family: 'Merriweather', serif; font-size: clamp(1.6rem, 5vw, 2.2rem); 
   color: rgba(26, 95, 168, 0.1); line-height: 1;
 }
 
-/* DEPOIMENTOS */
+/* ══ NOVA SEÇÃO: BENEFÍCIOS ══ */
+.benefits-sec { overflow: hidden; padding: 6rem 0; background: transparent; }
+.benefits-title { text-align: center; margin-bottom: 4rem; padding: 0 1.25rem; }
+
+@keyframes scrollInfinite {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.benefits-carousel {
+  display: flex;
+  width: max-content;
+  animation: scrollInfinite 30s linear infinite;
+  gap: 20px;
+  padding-left: 20px;
+}
+.benefits-carousel:hover { animation-play-state: paused; }
+
+.benefits-card {
+  width: 280px;
+  background: var(--glass);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
+  padding: 2.5rem 2rem;
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+  transition: all 0.4s ease;
+  flex-shrink: 0;
+}
+.benefits-card:hover {
+  transform: translateY(-10px);
+  background: #fff;
+  border-color: var(--accent-light);
+  box-shadow: var(--shadow-strong);
+}
+.benefits-icon { font-size: 3rem; margin-bottom: 1.5rem; display: block; }
+.benefits-card h3 { font-size: 1.2rem; margin-bottom: 0.8rem; color: #0f172a; font-weight: 700; }
+.benefits-card p { font-size: 0.95rem; color: var(--muted); line-height: 1.5; }
+
+/* ══ DEPOIMENTOS ══ */
 .test-card {
   background: var(--glass); backdrop-filter: blur(10px);
   padding: 2rem; border-radius: 24px; border: 1px solid #fff;
@@ -284,7 +323,6 @@ h2 { font-family: 'Merriweather', serif; font-size: clamp(1.6rem, 5vw, 2.2rem); 
 </head>
 <body>
 
-<!-- ══ WAVE DECORATION (GLOBAL) ══ -->
 <div class="hero-bg-waves">
   <svg class="wave-svg" viewBox="0 0 120 28" preserveAspectRatio="none">
     <path d="M0 30 V15 Q30 3 60 15 t60 0 V30 z" />
@@ -475,6 +513,9 @@ h2 { font-family: 'Merriweather', serif; font-size: clamp(1.6rem, 5vw, 2.2rem); 
         <p>Neurocientistas identificaram que o estado mental de alta performance — chamado de <strong>onda theta (4–8 Hz)</strong> — é o mesmo que Einstein acessava enquanto tocava. É o estado onde a memória consolida, a criatividade flui e o foco se estende naturalmente.</p>
         <p style="margin-top:1.5rem">O NeuroVitalize usa frequências de áudio desenvolvidas para levar seu cérebro a esse estado — todos os dias, sem anos de violino, sem meditação complicada, sem equipamentos caros.</p>
       </div>
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href="#SEU_CHECKOUT_AQUI" class="btn-cta">Quero começar o protocolo →</a>
+      </div>
     </div>
   </section>
 
@@ -513,6 +554,69 @@ h2 { font-family: 'Merriweather', serif; font-size: clamp(1.6rem, 5vw, 2.2rem); 
             <p style="font-size:.9rem; color:var(--muted)">Diferente de suplementos ou truques rápidos, o protocolo diário constrói resultados que duram — porque treina seu cérebro, não o estimula artificialmente.</p>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ NOVA SEÇÃO: BENEFÍCIOS (CARDS VISUAIS) ══ -->
+  <section class="benefits-sec">
+    <div class="benefits-title">
+        <span class="sec-label">Sua Nova Mente</span>
+        <h2 class="reveal">O que muda quando seu<br><span>cérebro é ativado</span></h2>
+    </div>
+    
+    <div class="benefits-carousel">
+      <!-- Cards Originais -->
+      <div class="benefits-card">
+        <span class="benefits-icon">💎</span>
+        <h3>Memória Clara</h3>
+        <p>Lembre-se de nomes, dados e compromissos sem esforço ou "brancos" mentais.</p>
+      </div>
+      <div class="benefits-card">
+        <span class="benefits-icon">🎯</span>
+        <h3>Foco Prolongado</h3>
+        <p>Termine tarefas complexas em metade do tempo com concentração inabalável.</p>
+      </div>
+      <div class="benefits-card">
+        <span class="benefits-icon">⚡</span>
+        <h3>Energia Estável</h3>
+        <p>Dê adeus ao cansaço mental no meio da tarde e sinta-se produtivo até o fim do dia.</p>
+      </div>
+      <div class="benefits-card">
+        <span class="benefits-icon">🚀</span>
+        <h3>Zero Procrastinação</h3>
+        <p>A clareza mental remove a resistência para começar o que precisa ser feito.</p>
+      </div>
+      <div class="benefits-card">
+        <span class="benefits-icon">⚖️</span>
+        <h3>Decisões Rápidas</h3>
+        <p>Raciocínio lógico e intuitivo em harmonia para escolhas mais assertivas.</p>
+      </div>
+      <div class="benefits-card">
+        <span class="benefits-icon">🧘</span>
+        <h3>Paz Mental</h3>
+        <p>Reduza o ruído interno e a ansiedade através do equilíbrio das ondas cerebrais.</p>
+      </div>
+      <!-- Cards Duplicados para Loop Infinito -->
+      <div class="benefits-card">
+        <span class="benefits-icon">💎</span>
+        <h3>Memória Clara</h3>
+        <p>Lembre-se de nomes, dados e compromissos sem esforço ou "brancos" mentais.</p>
+      </div>
+      <div class="benefits-card">
+        <span class="benefits-icon">🎯</span>
+        <h3>Foco Prolongado</h3>
+        <p>Termine tarefas complexas em metade do tempo com concentração inabalável.</p>
+      </div>
+      <div class="benefits-card">
+        <span class="benefits-icon">⚡</span>
+        <h3>Energia Estável</h3>
+        <p>Dê adeus ao cansaço mental no meio da tarde e sinta-se produtivo até o fim do dia.</p>
+      </div>
+      <div class="benefits-card">
+        <span class="benefits-icon">🚀</span>
+        <h3>Zero Procrastinação</h3>
+        <p>A clareza mental remove a resistência para começar o que precisa ser feito.</p>
       </div>
     </div>
   </section>
@@ -561,7 +665,7 @@ h2 { font-family: 'Merriweather', serif; font-size: clamp(1.6rem, 5vw, 2.2rem); 
       <div class="offer-card reveal">
         <div style="background:var(--accent); color:#fff; font-size:.7rem; font-weight:800; padding:5px 15px; border-radius:50px; display:inline-block; margin-bottom:1rem; text-transform:uppercase">Oferta de lançamento</div>
         <p style="text-decoration:line-through; color:var(--muted); font-size:1rem; margin-bottom:0.5rem">De R$ 49,90/mês</p>
-        <div class="price-now" style="font-family:'Merriweather',serif; color:var(--text); font-weight:700"><sup>R$</sup>9<sup style="font-size:1.5rem">,90</sup></div>
+        <div class="price-now" style="font-family:'Merriweather',serif; color:var(--text); font-weight:700"><sup>R$</sup>19<sup style="font-size:1.5rem">,90</sup></div>
         <p style="background:var(--bg-main); display:inline-block; padding:4px 15px; border-radius:50px; font-size:.85rem; color:var(--muted); margin-bottom:2.5rem">por mês · cancele quando quiser</p>
         
         <div style="text-align:left; max-width:400px; margin:0 auto 2.5rem">
@@ -582,7 +686,7 @@ h2 { font-family: 'Merriweather', serif; font-size: clamp(1.6rem, 5vw, 2.2rem); 
           </div>
         </div>
 
-        <a href="#" class="btn-cta" style="width:100%; display:block; padding:1.3rem">Começar agora →</a>
+        <a href="#SEU_CHECKOUT_AQUI" class="btn-cta" style="width:100%; display:block; padding:1.3rem">Começar agora →</a>
         
         <div style="margin-top:2rem; padding:1.2rem; background:var(--bg-main); border-radius:15px; display:flex; gap:12px; align-items:flex-start; text-align:left; font-size:.8rem">
           <span style="font-size:1.5rem">🛡️</span>
@@ -644,7 +748,7 @@ h2 { font-family: 'Merriweather', serif; font-size: clamp(1.6rem, 5vw, 2.2rem); 
         <strong>Caminho 1:</strong> feche essa página. Continue convivendo com os lapsos de memória, a dispersão e a sensação de que seu cérebro poderia render muito mais.<br><br>
         <em>Caminho 2:</em> comece o NeuroVitalize por R$ 19,90 — com 30 dias de garantia total. Se não sentir diferença, devolvemos cada centavo. O risco é todo nosso.
       </p>
-      <a href="#oferta" class="btn-cta reveal">Quero o caminho 2 →</a>
+      <a href="#SEU_CHECKOUT_AQUI" class="btn-cta reveal">Quero o caminho 2 →</a>
     </div>
   </section>
 
@@ -676,10 +780,10 @@ function nextQ(n) {
   const curr = document.getElementById('q' + n);
   const next = document.getElementById('q' + (n + 1));
   
-  // Atualiza barra de progresso
+  // Rolar suavemente para o topo do quiz
+  document.getElementById('quiz-screen').scrollIntoView({ behavior: 'smooth' });
+
   document.getElementById('pb' + n).classList.add('done');
-  
-  // Efeito de saída
   curr.style.opacity = '0';
   curr.style.transform = 'translateY(-20px)';
   curr.style.transition = 'all 0.3s ease';
@@ -687,7 +791,6 @@ function nextQ(n) {
   setTimeout(() => { 
     curr.classList.remove('active'); 
     next.classList.add('active'); 
-    // Garante que o próximo step comece com estilo limpo para a animação CSS entrar
     next.style.opacity = '1';
     next.style.transform = 'translateY(0)';
   }, 300);
@@ -720,6 +823,7 @@ function goToLP() {
 }
 
 function showLP() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   document.getElementById('loading-screen').style.display = 'none';
   const lp = document.getElementById('lp-screen');
   lp.style.display = 'block';
@@ -749,7 +853,6 @@ function initScrollReveal() {
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
-// Magnetic Button Effect (Opcional - Toque de luxo)
 document.querySelectorAll('.btn-cta').forEach(btn => {
   btn.addEventListener('mousemove', (e) => {
     const rect = btn.getBoundingClientRect();
