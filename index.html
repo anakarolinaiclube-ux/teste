@@ -1,210 +1,703 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo NeuroShift - Reative seu Cérebro</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Montserrat', sans-serif; background-color: #050505; color: #ffffff; overflow-x: hidden; }
-        .quiz-container { display: flex; flex-direction: column; min-height: 100vh; justify-content: center; padding: 20px; }
-        .quiz-card { display: none; background: #111; border: 1px solid #333; border-radius: 20px; padding: 30px; box-shadow: 0 0 30px rgba(79, 70, 229, 0.2); }
-        .quiz-card.active { display: block; animation: fadeIn 0.5s ease; }
-        .btn-option { width: 100%; text-align: left; padding: 20px; margin-bottom: 12px; background: #1a1a1a; border: 1px solid #444; border-radius: 12px; transition: 0.3s; font-weight: bold; }
-        .btn-option:hover { background: #4f46e5; border-color: #4f46e5; transform: translateX(10px); }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .accent-color { color: #4f46e5; }
-        .bg-accent { background-color: #4f46e5; }
-        .hidden { display: none; }
-        .progress-bar { height: 6px; background: #222; border-radius: 10px; margin-bottom: 30px; overflow: hidden; }
-        .progress-fill { height: 100%; background: #4f46e5; width: 0%; transition: 0.4s; }
-        .vsl-text { line-height: 1.6; font-size: 1.15rem; }
-        .btn-cta { background: #22c55e; color: white; font-weight: 900; padding: 25px; border-radius: 15px; text-align: center; display: block; width: 100%; font-size: 1.4rem; box-shadow: 0 10px 20px rgba(34, 197, 94, 0.4); text-transform: uppercase; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeuroVitalize — Ative Sua Memória e Foco em 7 Dias</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#0f0f0f;
+  --bg2:#1a1a1a;
+  --bg3:#222;
+  --text:#e8e8e8;
+  --muted:#aaa;
+  --accent:#4a90d9;
+  --accent2:#5ba3f5;
+  --gold:#f0c040;
+  --green:#4caf50;
+  --border:#333;
+}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Open Sans',sans-serif;
+  font-size:17px;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+
+/* ── QUIZ ── */
+#quiz-screen{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:2rem 1.25rem;
+  background:var(--bg);
+}
+.logo-top{
+  font-size:1.1rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent2);margin-bottom:2.5rem;
+}
+.quiz-wrap{width:100%;max-width:600px}
+.q-prog{display:flex;gap:6px;margin-bottom:2rem}
+.q-bar{flex:1;height:3px;background:#2a2a2a;border-radius:2px;transition:background .3s}
+.q-bar.done{background:var(--accent)}
+.q-step{display:none;opacity:0;animation:fup .35s ease forwards}
+.q-step.active{display:block}
+.q-num{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.6rem}
+.q-text{
+  font-size:clamp(1.25rem,4vw,1.65rem);
+  font-weight:700;line-height:1.3;
+  color:#fff;margin-bottom:.5rem;
+}
+.q-hint{font-size:.9rem;color:var(--muted);margin-bottom:1.75rem}
+.q-opts{display:flex;flex-direction:column;gap:10px}
+.q-opt{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:.9rem 1.2rem;
+  cursor:pointer;
+  display:flex;align-items:center;gap:12px;
+  color:var(--text);font-size:.95rem;
+  text-align:left;transition:all .18s;
+  font-family:'Open Sans',sans-serif;
+}
+.q-opt:hover{border-color:var(--accent);background:#1e2a38;transform:translateX(4px)}
+.q-circle{
+  width:20px;height:20px;border-radius:50%;
+  border:2px solid #444;flex-shrink:0;
+  transition:all .18s;
+}
+.q-opt:hover .q-circle{border-color:var(--accent);background:var(--accent)}
+
+/* ── LOADING ── */
+#loading-screen{
+  display:none;min-height:100vh;
+  align-items:center;justify-content:center;
+  flex-direction:column;gap:1.25rem;
+  padding:2rem;text-align:center;
+  background:var(--bg);
+}
+.l-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.l-track{width:260px;height:3px;background:#2a2a2a;border-radius:2px;overflow:hidden}
+.l-fill{height:100%;background:var(--accent);width:0%;transition:width .08s linear}
+.l-msg{font-size:1rem;color:var(--text);max-width:320px;min-height:1.5rem}
+
+/* ── LP ── */
+#lp-screen{display:none}
+
+/* HERO */
+.hero{
+  padding:3.5rem 1.25rem 3rem;
+  text-align:center;
+  background:var(--bg);
+  border-bottom:1px solid var(--border);
+}
+.hero-tag{
+  display:inline-block;
+  background:#1c2a1c;border:1px solid #2e5c2e;
+  color:#6fcf6f;font-size:.78rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;
+  padding:5px 14px;border-radius:4px;margin-bottom:1.25rem;
+}
+.hero h1{
+  font-size:clamp(1.6rem,5vw,2.5rem);
+  font-weight:700;line-height:1.25;
+  color:#fff;max-width:700px;
+  margin:0 auto 1rem;
+}
+.hero h1 span{color:var(--accent2)}
+.hero-sub{
+  font-size:1.05rem;color:var(--muted);
+  max-width:520px;margin:0 auto 1.75rem;
+}
+.result-box{
+  background:var(--bg2);
+  border:1px solid #2a3a4a;
+  border-left:4px solid var(--accent);
+  border-radius:8px;
+  padding:1rem 1.25rem;
+  max-width:580px;margin:0 auto 2rem;
+  text-align:left;
+}
+.result-lbl{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent2);margin-bottom:.4rem;font-weight:700}
+.result-txt{font-size:.95rem;color:var(--text);line-height:1.65}
+
+/* CTA button */
+.btn-cta{
+  display:inline-block;
+  background:var(--green);
+  color:#fff;font-weight:700;
+  font-size:1.05rem;
+  padding:.95rem 2.5rem;
+  border-radius:6px;border:none;
+  cursor:pointer;text-decoration:none;
+  letter-spacing:.02em;transition:all .2s;
+  font-family:'Open Sans',sans-serif;
+}
+.btn-cta:hover{background:#43a047;transform:translateY(-1px)}
+.btn-cta-lrg{
+  display:block;width:100%;
+  background:var(--green);
+  color:#fff;font-weight:700;
+  font-size:1.1rem;
+  padding:1.1rem 2rem;
+  border-radius:6px;border:none;
+  cursor:pointer;text-decoration:none;
+  text-align:center;
+  letter-spacing:.02em;transition:all .2s;
+  font-family:'Open Sans',sans-serif;
+}
+.btn-cta-lrg:hover{background:#43a047}
+.hero-fine{font-size:.8rem;color:var(--muted);margin-top:.75rem}
+
+/* STRIP */
+.strip{
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  padding:1rem 1.25rem;
+  display:flex;align-items:center;
+  justify-content:center;gap:2rem;flex-wrap:wrap;
+}
+.strip-item{display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted)}
+.strip-item strong{color:var(--text)}
+.strip-dot{width:4px;height:4px;border-radius:50%;background:#444}
+
+/* SECTIONS */
+section{padding:3.5rem 1.25rem}
+.sec-inner{max-width:720px;margin:0 auto}
+.sec-inner-wide{max-width:960px;margin:0 auto}
+
+.sec-label{
+  font-size:.78rem;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--accent2);
+  font-weight:700;display:block;margin-bottom:.75rem;
+}
+h2{
+  font-size:clamp(1.4rem,3.5vw,2rem);
+  font-weight:700;line-height:1.3;
+  color:#fff;margin-bottom:1rem;
+}
+h2 span{color:var(--accent2)}
+
+.divider{height:1px;background:var(--border);max-width:720px;margin:0 auto}
+
+/* DOR */
+.dor-sec{background:var(--bg2)}
+.dor-intro{color:var(--muted);margin-bottom:2rem;font-size:1rem}
+.dor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:14px}
+.dor-card{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:10px;padding:1.25rem;
+}
+.dor-card h3{font-size:1rem;font-weight:700;color:#fff;margin-bottom:.35rem}
+.dor-card p{font-size:.88rem;color:var(--muted);line-height:1.65}
+.dor-icon{font-size:1.5rem;margin-bottom:.65rem}
+
+/* HISTÓRIA */
+.story-sec{background:var(--bg)}
+.story-body{font-size:1rem;color:var(--text);line-height:1.85}
+.story-body p{margin-bottom:1.1rem}
+.story-body strong{color:#fff}
+.story-body em{color:var(--accent2);font-style:normal}
+.highlight-box{
+  background:var(--bg2);
+  border-left:4px solid var(--accent);
+  border-radius:0 8px 8px 0;
+  padding:1rem 1.25rem;
+  margin:1.5rem 0;
+  font-size:1rem;color:var(--text);
+  line-height:1.7;
+}
+
+/* MECANISMO */
+.mech-sec{background:var(--bg2)}
+.steps{display:flex;flex-direction:column;gap:1px;margin-top:1.75rem;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.step{
+  display:flex;gap:1rem;align-items:flex-start;
+  padding:1.25rem 1.5rem;background:var(--bg3);
+  border-bottom:1px solid var(--border);
+}
+.step:last-child{border-bottom:none}
+.step-n{
+  font-size:1.6rem;font-weight:700;
+  color:#333;line-height:1;flex-shrink:0;width:36px;
+}
+.step h3{font-size:1rem;font-weight:700;color:#fff;margin-bottom:.3rem}
+.step p{font-size:.88rem;color:var(--muted);line-height:1.65}
+
+/* DEPOIMENTOS */
+.test-sec{background:var(--bg)}
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:2rem}
+.test-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:10px;padding:1.25rem;
+}
+.stars{color:var(--gold);font-size:.85rem;letter-spacing:2px;margin-bottom:.65rem}
+.test-q{
+  font-size:.95rem;font-style:italic;
+  color:var(--text);line-height:1.7;margin-bottom:1rem;
+}
+.test-who{display:flex;align-items:center;gap:10px}
+.test-av{
+  width:34px;height:34px;border-radius:50%;
+  background:#1e2a38;
+  border:1px solid #2a3a4a;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.78rem;font-weight:700;color:var(--accent2);
+  flex-shrink:0;
+}
+.test-name{font-size:.85rem;font-weight:700;color:#fff}
+.test-loc{font-size:.76rem;color:var(--muted)}
+
+/* OFERTA */
+.offer-sec{background:var(--bg2);text-align:center}
+.offer-card{
+  background:var(--bg3);
+  border:1px solid #2a3a4a;
+  border-radius:12px;
+  padding:2.25rem 1.75rem;
+  max-width:500px;margin:2rem auto 0;
+  position:relative;overflow:hidden;
+}
+.offer-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+}
+.price-was{font-size:.95rem;color:var(--muted);text-decoration:line-through;margin-bottom:.2rem}
+.price-badge{
+  display:inline-block;
+  background:#1c2a1c;border:1px solid #2e5c2e;
+  color:#6fcf6f;font-size:.78rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.08em;
+  padding:3px 10px;border-radius:4px;margin-bottom:.5rem;
+}
+.price-now{
+  font-size:3.5rem;font-weight:700;
+  color:#fff;line-height:1;margin-bottom:.2rem;
+}
+.price-now sup{font-size:1.4rem;vertical-align:super;color:var(--accent2)}
+.price-note{font-size:.82rem;color:var(--muted);margin-bottom:1.75rem}
+.bonus-list{text-align:left;margin-bottom:1.75rem;display:flex;flex-direction:column;gap:9px}
+.bonus-item{display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--text)}
+.check{
+  width:18px;height:18px;border-radius:50%;flex-shrink:0;
+  background:#1c2a1c;border:1px solid #2e5c2e;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:#6fcf6f;
+}
+.guar-row{
+  display:flex;align-items:center;gap:10px;
+  margin-top:1rem;padding:.85rem 1rem;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);border-radius:8px;
+  text-align:left;font-size:.82rem;color:var(--muted);
+}
+.guar-row strong{color:#fff}
+
+/* FAQ */
+.faq-sec{background:var(--bg)}
+.faq-list{margin-top:1.75rem;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-item:last-child{border-bottom:none}
+.faq-btn{
+  width:100%;background:var(--bg2);border:none;
+  color:var(--text);font-family:'Open Sans',sans-serif;
+  font-size:.95rem;font-weight:600;
+  padding:1rem 1.25rem;text-align:left;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  transition:background .18s;
+}
+.faq-btn:hover{background:var(--bg3)}
+.faq-plus{color:var(--accent2);font-size:1.2rem;flex-shrink:0;transition:transform .22s;line-height:1}
+.faq-item.open .faq-plus{transform:rotate(45deg)}
+.faq-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .28s ease,padding .18s;
+  font-size:.9rem;color:var(--muted);line-height:1.75;
+  padding:0 1.25rem;background:var(--bg2);
+}
+.faq-item.open .faq-body{max-height:160px;padding:0 1.25rem 1rem}
+
+/* FECHAMENTO */
+.close-sec{
+  background:var(--bg2);
+  text-align:center;padding:4rem 1.25rem;
+}
+.close-body{
+  font-size:1rem;color:var(--text);
+  max-width:600px;margin:1rem auto 2.5rem;
+  line-height:1.9;
+}
+.close-body strong{color:#fff}
+.close-body em{color:var(--accent2);font-style:normal}
+
+/* FOOTER */
+footer{
+  background:var(--bg);
+  border-top:1px solid var(--border);
+  padding:2rem 1.25rem;
+  text-align:center;
+  font-size:.76rem;color:var(--muted);line-height:2.2;
+}
+footer a{color:var(--muted);text-decoration:underline}
+
+@keyframes fup{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@media(max-width:580px){
+  .strip{gap:1rem}
+  .strip-dot{display:none}
+  .offer-card{padding:1.75rem 1rem}
+}
+</style>
 </head>
 <body>
 
-    <!-- ETAPA 1: QUIZ -->
-    <div id="section-quiz" class="quiz-container max-w-xl mx-auto">
-        <div class="progress-bar"><div id="bar" class="progress-fill"></div></div>
-        
-        <div id="quiz-content">
-            <!-- Q1 -->
-            <div class="quiz-card active" data-step="1">
-                <h2 class="text-2xl font-black mb-6 uppercase tracking-tight">Sua mente parece "nevoada" ou lenta logo após acordar?</h2>
-                <button onclick="next(1)" class="btn-option">Sim, todos os dias.</button>
-                <button onclick="next(1)" class="btn-option">Às vezes sinto um peso mental.</button>
-                <button onclick="next(1)" class="btn-option">Raramente, mas acontece.</button>
-            </div>
-            <!-- Q2 -->
-            <div class="quiz-card" data-step="2">
-                <h2 class="text-2xl font-black mb-6 uppercase tracking-tight">Quantas vezes você abre o celular sem nenhum motivo específico?</h2>
-                <button onclick="next(2)" class="btn-option">O tempo todo, é automático.</button>
-                <button onclick="next(2)" class="btn-option">Várias vezes ao dia.</button>
-                <button onclick="next(2)" class="btn-option">Tento controlar, mas falho.</button>
-            </div>
-            <!-- Q3 -->
-            <div class="quiz-card" data-step="3">
-                <h2 class="text-2xl font-black mb-6 uppercase tracking-tight">Você começa uma tarefa importante e para no meio por falta de estímulo?</h2>
-                <button onclick="next(3)" class="btn-option">Sim, me sinto um procrastinador nato.</button>
-                <button onclick="next(3)" class="btn-option">Apenas quando a tarefa é chata.</button>
-                <button onclick="next(3)" class="btn-option">Sinto que minha mente quer fugir.</button>
-            </div>
-            <!-- Q4 -->
-            <div class="quiz-card" data-step="4">
-                <h2 class="text-2xl font-black mb-6 uppercase tracking-tight">Você se sente mentalmente exausto, mesmo sem ter feito esforço físico?</h2>
-                <button onclick="next(4)" class="btn-option">Sim, parece que meu cérebro frita.</button>
-                <button onclick="next(4)" class="btn-option">Sinto um cansaço "atrás dos olhos".</button>
-                <button onclick="next(4)" class="btn-option">Apenas no final do dia.</button>
-            </div>
-            <!-- Q5 -->
-            <div class="quiz-card" data-step="5">
-                <h2 class="text-2xl font-black mb-6 uppercase tracking-tight">Você acredita que poderia estar ganhando 2x ou 3x mais se tivesse foco total?</h2>
-                <button onclick="next(5)" class="btn-option">Tenho certeza absoluta disso.</button>
-                <button onclick="next(5)" class="btn-option">Sim, meu foco é meu maior gargalo.</button>
-                <button onclick="next(5)" class="btn-option">Talvez, sinto que rendo pouco.</button>
-            </div>
-        </div>
-
-        <!-- LOADING DIAGNÓSTICO -->
-        <div id="loading-quiz" class="hidden text-center">
-            <div class="inline-block animate-spin border-4 border-indigo-600 border-t-transparent rounded-full w-16 h-16 mb-6"></div>
-            <h2 class="text-xl font-bold uppercase">Analisando padrão de sobrecarga dopaminérgica...</h2>
-            <p class="text-gray-400 mt-2">Cruzando dados com perfis de fadiga cognitiva...</p>
-        </div>
+<!-- ══ QUIZ ══ -->
+<div id="quiz-screen">
+  <div class="logo-top">NeuroVitalize</div>
+  <div class="quiz-wrap">
+    <div class="q-prog">
+      <div class="q-bar" id="pb1"></div>
+      <div class="q-bar" id="pb2"></div>
+      <div class="q-bar" id="pb3"></div>
     </div>
 
-    <!-- ETAPA 2: RESULTADO IMPACTANTE -->
-    <div id="section-result" class="hidden min-h-screen flex items-center justify-center p-6 bg-red-950/20">
-        <div class="max-w-md w-full text-center">
-            <div class="bg-red-600 text-white font-black py-2 px-4 rounded-full text-sm inline-block mb-6">ALERTA DE DESEMPENHO</div>
-            <h1 class="text-6xl font-black mb-4">37%</h1>
-            <p class="text-2xl font-bold text-red-500 uppercase mb-6">Capacidade Cerebral em Uso</p>
-            <div class="bg-white/10 p-6 rounded-2xl text-left space-y-4 mb-8 border border-red-900/50">
-                <p class="font-bold">Seu diagnóstico é claro:</p>
-                <p class="text-gray-300">Seu cérebro entrou em modo de <strong>"Sobrevivência Cognitiva"</strong> para se proteger do excesso de telas e estímulos.</p>
-                <p class="text-gray-300 italic">Isso explica por que você sabe o que tem que fazer, mas seu corpo simplesmente não obedece.</p>
-                <p class="text-white font-bold">A boa notícia? O "hardware" está bom. O "software" só precisa de um reset.</p>
-            </div>
-            <button onclick="showSales()" class="bg-white text-black font-black py-5 px-8 rounded-2xl w-full text-xl uppercase">Ver como reverter agora</button>
-        </div>
+    <div class="q-step active" id="q1">
+      <div class="q-num">Pergunta 1 de 3</div>
+      <div class="q-text">Com que frequência você esquece coisas simples do dia a dia?</div>
+      <div class="q-hint">Nomes de pessoas, onde deixou o celular, o que ia falar…</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="nextQ(1)"><span class="q-circle"></span>Raramente — minha memória ainda é boa</button>
+        <button class="q-opt" onclick="nextQ(1)"><span class="q-circle"></span>Às vezes — tenho lapsos aqui e ali</button>
+        <button class="q-opt" onclick="nextQ(1)"><span class="q-circle"></span>Com frequência — já passei situações constrangedoras</button>
+        <button class="q-opt" onclick="nextQ(1)"><span class="q-circle"></span>Todo dia — e isso me preocupa muito</button>
+      </div>
     </div>
 
-    <!-- ETAPA 3: PÁGINA DE VENDAS (COPY VSL ESCRITA) -->
-    <main id="section-sales" class="hidden">
-        <!-- Headline -->
-        <section class="py-12 px-6 text-center border-b border-white/10 bg-black">
-            <h2 class="text-indigo-500 font-black mb-4 tracking-widest uppercase">O SEGREDO DA REATIVAÇÃO NEURAL</h2>
-            <h1 class="text-4xl md:text-6xl font-black leading-tight mb-8">
-                SEU CÉREBRO NÃO É PREGUIÇOSO.<br>
-                ELE ESTÁ <span class="bg-indigo-600 px-2">DESATIVADO.</span>
-            </h1>
-            <p class="text-gray-400 text-lg max-w-2xl mx-auto italic">
-                Você tenta focar. Você tenta produzir. Mas parece que existe uma névoa invisível travando sua inteligência.
-            </p>
-        </section>
+    <div class="q-step" id="q2">
+      <div class="q-num">Pergunta 2 de 3</div>
+      <div class="q-text">Como está seu nível de foco e concentração hoje?</div>
+      <div class="q-hint">Pense nas últimas duas semanas no trabalho ou nos estudos.</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="nextQ(2)"><span class="q-circle"></span>Ótimo — consigo me concentrar por longos períodos</button>
+        <button class="q-opt" onclick="nextQ(2)"><span class="q-circle"></span>Mediano — me distraio com facilidade</button>
+        <button class="q-opt" onclick="nextQ(2)"><span class="q-circle"></span>Fraco — raramente termino o que começo</button>
+      </div>
+    </div>
 
-        <!-- Copy Text Sections -->
-        <section class="max-w-2xl mx-auto px-6 py-16 vsl-text space-y-12">
-            <p>Deixe-me ser direto:</p>
-            <p>O mundo moderno foi desenhado para destruir sua capacidade de pensar.</p>
-            <p>Notificações, vídeos curtos e luz azul criaram um curto-circuito nos seus neurotransmissores.</p>
-            <p class="text-2xl font-bold text-indigo-400">O resultado? Seu cérebro desligou as áreas de alta performance para economizar energia.</p>
-            
-            <div class="bg-white/5 p-8 rounded-3xl border-l-4 border-indigo-600">
-                <p class="font-bold text-xl mb-4 italic">"Eu achei que o problema era eu..."</p>
-                <p>Muitos acham que precisam de mais disciplina ou de remédios fortes.</p>
-                <p>Mas a verdade é que seu cérebro só precisa do <strong>Estímulo de Frequência Correto.</strong></p>
-            </div>
+    <div class="q-step" id="q3">
+      <div class="q-num">Pergunta 3 de 3</div>
+      <div class="q-text">Você sente aquela "névoa mental" — como se o cérebro estivesse em câmera lenta?</div>
+      <div class="q-hint">Pensamentos embaralhados, raciocínio lento, dificuldade de clareza.</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="goToLP()"><span class="q-circle"></span>Nunca — minha mente está afiada</button>
+        <button class="q-opt" onclick="goToLP()"><span class="q-circle"></span>Às vezes, principalmente quando estou cansado</button>
+        <button class="q-opt" onclick="goToLP()"><span class="q-circle"></span>Com frequência — acordo com a cabeça pesada</button>
+        <button class="q-opt" onclick="goToLP()"><span class="q-circle"></span>Quase sempre — é meu estado habitual</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-            <h2 class="text-3xl font-black uppercase tracking-tighter">Apresentando: Protocolo NeuroShift</h2>
-            <p>Não é um curso. Não é meditação chata.</p>
-            <p>É um <strong>Micro-SaaS de Recondicionamento Cerebral.</strong></p>
-            <p>Nós usamos frequências sonoras de <strong>Sincronização Hemisférica</strong> que forçam seu cérebro a sair do estado de letargia em apenas 7 a 10 minutos.</p>
+<!-- ══ LOADING ══ -->
+<div id="loading-screen">
+  <div class="logo-top" style="margin-bottom:1rem">NeuroVitalize</div>
+  <div class="l-label">Analisando seu perfil neurológico</div>
+  <div class="l-track"><div class="l-fill" id="lf"></div></div>
+  <div class="l-msg" id="lmsg">Processando respostas…</div>
+</div>
 
-            <div class="space-y-6">
-                <div class="flex items-start">
-                    <span class="text-green-500 mr-4 font-black text-2xl">⚡</span>
-                    <p><strong>Foco "Túnel":</strong> Uma frequência que silencia o ruído externo e te coloca em estado de Flow.</p>
-                </div>
-                <div class="flex items-start">
-                    <span class="text-green-500 mr-4 font-black text-2xl">⚡</span>
-                    <p><strong>Reset de Dopamina:</strong> Protocolo diário para limpar a exaustão das redes sociais.</p>
-                </div>
-                <div class="flex items-start">
-                    <span class="text-green-500 mr-4 font-black text-2xl">⚡</span>
-                    <p><strong>Clareza Imediata:</strong> Acabe com a névoa mental logo pela manhã.</p>
-                </div>
-            </div>
+<!-- ══ LP ══ -->
+<div id="lp-screen">
 
-            <a href="SEU_LINK_DE_CHECKOUT_AQUI" class="btn-cta">QUERO REATIVAR MEU CÉREBRO</a>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">✦ Resultado do seu diagnóstico</div>
+    <h1>O Truque de 7 Segundos que <span>Ativa Memória Afiada e Foco de Alto Desempenho</span></h1>
+    <p class="hero-sub">Pesquisadores descobriram como qualquer pessoa pode acessar o mesmo estado mental que Einstein usava — sem esforço, sem equipamentos caros.</p>
+    <div class="result-box">
+      <div class="result-lbl">Seu diagnóstico personalizado</div>
+      <div class="result-txt" id="result-text">Carregando análise…</div>
+    </div>
+    <a href="#oferta" class="btn-cta">Quero ativar meu cérebro agora →</a>
+    <p class="hero-fine">Acesso imediato · Garantia de 30 dias · Pagamento único</p>
+  </div>
 
-            <div class="pt-12">
-                <h3 class="text-2xl font-black mb-6 uppercase">O QUE VOCÊ RECEBE HOJE:</h3>
-                <ul class="space-y-4">
-                    <li class="bg-white/5 p-4 rounded-xl border border-white/10">✅ <strong>Acesso ao Portal NeuroShift:</strong> Um áudio novo por dia (Protocolo Diário).</li>
-                    <li class="bg-white/5 p-4 rounded-xl border border-white/10">✅ <strong>E-book "Arquitetura do Foco":</strong> Como hackear seu ambiente de trabalho.</li>
-                    <li class="bg-white/5 p-4 rounded-xl border border-white/10">✅ <strong>BÔNUS:</strong> Frequências de Sono Delta (Para desligar a mente à noite).</li>
-                    <li class="bg-white/5 p-4 rounded-xl border border-white/10">✅ <strong>BÔNUS:</strong> Guia de Suplementação Cognitiva Natural.</li>
-                </ul>
-            </div>
+  <!-- STRIP -->
+  <div class="strip">
+    <div class="strip-item"><strong>+12.400</strong> pessoas ativadas</div>
+    <div class="strip-dot"></div>
+    <div class="strip-item">⭐ <strong>4.9/5</strong> avaliação média</div>
+    <div class="strip-dot"></div>
+    <div class="strip-item">Baseado em <strong>neurociência</strong></div>
+    <div class="strip-dot"></div>
+    <div class="strip-item"><strong>30 dias</strong> de garantia total</div>
+  </div>
 
-            <!-- Oferta -->
-            <div class="bg-indigo-600 p-10 rounded-[40px] text-center my-20">
-                <p class="uppercase font-black text-sm tracking-widest mb-4">Acesso Liberado por apenas:</p>
-                <div class="flex justify-center items-baseline mb-4">
-                    <span class="text-2xl font-bold">R$</span>
-                    <span class="text-7xl font-black italic">9,90</span>
-                    <span class="text-xl font-bold">/mês</span>
-                </div>
-                <p class="text-indigo-200 text-sm mb-8">Menos que 0,33 centavos por dia. Cancele quando quiser.</p>
-                <a href="SEU_LINK_DE_CHECKOUT_AQUI" class="bg-white text-indigo-600 font-black py-5 px-8 rounded-2xl w-full text-2xl uppercase inline-block shadow-2xl">
-                    ATIVAR MEU ACESSO AGORA
-                </a>
-                <p class="mt-6 text-xs text-indigo-200 opacity-70">🔒 Pagamento processado em ambiente criptografado.</p>
-            </div>
-        </section>
+  <!-- DOR -->
+  <section class="dor-sec">
+    <div class="sec-inner">
+      <span class="sec-label">Você reconhece isso?</span>
+      <h2>Seu cérebro manda sinais de alerta.<br><span>A maioria das pessoas ignora.</span></h2>
+      <p class="dor-intro">Não é fraqueza. Não é falta de inteligência. É seu cérebro operando na frequência errada — e isso tem nome, tem causa e tem solução simples.</p>
+      <div class="dor-grid">
+        <div class="dor-card">
+          <div class="dor-icon">🧠</div>
+          <h3>Memória falhando</h3>
+          <p>Nomes, datas, onde colocou as chaves. Cada lapso é um sinal de que algo precisa de atenção agora.</p>
+        </div>
+        <div class="dor-card">
+          <div class="dor-icon">🎯</div>
+          <h3>Foco que some</h3>
+          <p>Você começa uma tarefa e em minutos está em outro lugar. Concentração sustentada parece impossível.</p>
+        </div>
+        <div class="dor-card">
+          <div class="dor-icon">🌫️</div>
+          <h3>Névoa mental</h3>
+          <p>Raciocínio lento, pensamentos embaralhados. Como se seu cérebro estivesse travado numa marcha baixa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <footer class="py-12 text-center text-gray-600 text-xs uppercase tracking-widest border-t border-white/5">
-            &copy; Protocolo NeuroShift 2024 - Todos os direitos reservados
-        </footer>
-    </main>
+  <div class="divider"></div>
 
-    <script>
-        let currentStep = 1;
-        const totalSteps = 5;
+  <!-- HISTÓRIA -->
+  <section class="story-sec">
+    <div class="sec-inner">
+      <span class="sec-label">A descoberta</span>
+      <h2>Por que algumas pessoas têm memória e foco <span>excepcionais</span> — e o que elas fazem diferente</h2>
+      <div class="story-body">
+        <p>Você já percebeu que certas pessoas parecem ter um superpoder? Elas resolvem problemas com facilidade, lembram de tudo, mantêm o foco por horas e ainda chegam em casa com energia.</p>
+        <p>Enquanto isso, a maioria de nós trabalha cada vez mais e rende cada vez menos.</p>
+        <p><strong>A resposta está em um dos casos mais bizarros da história da ciência: o roubo do cérebro de Albert Einstein.</strong></p>
 
-        function next(step) {
-            const bar = document.getElementById('bar');
-            bar.style.width = (step / totalSteps * 100) + '%';
+        <div class="highlight-box">
+          18 de abril de 1955: Einstein morre. Durante a autópsia, um médico rouba o cérebro e desaparece. Por 40 anos, fatias do cérebro de Einstein ficaram escondidas em porões, malas de carro e laboratórios improvisados — enquanto o mundo procurava pistas do gênio.
+        </div>
 
-            document.querySelector(`[data-step="${step}"]`).classList.remove('active');
-            
-            if (step < totalSteps) {
-                document.querySelector(`[data-step="${step + 1}"]`).classList.add('active');
-            } else {
-                showLoading();
-            }
-        }
+        <p>Quando neurocientistas finalmente estudaram essas fatias com tecnologia moderna, descobriram algo que mudou tudo: <em>o cérebro de Einstein era 15% menor que o de um adulto médio.</em></p>
+        <p>Então como ele se tornou o maior gênio da história moderna?</p>
+        <p>A resposta estava numa estrutura chamada <strong>corpus callosum</strong> — a "ponte" que conecta o hemisfério lógico com o criativo. No cérebro de Einstein, essa ponte era excepcionalmente espessa e desenvolvida.</p>
+        <p>Mas aqui está o que a maioria das pessoas não sabe: <em>Einstein não nasceu assim.</em></p>
+        <p>Aos seis anos, ele começou a tocar violino. Tocava horas todos os dias. Sempre que travava num problema difícil, pegava o violino — e a solução vinha. O que parecia coincidência era, na verdade, ciência: <strong>a prática do violino fortalecia exatamente essa ponte neural entre lógica e criatividade.</strong></p>
 
-        function showLoading() {
-            document.getElementById('quiz-content').classList.add('hidden');
-            document.getElementById('loading-quiz').classList.remove('hidden');
-            
-            setTimeout(() => {
-                document.getElementById('section-quiz').classList.add('hidden');
-                document.getElementById('section-result').classList.remove('hidden');
-                window.scrollTo(0,0);
-            }, 3000);
-        }
+        <div class="highlight-box">
+          A pergunta que me obsedou foi: <em>é possível replicar o efeito de Einstein sem décadas de violino?</em> Depois de anos pesquisando neuroplasticidade e frequências sonoras, a resposta é sim. E é muito mais simples do que parece.
+        </div>
 
-        function showSales() {
-            document.getElementById('section-result').classList.add('hidden');
-            document.getElementById('section-sales').classList.remove('hidden');
-            window.scrollTo(0,0);
-        }
-    </script>
+        <p>Pesquisas em neurociência identificaram que o estado mental de alta performance — chamado de <strong>onda theta (4–8 Hz)</strong> — é o mesmo que Einstein acessava enquanto tocava. É o estado onde memória consolida, criatividade flui e o foco se estende naturalmente.</p>
+        <p>O NeuroVitalize usa frequências de áudio desenvolvidas para levar seu cérebro a esse estado em segundos — sem anos de violino, sem meditação difícil, sem equipamentos caros.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- MECANISMO -->
+  <section class="mech-sec">
+    <div class="sec-inner">
+      <span class="sec-label">Como funciona</span>
+      <h2>O protocolo de 3 passos que <span>qualquer pessoa pode seguir</span></h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-n">01</div>
+          <div>
+            <h3>Você acessa a área de aluno e abre a faixa do dia</h3>
+            <p>Frequências theta desenvolvidas para sincronizar os dois hemisférios cerebrais — sem complicação, direto do celular ou computador.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">02</div>
+          <div>
+            <h3>Coloca o fone e relaxa por alguns minutos</h3>
+            <p>O protocolo de 7 dias conduz seu cérebro progressivamente ao estado theta. Pode fazer no café da manhã, no intervalo ou antes de dormir.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">03</div>
+          <div>
+            <h3>Memória, foco e clareza se amplificam</h3>
+            <p>Com os hemisférios sincronizados, seu cérebro processa informações mais rápido, a memória consolida melhor e o foco se estende de forma natural.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- DEPOIMENTOS -->
+  <section class="test-sec">
+    <div class="sec-inner-wide">
+      <div style="text-align:center;margin-bottom:.25rem"><span class="sec-label">Resultados reais</span></div>
+      <h2 style="text-align:center">O que acontece depois de <span>7 dias</span></h2>
+      <div class="test-grid">
+        <div class="test-card">
+          <div class="stars">★★★★★</div>
+          <p class="test-q">"Na terceira sessão já senti diferença. Consegui ler 40 páginas sem olhar o celular uma vez. Não fazia isso há anos."</p>
+          <div class="test-who">
+            <div class="test-av">RC</div>
+            <div><div class="test-name">Ricardo C.</div><div class="test-loc">Empresário · São Paulo</div></div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="stars">★★★★★</div>
+          <p class="test-q">"Estava esquecendo o nome dos meus próprios clientes. Depois do protocolo, minha memória voltou como há dez anos atrás. Minha esposa percebeu antes de mim."</p>
+          <div class="test-who">
+            <div class="test-av">MA</div>
+            <div><div class="test-name">Marcos A.</div><div class="test-loc">Advogado · Belo Horizonte</div></div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="stars">★★★★★</div>
+          <p class="test-q">"Passei anos achando que dispersão era meu feitio. Não era. Era meu cérebro pedindo socorro. O NeuroVitalize foi minha virada."</p>
+          <div class="test-who">
+            <div class="test-av">FT</div>
+            <div><div class="test-name">Fernanda T.</div><div class="test-loc">Designer · Rio de Janeiro</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- OFERTA -->
+  <section class="offer-sec" id="oferta">
+    <div class="sec-inner">
+      <span class="sec-label">Oferta exclusiva</span>
+      <h2>Acesso completo ao <span>NeuroVitalize</span></h2>
+      <div class="offer-card">
+        <div class="price-badge">Oferta de hoje</div>
+        <p class="price-was">De R$ 297,00</p>
+        <div class="price-now"><sup>R$</sup>47</div>
+        <p class="price-note">pagamento único · acesso vitalício</p>
+        <div class="bonus-list">
+          <div class="bonus-item"><div class="check">✓</div>Área de aluno completa com protocolo de 7 dias</div>
+          <div class="bonus-item"><div class="check">✓</div>7 faixas de frequência theta progressivas</div>
+          <div class="bonus-item"><div class="check">✓</div>Guia de neurociência aplicada (e-book)</div>
+          <div class="bonus-item"><div class="check">✓</div>Bônus: rastreador diário de clareza mental</div>
+          <div class="bonus-item"><div class="check">✓</div>Bônus: rotina matinal de alto desempenho</div>
+          <div class="bonus-item"><div class="check">✓</div>Suporte por 30 dias</div>
+        </div>
+        <a href="#" class="btn-cta-lrg">Quero acesso agora — R$ 47</a>
+        <div class="guar-row">
+          🛡️ <span><strong>Garantia de 30 dias.</strong> Se não sentir diferença, devolvemos 100% do valor. Sem perguntas, sem burocracia.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-sec">
+    <div class="sec-inner">
+      <span class="sec-label">Dúvidas frequentes</span>
+      <h2>Perguntas que todo mundo faz</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)">Precisa de algum equipamento especial? <span class="faq-plus">+</span></button>
+          <div class="faq-body">Não. Qualquer fone de ouvido funciona, inclusive o que veio com seu celular. O protocolo foi desenvolvido para ser acessível para qualquer pessoa.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)">Quanto tempo por dia preciso dedicar? <span class="faq-plus">+</span></button>
+          <div class="faq-body">As sessões variam entre 7 e 20 minutos conforme a fase do protocolo. Podem ser feitas de manhã, antes de dormir ou em qualquer pausa do dia.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)">Em quanto tempo aparecem os resultados? <span class="faq-plus">+</span></button>
+          <div class="faq-body">A maioria das pessoas relata maior clareza mental já nos primeiros 3 dias. Resultados mais sólidos em memória e foco se consolidam ao longo dos 7 dias do protocolo.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)">E se não funcionar para mim? <span class="faq-plus">+</span></button>
+          <div class="faq-body">Você manda um e-mail em até 30 dias e devolvemos o valor inteiro. Sem burocracia, sem perguntas. O risco é todo nosso, não o seu.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)">Funciona para qualquer idade? <span class="faq-plus">+</span></button>
+          <div class="faq-body">Sim. O protocolo foi desenvolvido para adultos de qualquer faixa etária. Muitos usuários com mais de 50 anos relatam os resultados mais expressivos — justamente porque é nessa fase que o cérebro mais precisa de estímulo adequado.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FECHAMENTO -->
+  <section class="close-sec">
+    <div class="sec-inner">
+      <span class="sec-label">A escolha é sua</span>
+      <h2>Dois caminhos a partir de agora</h2>
+      <p class="close-body">
+        <strong>Caminho 1:</strong> feche essa página. Continue convivendo com os lapsos de memória, a dispersão e a sensação de que seu cérebro poderia render muito mais.<br><br>
+        <em>Caminho 2:</em> acesse o NeuroVitalize por R$ 47, com 30 dias de garantia total. Se não sentir diferença, você recupera cada centavo. Sem perguntas.
+      </p>
+      <a href="#oferta" class="btn-cta">Quero o caminho 2 →</a>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 NeuroVitalize · Todos os direitos reservados<br>
+    <a href="#">Termos de Uso</a> · <a href="#">Política de Privacidade</a> · <a href="#">Suporte</a><br>
+    <span style="font-size:.7rem;opacity:.65">Este produto não substitui acompanhamento médico. Resultados individuais podem variar.</span>
+  </footer>
+
+</div>
+
+<script>
+const diags = [
+  "Seus padrões indicam falhas ativas na consolidação de memória de curto prazo. Isso é reversível — e o protocolo theta atua exatamente nesse mecanismo.",
+  "Seu cérebro está operando em modo de sobrevivência: processando o mínimo necessário. A estimulação theta correta reverte esse estado em poucos dias.",
+  "A névoa mental que você descreveu sugere que seus dois hemisférios não estão se comunicando com eficiência. O NeuroVitalize sincroniza exatamente essa conexão.",
+  "Seus padrões indicam déficit de foco sustentado. Seu cérebro está no modo reativo, não proativo — e a frequência theta muda essa equação.",
+  "Lapsos frequentes são o primeiro sinal de sobrecarga no córtex pré-frontal. O protocolo NeuroVitalize foi desenvolvido exatamente para esse perfil."
+];
+
+function nextQ(n) {
+  const curr = document.getElementById('q' + n);
+  const next = document.getElementById('q' + (n + 1));
+  document.getElementById('pb' + n).classList.add('done');
+  curr.style.opacity = '0';
+  curr.style.transition = 'opacity .2s';
+  setTimeout(() => { curr.classList.remove('active'); next.classList.add('active'); }, 200);
+}
+
+function goToLP() {
+  document.getElementById('pb3').classList.add('done');
+  const qs = document.getElementById('quiz-screen');
+  qs.style.opacity = '0'; qs.style.transition = 'opacity .3s';
+  setTimeout(() => {
+    qs.style.display = 'none';
+    const ls = document.getElementById('loading-screen');
+    ls.style.display = 'flex';
+    const msgs = ['Analisando padrões de memória…','Identificando déficits de foco…','Calculando perfil neurológico…','Gerando diagnóstico personalizado…'];
+    let fill = 0, mi = 0;
+    const fe = document.getElementById('lf'), me = document.getElementById('lmsg');
+    const iv = setInterval(() => {
+      fill += 1.5;
+      fe.style.width = Math.min(fill, 100) + '%';
+      if (fill % 25 < 1.6 && mi < msgs.length) me.textContent = msgs[mi++];
+      if (fill >= 100) {
+        clearInterval(iv);
+        setTimeout(() => {
+          ls.style.display = 'none';
+          const lp = document.getElementById('lp-screen');
+          lp.style.display = 'block'; lp.style.opacity = '0'; lp.style.transition = 'opacity .4s';
+          setTimeout(() => lp.style.opacity = '1', 10);
+          document.getElementById('result-text').textContent = diags[Math.floor(Math.random() * diags.length)];
+        }, 350);
+      }
+    }, 28);
+  }, 300);
+}
+
+function toggleFaq(btn) { btn.parentElement.classList.toggle('open'); }
+</script>
 </body>
 </html>
