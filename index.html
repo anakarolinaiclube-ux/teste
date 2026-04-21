@@ -3,195 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo NeuroEnergizer - Desperte seu Potencial</title>
+    <title>Protocolo NeuroShift - Reative seu Cérebro</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        .gradient-bg { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
-        .quiz-card { display: none; }
-        .quiz-card.active { display: block; }
-        .progress-bar { transition: width 0.3s ease-in-out; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #050505; color: #ffffff; overflow-x: hidden; }
+        .quiz-container { display: flex; flex-direction: column; min-height: 100vh; justify-content: center; padding: 20px; }
+        .quiz-card { display: none; background: #111; border: 1px solid #333; border-radius: 20px; padding: 30px; box-shadow: 0 0 30px rgba(79, 70, 229, 0.2); }
+        .quiz-card.active { display: block; animation: fadeIn 0.5s ease; }
+        .btn-option { width: 100%; text-align: left; padding: 20px; margin-bottom: 12px; background: #1a1a1a; border: 1px solid #444; border-radius: 12px; transition: 0.3s; font-weight: bold; }
+        .btn-option:hover { background: #4f46e5; border-color: #4f46e5; transform: translateX(10px); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .accent-color { color: #4f46e5; }
+        .bg-accent { background-color: #4f46e5; }
+        .hidden { display: none; }
+        .progress-bar { height: 6px; background: #222; border-radius: 10px; margin-bottom: 30px; overflow: hidden; }
+        .progress-fill { height: 100%; background: #4f46e5; width: 0%; transition: 0.4s; }
+        .vsl-text { line-height: 1.6; font-size: 1.15rem; }
+        .btn-cta { background: #22c55e; color: white; font-weight: 900; padding: 25px; border-radius: 15px; text-align: center; display: block; width: 100%; font-size: 1.4rem; box-shadow: 0 10px 20px rgba(34, 197, 94, 0.4); text-transform: uppercase; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body>
 
-    <!-- SEÇÃO 1: QUIZ / DIAGNÓSTICO -->
-    <section id="quiz-section" class="min-h-screen flex items-center justify-center p-4 gradient-bg text-white">
-        <div class="max-w-xl w-full bg-white text-slate-800 p-8 rounded-2xl shadow-2xl">
-            <div id="quiz-header">
-                <div class="w-full bg-slate-200 h-2 rounded-full mb-6">
-                    <div id="progress" class="bg-indigo-600 h-2 rounded-full progress-bar" style="width: 20%;"></div>
-                </div>
-                <h2 class="text-xl font-bold mb-4 text-center">Análise de Performance Cerebral</h2>
-                <p class="text-slate-500 text-center text-sm mb-8">Responda honestamente para desbloquear seu protocolo personalizado.</p>
-            </div>
-
-            <!-- Questão 1 -->
+    <!-- ETAPA 1: QUIZ -->
+    <div id="section-quiz" class="quiz-container max-w-xl mx-auto">
+        <div class="progress-bar"><div id="bar" class="progress-fill"></div></div>
+        
+        <div id="quiz-content">
+            <!-- Q1 -->
             <div class="quiz-card active" data-step="1">
-                <h3 class="text-lg font-semibold mb-6 text-center">Como você descreveria seu nível de foco hoje?</h3>
-                <div class="space-y-3">
-                    <button onclick="nextStep(1)" class="w-full p-4 border-2 border-slate-200 rounded-xl hover:border-indigo-600 hover:bg-indigo-50 transition text-left">🧠 Consigo me concentrar, mas me distraio fácil.</button>
-                    <button onclick="nextStep(1)" class="w-full p-4 border-2 border-slate-200 rounded-xl hover:border-indigo-600 hover:bg-indigo-50 transition text-left">😫 Me sinto mentalmente exausto ao meio-dia.</button>
-                    <button onclick="nextStep(1)" class="w-full p-4 border-2 border-slate-200 rounded-xl hover:border-indigo-600 hover:bg-indigo-50 transition text-left">🌑 Minha mente não para, mesmo na hora de dormir.</button>
-                </div>
+                <h2 class="text-2xl font-black mb-6 uppercase tracking-tight">Sua mente parece "nevoada" ou lenta logo após acordar?</h2>
+                <button onclick="next(1)" class="btn-option">Sim, todos os dias.</button>
+                <button onclick="next(1)" class="btn-option">Às vezes sinto um peso mental.</button>
+                <button onclick="next(1)" class="btn-option">Raramente, mas acontece.</button>
             </div>
-
-            <!-- Questão 2 -->
+            <!-- Q2 -->
             <div class="quiz-card" data-step="2">
-                <h3 class="text-lg font-semibold mb-6 text-center">Quantas vezes você procastina tarefas importantes?</h3>
-                <div class="space-y-3">
-                    <button onclick="nextStep(2)" class="w-full p-4 border-2 border-slate-200 rounded-xl hover:border-indigo-600 hover:bg-indigo-50 transition text-left">Constantemente, começo e não termino.</button>
-                    <button onclick="nextStep(2)" class="w-full p-4 border-2 border-slate-200 rounded-xl hover:border-indigo-600 hover:bg-indigo-50 transition text-left">Apenas quando estou muito cansado(a).</button>
-                    <button onclick="nextStep(2)" class="w-full p-4 border-2 border-slate-200 rounded-xl hover:border-indigo-600 hover:bg-indigo-50 transition text-left">Raramente, mas sinto que exijo muito esforço.</button>
-                </div>
+                <h2 class="text-2xl font-black mb-6 uppercase tracking-tight">Quantas vezes você abre o celular sem nenhum motivo específico?</h2>
+                <button onclick="next(2)" class="btn-option">O tempo todo, é automático.</button>
+                <button onclick="next(2)" class="btn-option">Várias vezes ao dia.</button>
+                <button onclick="next(2)" class="btn-option">Tento controlar, mas falho.</button>
             </div>
-
-            <!-- Questão 3 (Processamento) -->
-            <div class="quiz-card text-center" data-step="3">
-                <div class="animate-spin inline-block w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full mb-4"></div>
-                <h3 class="text-xl font-bold mb-2">Analisando seu perfil...</h3>
-                <p class="text-slate-500">Estamos montando seu Protocolo NeuroEnergizer com base nas suas respostas.</p>
+            <!-- Q3 -->
+            <div class="quiz-card" data-step="3">
+                <h2 class="text-2xl font-black mb-6 uppercase tracking-tight">Você começa uma tarefa importante e para no meio por falta de estímulo?</h2>
+                <button onclick="next(3)" class="btn-option">Sim, me sinto um procrastinador nato.</button>
+                <button onclick="next(3)" class="btn-option">Apenas quando a tarefa é chata.</button>
+                <button onclick="next(3)" class="btn-option">Sinto que minha mente quer fugir.</button>
+            </div>
+            <!-- Q4 -->
+            <div class="quiz-card" data-step="4">
+                <h2 class="text-2xl font-black mb-6 uppercase tracking-tight">Você se sente mentalmente exausto, mesmo sem ter feito esforço físico?</h2>
+                <button onclick="next(4)" class="btn-option">Sim, parece que meu cérebro frita.</button>
+                <button onclick="next(4)" class="btn-option">Sinto um cansaço "atrás dos olhos".</button>
+                <button onclick="next(4)" class="btn-option">Apenas no final do dia.</button>
+            </div>
+            <!-- Q5 -->
+            <div class="quiz-card" data-step="5">
+                <h2 class="text-2xl font-black mb-6 uppercase tracking-tight">Você acredita que poderia estar ganhando 2x ou 3x mais se tivesse foco total?</h2>
+                <button onclick="next(5)" class="btn-option">Tenho certeza absoluta disso.</button>
+                <button onclick="next(5)" class="btn-option">Sim, meu foco é meu maior gargalo.</button>
+                <button onclick="next(5)" class="btn-option">Talvez, sinto que rendo pouco.</button>
             </div>
         </div>
-    </section>
 
-    <!-- SEÇÃO 2: PÁGINA DE VENDAS (ESCONDIDA INICIALMENTE) -->
-    <main id="sales-page" class="hidden">
-        <!-- Hero Section -->
-        <header class="gradient-bg text-white py-16 px-4 text-center">
-            <div class="max-w-4xl mx-auto">
-                <span class="bg-indigo-500/20 text-indigo-300 px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider">Protocolo Liberado</span>
-                <h1 class="text-4xl md:text-6xl font-extrabold mt-6 mb-6 leading-tight">Reative sua Clareza Mental com apenas <span class="text-indigo-400">7 minutos</span> por dia.</h1>
-                <p class="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
-                    Você foi identificado com "Fadiga de Processamento". O Protocolo NeuroEnergizer foi desenhado exatamente para o seu perfil de cansaço mental.
-                </p>
-                <a href="#checkout" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xl font-bold py-5 px-10 rounded-full shadow-lg shadow-indigo-500/50 transition-all transform hover:scale-105 inline-block">
-                    QUERO ACESSAR MEU PROTOCOLO AGORA
+        <!-- LOADING DIAGNÓSTICO -->
+        <div id="loading-quiz" class="hidden text-center">
+            <div class="inline-block animate-spin border-4 border-indigo-600 border-t-transparent rounded-full w-16 h-16 mb-6"></div>
+            <h2 class="text-xl font-bold uppercase">Analisando padrão de sobrecarga dopaminérgica...</h2>
+            <p class="text-gray-400 mt-2">Cruzando dados com perfis de fadiga cognitiva...</p>
+        </div>
+    </div>
+
+    <!-- ETAPA 2: RESULTADO IMPACTANTE -->
+    <div id="section-result" class="hidden min-h-screen flex items-center justify-center p-6 bg-red-950/20">
+        <div class="max-w-md w-full text-center">
+            <div class="bg-red-600 text-white font-black py-2 px-4 rounded-full text-sm inline-block mb-6">ALERTA DE DESEMPENHO</div>
+            <h1 class="text-6xl font-black mb-4">37%</h1>
+            <p class="text-2xl font-bold text-red-500 uppercase mb-6">Capacidade Cerebral em Uso</p>
+            <div class="bg-white/10 p-6 rounded-2xl text-left space-y-4 mb-8 border border-red-900/50">
+                <p class="font-bold">Seu diagnóstico é claro:</p>
+                <p class="text-gray-300">Seu cérebro entrou em modo de <strong>"Sobrevivência Cognitiva"</strong> para se proteger do excesso de telas e estímulos.</p>
+                <p class="text-gray-300 italic">Isso explica por que você sabe o que tem que fazer, mas seu corpo simplesmente não obedece.</p>
+                <p class="text-white font-bold">A boa notícia? O "hardware" está bom. O "software" só precisa de um reset.</p>
+            </div>
+            <button onclick="showSales()" class="bg-white text-black font-black py-5 px-8 rounded-2xl w-full text-xl uppercase">Ver como reverter agora</button>
+        </div>
+    </div>
+
+    <!-- ETAPA 3: PÁGINA DE VENDAS (COPY VSL ESCRITA) -->
+    <main id="section-sales" class="hidden">
+        <!-- Headline -->
+        <section class="py-12 px-6 text-center border-b border-white/10 bg-black">
+            <h2 class="text-indigo-500 font-black mb-4 tracking-widest uppercase">O SEGREDO DA REATIVAÇÃO NEURAL</h2>
+            <h1 class="text-4xl md:text-6xl font-black leading-tight mb-8">
+                SEU CÉREBRO NÃO É PREGUIÇOSO.<br>
+                ELE ESTÁ <span class="bg-indigo-600 px-2">DESATIVADO.</span>
+            </h1>
+            <p class="text-gray-400 text-lg max-w-2xl mx-auto italic">
+                Você tenta focar. Você tenta produzir. Mas parece que existe uma névoa invisível travando sua inteligência.
+            </p>
+        </section>
+
+        <!-- Copy Text Sections -->
+        <section class="max-w-2xl mx-auto px-6 py-16 vsl-text space-y-12">
+            <p>Deixe-me ser direto:</p>
+            <p>O mundo moderno foi desenhado para destruir sua capacidade de pensar.</p>
+            <p>Notificações, vídeos curtos e luz azul criaram um curto-circuito nos seus neurotransmissores.</p>
+            <p class="text-2xl font-bold text-indigo-400">O resultado? Seu cérebro desligou as áreas de alta performance para economizar energia.</p>
+            
+            <div class="bg-white/5 p-8 rounded-3xl border-l-4 border-indigo-600">
+                <p class="font-bold text-xl mb-4 italic">"Eu achei que o problema era eu..."</p>
+                <p>Muitos acham que precisam de mais disciplina ou de remédios fortes.</p>
+                <p>Mas a verdade é que seu cérebro só precisa do <strong>Estímulo de Frequência Correto.</strong></p>
+            </div>
+
+            <h2 class="text-3xl font-black uppercase tracking-tighter">Apresentando: Protocolo NeuroShift</h2>
+            <p>Não é um curso. Não é meditação chata.</p>
+            <p>É um <strong>Micro-SaaS de Recondicionamento Cerebral.</strong></p>
+            <p>Nós usamos frequências sonoras de <strong>Sincronização Hemisférica</strong> que forçam seu cérebro a sair do estado de letargia em apenas 7 a 10 minutos.</p>
+
+            <div class="space-y-6">
+                <div class="flex items-start">
+                    <span class="text-green-500 mr-4 font-black text-2xl">⚡</span>
+                    <p><strong>Foco "Túnel":</strong> Uma frequência que silencia o ruído externo e te coloca em estado de Flow.</p>
+                </div>
+                <div class="flex items-start">
+                    <span class="text-green-500 mr-4 font-black text-2xl">⚡</span>
+                    <p><strong>Reset de Dopamina:</strong> Protocolo diário para limpar a exaustão das redes sociais.</p>
+                </div>
+                <div class="flex items-start">
+                    <span class="text-green-500 mr-4 font-black text-2xl">⚡</span>
+                    <p><strong>Clareza Imediata:</strong> Acabe com a névoa mental logo pela manhã.</p>
+                </div>
+            </div>
+
+            <a href="SEU_LINK_DE_CHECKOUT_AQUI" class="btn-cta">QUERO REATIVAR MEU CÉREBRO</a>
+
+            <div class="pt-12">
+                <h3 class="text-2xl font-black mb-6 uppercase">O QUE VOCÊ RECEBE HOJE:</h3>
+                <ul class="space-y-4">
+                    <li class="bg-white/5 p-4 rounded-xl border border-white/10">✅ <strong>Acesso ao Portal NeuroShift:</strong> Um áudio novo por dia (Protocolo Diário).</li>
+                    <li class="bg-white/5 p-4 rounded-xl border border-white/10">✅ <strong>E-book "Arquitetura do Foco":</strong> Como hackear seu ambiente de trabalho.</li>
+                    <li class="bg-white/5 p-4 rounded-xl border border-white/10">✅ <strong>BÔNUS:</strong> Frequências de Sono Delta (Para desligar a mente à noite).</li>
+                    <li class="bg-white/5 p-4 rounded-xl border border-white/10">✅ <strong>BÔNUS:</strong> Guia de Suplementação Cognitiva Natural.</li>
+                </ul>
+            </div>
+
+            <!-- Oferta -->
+            <div class="bg-indigo-600 p-10 rounded-[40px] text-center my-20">
+                <p class="uppercase font-black text-sm tracking-widest mb-4">Acesso Liberado por apenas:</p>
+                <div class="flex justify-center items-baseline mb-4">
+                    <span class="text-2xl font-bold">R$</span>
+                    <span class="text-7xl font-black italic">9,90</span>
+                    <span class="text-xl font-bold">/mês</span>
+                </div>
+                <p class="text-indigo-200 text-sm mb-8">Menos que 0,33 centavos por dia. Cancele quando quiser.</p>
+                <a href="SEU_LINK_DE_CHECKOUT_AQUI" class="bg-white text-indigo-600 font-black py-5 px-8 rounded-2xl w-full text-2xl uppercase inline-block shadow-2xl">
+                    ATIVAR MEU ACESSO AGORA
                 </a>
-                <p class="mt-4 text-sm text-slate-400 font-medium italic">Assinatura mensal: Cancele quando quiser.</p>
-            </div>
-        </header>
-
-        <!-- O que é o Micro-SaaS -->
-        <section class="py-20 px-4 max-w-5xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-3xl font-bold mb-6 italic">Não é apenas um áudio. É um treinamento cerebral diário.</h2>
-                    <p class="text-slate-600 mb-4">Diferente de apps de meditação complexos, o <strong>NeuroEnergizer™</strong> é um Micro-SaaS de alta performance. Ao entrar na sua área de membros exclusiva, você terá:</p>
-                    <ul class="space-y-4">
-                        <li class="flex items-start">
-                            <span class="bg-green-100 text-green-600 p-1 rounded-full mr-3 text-xs">✓</span>
-                            <span><strong>Neuro-Dose Diária:</strong> Um novo áudio de frequência binaural de 7 minutos liberado a cada 24h para resetar seu foco.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="bg-green-100 text-green-600 p-1 rounded-full mr-3 text-xs">✓</span>
-                            <span><strong>Guia Neuro-Foco (Ebook):</strong> O manual prático para entender como hackear sua dopamina e acabar com a procastinação.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="bg-green-100 text-green-600 p-1 rounded-full mr-3 text-xs">✓</span>
-                            <span><strong>Dashboard de Progresso:</strong> Acompanhe sua evolução mental dia após dia.</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="bg-slate-200 h-64 md:h-96 rounded-3xl flex items-center justify-center text-slate-400 border-2 border-dashed border-slate-300">
-                    [IMAGEM DO DASHBOARD/APP AQUI]
-                </div>
+                <p class="mt-6 text-xs text-indigo-200 opacity-70">🔒 Pagamento processado em ambiente criptografado.</p>
             </div>
         </section>
 
-        <!-- Bônus -->
-        <section class="bg-slate-100 py-20 px-4">
-            <div class="max-w-5xl mx-auto text-center">
-                <h2 class="text-3xl font-bold mb-12">Assinando hoje, você leva 3 Bônus Exclusivos:</h2>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <div class="text-4xl mb-4">🌙</div>
-                        <h3 class="font-bold mb-2 text-indigo-600">Sono Profundo 2.0</h3>
-                        <p class="text-sm text-slate-600">Frequências Delta para desligar o cérebro em menos de 10 minutos à noite.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <div class="text-4xl mb-4">📅</div>
-                        <h3 class="font-bold mb-2 text-indigo-600">Planner de Foco</h3>
-                        <p class="text-sm text-slate-600">Um método simples em PDF para organizar seu dia em blocos de alta produtividade.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <div class="text-4xl mb-4">🛡️</div>
-                        <h3 class="font-bold mb-2 text-indigo-600">Comunidade VIP</h3>
-                        <p class="text-sm text-slate-600">Acesso ao nosso grupo fechado para troca de experiências e suporte.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Oferta Final -->
-        <section id="checkout" class="py-20 px-4 text-center">
-            <div class="max-w-xl mx-auto bg-white border-2 border-indigo-600 p-8 md:p-12 rounded-[3rem] shadow-2xl relative">
-                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-indigo-600 text-white px-6 py-1 rounded-full text-sm font-bold">
-                    OFERTA DE LANÇAMENTO NO BRASIL
-                </div>
-                <h2 class="text-2xl font-bold mb-2">Acesso Completo ao Protocolo</h2>
-                <div class="flex items-center justify-center mb-6">
-                    <span class="text-slate-400 line-through mr-3 text-xl italic">R$ 47,90</span>
-                    <span class="text-5xl font-extrabold text-slate-900">R$ 9,90</span>
-                    <span class="text-slate-500 ml-2">/mês</span>
-                </div>
-                <p class="text-slate-600 mb-8">Menos que um café por mês para ter uma mente blindada, focada e produtiva.</p>
-                
-                <!-- LINK EXTERNO DE CHECKOUT -->
-                <a href="SEU_LINK_DE_CHECKOUT_AQUI" class="block w-full bg-green-500 hover:bg-green-600 text-white text-2xl font-bold py-5 rounded-2xl transition-all shadow-lg mb-4">
-                    QUERO ME INSCREVER AGORA
-                </a>
-                
-                <div class="flex items-center justify-center space-x-4 text-xs text-slate-400">
-                    <span>🔒 Pagamento Seguro</span>
-                    <span>💳 Cancelamento Fácil</span>
-                    <span>✅ Garantia 7 Dias</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ Simples -->
-        <section class="py-16 px-4 max-w-3xl mx-auto text-center border-t border-slate-200">
-            <h2 class="text-xl font-bold mb-8 italic">Dúvidas Frequentes</h2>
-            <div class="text-left space-y-6">
-                <div>
-                    <h4 class="font-bold">Preciso de fones de ouvido?</h4>
-                    <p class="text-slate-600 text-sm">Sim, para a tecnologia de frequências binaurais funcionar, é necessário usar fones (qualquer modelo).</p>
-                </div>
-                <div>
-                    <h4 class="font-bold">Como recebo o acesso?</h4>
-                    <p class="text-slate-600 text-sm">Imediatamente após a confirmação do pagamento, você receberá um e-mail com seus dados de login no nosso portal Micro-SaaS.</p>
-                </div>
-            </div>
-        </section>
-
-        <footer class="py-10 text-center text-slate-400 text-xs">
-            <p>&copy; 2024 NeuroEnergizer Brasil - Todos os direitos reservados.</p>
+        <footer class="py-12 text-center text-gray-600 text-xs uppercase tracking-widest border-t border-white/5">
+            &copy; Protocolo NeuroShift 2024 - Todos os direitos reservados
         </footer>
     </main>
 
     <script>
-        function nextStep(currentStep) {
-            const currentCard = document.querySelector(`[data-step="${currentStep}"]`);
-            const nextCard = document.querySelector(`[data-step="${currentStep + 1}"]`);
-            const progress = document.getElementById('progress');
+        let currentStep = 1;
+        const totalSteps = 5;
 
-            currentCard.classList.remove('active');
-            nextCard.classList.add('active');
+        function next(step) {
+            const bar = document.getElementById('bar');
+            bar.style.width = (step / totalSteps * 100) + '%';
+
+            document.querySelector(`[data-step="${step}"]`).classList.remove('active');
             
-            // Atualiza barra de progresso
-            let progressValue = (currentStep + 1) * 33;
-            progress.style.width = progressValue + '%';
-
-            // Se for o passo de processamento (passo 2 para 3)
-            if (currentStep === 2) {
-                setTimeout(() => {
-                    document.getElementById('quiz-section').classList.add('hidden');
-                    document.getElementById('sales-page').classList.remove('hidden');
-                    window.scrollTo(0, 0);
-                }, 2500); // 2.5 segundos de "processamento" para autoridade
+            if (step < totalSteps) {
+                document.querySelector(`[data-step="${step + 1}"]`).classList.add('active');
+            } else {
+                showLoading();
             }
+        }
+
+        function showLoading() {
+            document.getElementById('quiz-content').classList.add('hidden');
+            document.getElementById('loading-quiz').classList.remove('hidden');
+            
+            setTimeout(() => {
+                document.getElementById('section-quiz').classList.add('hidden');
+                document.getElementById('section-result').classList.remove('hidden');
+                window.scrollTo(0,0);
+            }, 3000);
+        }
+
+        function showSales() {
+            document.getElementById('section-result').classList.add('hidden');
+            document.getElementById('section-sales').classList.remove('hidden');
+            window.scrollTo(0,0);
         }
     </script>
 </body>
