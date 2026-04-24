@@ -268,6 +268,26 @@ h2 span { color: var(--accent); }
 }
 .step h3 { color: #fff; }
 
+/* Destaque para o Card de Gancho */
+#step-1 .highlight-box {
+  border: 1px solid rgba(255, 159, 28, 0.3);
+  background: linear-gradient(135deg, rgba(19, 26, 38, 1) 0%, rgba(25, 34, 50, 1) 100%);
+  box-shadow: 0 0 20px rgba(255, 159, 28, 0.05);
+  position: relative;
+}
+.hook-label {
+  display: inline-block;
+  background: var(--accent);
+  color: #0b0f17;
+  font-size: 0.65rem;
+  font-weight: 900;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+  
 /* ══ BENEFÍCIOS ══ */
 .benefits-sec { overflow: hidden; padding: 6rem 0; background: transparent; }
 .benefits-title { text-align: center; margin-bottom: 4rem; padding: 0 1.25rem; }
@@ -516,13 +536,30 @@ h2 span { color: var(--accent); }
         <p style="margin-bottom:1.5rem">Enquanto isso, a maioria de nós trabalha cada vez mais e rende cada vez menos.</p>
         <p style="font-weight:700; color:var(--accent); margin-bottom:1.5rem">A resposta está em um dos casos mais bizarros da história da ciência: o roubo do cérebro de Albert Einstein.</p>
 
-        <!-- CARD 1 (INICIALMENTE VISÍVEL) -->
-        <div class="story-step active" id="step-1">
-          <div class="highlight-box">
-            18 de abril de 1955: Einstein morre. Durante a autópsia, um médico rouba o cérebro e desaparece. Por 40 anos, partes do cérebro de Einstein ficaram escondidas em porões, malas de carro e laboratórios improvisados, enquanto o mundo procurava pistas do gênio.
-          </div>
-          <button class="btn-continue-reading" onclick="revealStep(2, this)">→ Continuar lendo</button>
-        </div>
+        <!-- CARD 1 (O GANCHO INVESTIGATIVO) -->
+<div class="story-step active" id="step-1">
+  <div class="highlight-box">
+    <span class="hook-label">● Arquivo Histórico Confidencial</span>
+    
+    <p style="font-size: 1.25rem; line-height: 1.4; color: #fff; margin-bottom: 1.2rem; font-family: 'Merriweather', serif; font-weight: 700; font-style: italic;">
+      "Existem segredos que a ciência tentou esconder por 40 anos... e o que aconteceu naquele porão é a chave para destravar sua mente hoje."
+    </p>
+
+    <p style="margin-bottom: 1rem;">
+      <strong>18 de abril de 1955.</strong> O mundo lamentava a morte de Albert Einstein. Mas, enquanto os jornais imprimiam as manchetes, algo bizarro acontecia nos bastidores do Hospital de Princeton.
+    </p>
+
+    <p style="margin-bottom: 1rem;">
+      O Dr. Thomas Harvey, responsável pela autópsia, tomou uma decisão perturbadora: <strong>ele roubou o cérebro de Einstein.</strong>
+    </p>
+
+    <p style="font-size: 0.95rem; color: var(--muted);">
+      Sem autorização da família. Sem permissão legal. Ele colocou o órgão em potes de vidro, escondeu em caixas de cidra e <strong>desapareceu.</strong> Por décadas, o paradeiro do cérebro mais brilhante do século foi um mistério absoluto.
+    </p>
+
+    <button class="btn-continue-reading" onclick="revealStep(2, this)">→ Descobrir o que ele encontrou</button>
+  </div>
+</div>
 
         <!-- CARD 2 -->
         <div class="story-step" id="step-2">
