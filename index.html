@@ -1,24 +1,431 @@
-<!-- CARD 1 (O GANCHO INVESTIGATIVO) -->
-<div class="story-step active" id="step-1">
-  <div class="highlight-box">
-    <span class="hook-label">● Arquivo Histórico Confidencial</span>
-    
-    <p style="font-size: 1.25rem; line-height: 1.4; color: #fff; margin-bottom: 1.2rem; font-family: 'Merriweather', serif; font-weight: 700; font-style: italic;">
-      "Existem segredos que a ciência tentou esconder por 40 anos... e o que aconteceu naquele porão é a chave para destravar sua mente hoje."
-    </p>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeuroShift — Ative Sua Memória e Foco Todo Dia</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Merriweather:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ══ VARIÁVEIS & BASE ══ */
+:root {
+  --bg-main: #0b0f17;
+  --bg-card: #131a26;
+  --accent: #ff9f1c;
+  --accent-light: #ffa726;
+  --accent-glow: rgba(255, 159, 28, 0.15);
+  --glass: rgba(19, 26, 38, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --green: #15803d;
+  --gold: #ff9f1c;
+  --shadow-soft: 0 10px 30px -10px rgba(0,0,0,0.5);
+  --shadow-strong: 0 20px 40px -15px rgba(0,0,0,0.7);
+}
 
-    <p style="margin-bottom: 1rem;">
-      <strong>18 de abril de 1955.</strong> O mundo lamentava a morte de Albert Einstein. Mas, enquanto os jornais imprimiam as manchetes, algo bizarro acontecia nos bastidores do Hospital de Princeton.
-    </p>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background-color: var(--bg-main);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(255, 159, 28, 0.03) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(74, 144, 226, 0.03) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(255, 159, 28, 0.02) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(255, 159, 28, 0.03) 0px, transparent 50%);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
 
-    <p style="margin-bottom: 1rem;">
-      O Dr. Thomas Harvey, responsável pela autópsia, tomou uma decisão perturbadora: <strong>ele roubou o cérebro de Einstein.</strong>
-    </p>
+/* ══ ANIMAÇÕES GLOBAIS ══ */
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes slide-in { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes wave { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-    <p style="font-size: 0.95rem; color: var(--muted);">
-      Sem autorização da família. Sem permissão legal. Ele colocou o órgão em potes de vidro, escondeu em caixas de cidra e <strong>desapareceu.</strong> Por décadas, o paradeiro do cérebro mais brilhante do século foi um mistério absoluto.
-    </p>
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal.active { opacity: 1; transform: translateY(0); }
 
-    <button class="btn-continue-reading" onclick="revealStep(2, this)">→ Descobrir o que ele encontrou</button>
+/* ══ ESTILOS DA PROGRESSÃO DE LEITURA (STORY) ══ */
+.story-step { display: none; margin-bottom: 2rem; }
+.story-step.active { display: block; animation: slide-in 0.5s ease forwards; }
+
+.btn-continue-reading {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; border: none; color: var(--accent);
+  font-weight: 700; font-size: 0.9rem; cursor: pointer;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  padding: 10px 0; margin-top: 10px; transition: 0.3s;
+}
+.btn-continue-reading:hover { transform: translateX(5px); color: var(--accent-light); }
+
+/* ESTILO DO CARD HOOK (O PRIMEIRO) */
+#step-1 .highlight-box {
+  border: 1px solid rgba(255, 159, 28, 0.3);
+  background: linear-gradient(135deg, rgba(19, 26, 38, 1) 0%, rgba(25, 34, 50, 1) 100%);
+  box-shadow: 0 0 20px rgba(255, 159, 28, 0.05);
+  position: relative;
+}
+.hook-label {
+  display: inline-block; background: var(--accent); color: #0b0f17;
+  font-size: 0.65rem; font-weight: 900; padding: 2px 8px; border-radius: 4px;
+  text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 0.05em;
+}
+
+/* ══ QUIZ ══ */
+#quiz-screen {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; padding: 2rem 1.25rem;
+}
+.logo-top {
+  font-family: 'Merriweather', serif; font-size: 1.2rem; font-weight: 700;
+  letter-spacing: .1em; color: var(--accent); margin-bottom: 2.5rem;
+  text-transform: uppercase; position: relative;
+}
+.logo-top::after {
+  content: ''; position: absolute; bottom: -8px; left: 25%; width: 50%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.quiz-wrap {
+  width: 100%; max-width: 620px; background: var(--glass);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border); padding: 2.5rem; border-radius: 24px;
+  box-shadow: var(--shadow-strong); position: relative; overflow: hidden;
+}
+.q-step { display: none; }
+.q-step.active { display: block; animation: slide-in 0.4s ease forwards; }
+.q-prog { display: flex; gap: 8px; margin-bottom: 2.5rem; }
+.q-bar { flex: 1; height: 4px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; }
+.q-bar::after { 
+  content: ''; display: block; height: 100%; width: 0%; 
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  transition: width 0.4s ease;
+}
+.q-bar.done::after { width: 100%; }
+.q-num { font-size: .75rem; color: var(--accent); text-transform: uppercase; letter-spacing: .15em; margin-bottom: .75rem; font-weight: 700; }
+.q-text { font-family: 'Merriweather', serif; font-size: clamp(1.2rem, 4vw, 1.6rem); font-weight: 700; line-height: 1.3; color: #fff; margin-bottom: .75rem; }
+.q-text span { color: var(--accent); }
+.q-hint { font-size: .9rem; color: var(--muted); margin-bottom: 2rem; }
+.q-opts { display: flex; flex-direction: column; gap: 12px; }
+.q-opt {
+  background: #1a2333; border: 1px solid rgba(255,255,255,0.03);
+  border-radius: 14px; padding: 1.1rem 1.4rem; cursor: pointer; display: flex; align-items: center; gap: 15px;
+  color: var(--text); font-size: 1rem; text-align: left; transition: all 0.25s;
+}
+.q-opt:hover { border-color: var(--accent); background: var(--accent-glow); transform: translateX(8px); }
+.q-circle { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #475569; flex-shrink: 0; background: #0b0f17; position: relative; }
+
+/* ══ LOADING ══ */
+#loading-screen { display: none; min-height: 100vh; align-items: center; justify-content: center; flex-direction: column; gap: 1.5rem; padding: 2rem; background: var(--bg-main); }
+.l-track { width: 280px; height: 4px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; }
+.l-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); width: 0%; }
+
+/* ══ LP ══ */
+#lp-screen { display: none; }
+.hero { padding: 5rem 1.25rem 4rem; text-align: center; position: relative; }
+.wave-svg { position: absolute; bottom: 0; left: 0; width: 200%; height: 150px; fill: var(--accent); opacity: 0.1; animation: wave 20s linear infinite; z-index: -1; }
+.hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); color: var(--accent); font-size: .8rem; font-weight: 700; text-transform: uppercase; padding: 8px 16px; border-radius: 100px; margin-bottom: 2rem; }
+.hero h1 { font-family: 'Merriweather', serif; font-size: clamp(1.8rem, 6vw, 3rem); font-weight: 700; line-height: 1.2; color: #fff; max-width: 850px; margin: 0 auto 1.5rem; }
+.hero h1 span { background: linear-gradient(120deg, var(--accent), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.result-box { background: #131a26; border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 1.5rem 2rem; max-width: 640px; margin: 0 auto 3rem; text-align: left; position: relative; }
+.result-box::before { content: ''; position: absolute; left: 0; top: 20%; height: 60%; width: 5px; background: var(--accent); border-radius: 0 5px 5px 0; }
+.btn-cta { display: inline-block; background: var(--accent); color: #0b0f17; font-weight: 700; font-size: 1.1rem; padding: 1.1rem 2.8rem; border-radius: 14px; text-decoration: none; transition: 0.3s; box-shadow: 0 15px 30px rgba(255, 159, 28, 0.25); }
+
+/* SEÇÕES GLOBAIS */
+section { padding: 5rem 1.25rem; }
+.sec-inner { max-width: 800px; margin: 0 auto; }
+.sec-label { color: var(--accent); font-weight: 800; text-transform: uppercase; font-size: .75rem; letter-spacing: .2em; display: block; margin-bottom: 1rem; }
+h2 { font-family: 'Merriweather', serif; font-size: clamp(1.6rem, 5vw, 2.2rem); color: #fff; margin-bottom: 1.5rem; }
+h2 span { color: var(--accent); }
+
+.highlight-box {
+  background: var(--bg-main); border-radius: 20px;
+  padding: 2rem; border-left: 6px solid var(--accent);
+}
+
+.story-sec { background: #0d131f; border-radius: 60px 60px 0 0; }
+.story-body { font-size: 1.1rem; color: #cbd5e1; }
+
+.strip { background: rgba(255, 255, 255, 0.02); padding: 1.2rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; border-block: 1px solid var(--glass-border); }
+.dor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 3rem; }
+.dor-card { background: var(--bg-card); padding: 2.5rem 1.75rem; border-radius: 20px; border: 1px solid var(--glass-border); transition: 0.3s; }
+
+/* BENEFÍCIOS CAROUSEL */
+.benefits-sec { overflow: hidden; padding: 6rem 0; background: transparent; }
+@keyframes scrollInfinite { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.benefits-carousel { display: flex; width: max-content; animation: scrollInfinite 30s linear infinite; gap: 20px; }
+.benefits-card { width: 280px; background: var(--bg-card); padding: 2.5rem 2rem; border-radius: 24px; text-align: center; border: 1px solid var(--glass-border); flex-shrink: 0; }
+
+.offer-card { background: var(--bg-card); border-radius: 30px; padding: 3.5rem 2rem; border: 1px solid rgba(255,159,28,0.2); text-align: center; }
+.faq-item { background: var(--bg-card); margin-bottom: 10px; border-radius: 14px; overflow: hidden; border: 1px solid var(--glass-border); }
+.faq-btn { padding: 1.4rem; font-weight: 700; background: var(--bg-card); color: #fff; width: 100%; border: none; cursor: pointer; display: flex; justify-content: space-between; }
+
+@media (max-width: 600px) {
+  section { padding: 4rem 1rem; }
+  .hero h1 { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero-bg-waves">
+  <svg class="wave-svg" viewBox="0 0 120 28" preserveAspectRatio="none"><path d="M0 30 V15 Q30 3 60 15 t60 0 V30 z" /></svg>
+</div>
+
+<!-- ══ QUIZ ══ -->
+<div id="quiz-screen">
+  <div class="logo-top">NeuroShift</div>
+  <div class="quiz-wrap">
+    <div class="q-prog" id="prog">
+      <div class="q-bar" id="pb1"></div><div class="q-bar" id="pb2"></div><div class="q-bar" id="pb3"></div>
+      <div class="q-bar" id="pb4"></div><div class="q-bar" id="pb5"></div><div class="q-bar" id="pb6"></div>
+    </div>
+    <!-- P1-P6 simplified for code clarity -->
+    <div class="q-step active" id="q1">
+      <div class="q-num">Pergunta 1 de 6</div>
+      <div class="q-text">Com que frequência você entra num cômodo e <span>esquece completamente</span> o que ia fazer ali?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="nextQ(1)"><span class="q-circle"></span>Raramente</button>
+        <button class="q-opt" onclick="nextQ(1)"><span class="q-circle"></span>Às vezes</button>
+        <button class="q-opt" onclick="nextQ(1)"><span class="q-circle"></span>Com frequência</button>
+        <button class="q-opt" onclick="nextQ(1)"><span class="q-circle"></span>Todo dia</button>
+      </div>
+    </div>
+    <!-- P2 -->
+    <div class="q-step" id="q2">
+      <div class="q-num">Pergunta 2 de 6</div>
+      <div class="q-text">Você já precisou ler a mesma frase <span>três vezes</span> para entender?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="nextQ(2)"><span class="q-circle"></span>Nunca</button>
+        <button class="q-opt" onclick="nextQ(2)"><span class="q-circle"></span>Às vezes</button>
+        <button class="q-opt" onclick="nextQ(2)"><span class="q-circle"></span>Com frequência</button>
+      </div>
+    </div>
+    <!-- P3 -->
+    <div class="q-step" id="q3">
+      <div class="q-num">Pergunta 3 de 6</div>
+      <div class="q-text">Esquece <span>coisas simples</span> (chaves, celular)?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="nextQ(3)"><span class="q-circle"></span>Nunca</button>
+        <button class="q-opt" onclick="nextQ(3)"><span class="q-circle"></span>Às vezes</button>
+        <button class="q-opt" onclick="nextQ(3)"><span class="q-circle"></span>Todo dia</button>
+      </div>
+    </div>
+    <!-- P4 -->
+    <div class="q-step" id="q4">
+      <div class="q-num">Pergunta 4 de 6</div>
+      <div class="q-text">Sente seu cérebro em <span>câmera lenta</span>?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="nextQ(4)"><span class="q-circle"></span>Nunca</button>
+        <button class="q-opt" onclick="nextQ(4)"><span class="q-circle"></span>Às vezes</button>
+        <button class="q-opt" onclick="nextQ(4)"><span class="q-circle"></span>Sempre</button>
+      </div>
+    </div>
+    <!-- P5 -->
+    <div class="q-step" id="q5">
+      <div class="q-num">Pergunta 5 de 6</div>
+      <div class="q-text">O que mais te incomoda?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="nextQ(5)"><span class="q-circle"></span>Perder foco no trabalho</button>
+        <button class="q-opt" onclick="nextQ(5)"><span class="q-circle"></span>Medo de piorar com a idade</button>
+        <button class="q-opt" onclick="nextQ(5)"><span class="q-circle"></span>Sentir-me menos inteligente</button>
+      </div>
+    </div>
+    <!-- P6 -->
+    <div class="q-step" id="q6">
+      <div class="q-num">Pergunta 6 de 6</div>
+      <div class="q-text">Com cérebro no máximo, o que mudaria?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="goToLP()"><span class="q-circle"></span>Mais produtivo na carreira</button>
+        <button class="q-opt" onclick="goToLP()"><span class="q-circle"></span>Mais confiança e clareza</button>
+        <button class="q-opt" onclick="goToLP()"><span class="q-circle"></span>Aprenderia mais rápido</button>
+      </div>
+    </div>
   </div>
 </div>
+
+<!-- ══ LOADING ══ -->
+<div id="loading-screen">
+  <div class="logo-top">NeuroShift</div>
+  <div class="l-track"><div class="l-fill" id="lf"></div></div>
+  <div id="lmsg" style="color:var(--text); font-weight:500;">Analisando perfil...</div>
+</div>
+
+<!-- ══ LP ══ -->
+<div id="lp-screen">
+  <div class="hero">
+    <div class="hero-tag">✦ Seu diagnóstico está pronto</div>
+    <h1 class="reveal">Seu Cérebro Está Operando <span>Abaixo do Que É Capaz.</span></h1>
+    <p class="hero-sub reveal">Pesquisadores identificaram o estado mental que separa mentes comuns de excepcionais.</p>
+    <div class="result-box reveal"><div class="result-lbl" style="font-size:.7rem; color:var(--accent); font-weight:800; text-transform:uppercase;">Seu diagnóstico</div><div class="result-txt" id="result-text">Carregando...</div></div>
+    <div class="reveal"><a href="https://pay.hotmart.com/J105513010I?off=4coph92i" class="btn-cta">Ativar meu cérebro grátis por 3 dias →</a></div>
+  </div>
+
+  <div class="strip">
+    <div class="strip-item"><strong>+12.400</strong> usuários</div>
+    <div class="strip-item">⭐ <strong>4.9/5</strong> avaliação</div>
+    <div class="strip-item"><strong>3 dias</strong> grátis</div>
+  </div>
+
+  <!-- HISTÓRIA EINSTEIN -->
+  <section class="story-sec">
+    <div class="sec-inner">
+      <span class="sec-label">A descoberta</span>
+      <h2 class="reveal">Por que algumas pessoas têm memória <span>excepcional</span> — e o que elas fazem</h2>
+      
+      <div class="story-body reveal">
+        <p style="margin-bottom:1.5rem">Você já percebeu que certas pessoas parecem ter um superpoder? Resolvem problemas com facilidade e lembram de tudo.</p>
+        <p style="font-weight:700; color:var(--accent); margin-bottom:1.5rem">A resposta está em um dos casos mais bizarros da história: o roubo do cérebro de Einstein.</p>
+
+        <!-- CARD 1 (O GANCHO INVESTIGATIVO) -->
+        <div class="story-step active" id="step-1">
+          <div class="highlight-box">
+            <span class="hook-label">● Arquivo Histórico Confidencial</span>
+            <p style="font-size: 1.25rem; line-height: 1.4; color: #fff; margin-bottom: 1.2rem; font-family: 'Merriweather', serif; font-weight: 700; font-style: italic;">
+              "Existem segredos que a ciência tentou esconder por 40 anos... e o que aconteceu naquele porão é a chave para destravar sua mente hoje."
+            </p>
+            <p style="margin-bottom: 1rem;"><strong>18 de abril de 1955.</strong> O mundo lamentava a morte de Einstein. Mas, enquanto os jornais imprimiam manchetes, o Dr. Thomas Harvey tomou uma decisão perturbadora: <strong>ele roubou o cérebro de Einstein.</strong></p>
+            <p style="font-size: 0.95rem; color: var(--muted);">Ele colocou o órgão em potes de vidro, escondeu em caixas de cidra e desapareceu por décadas. O paradeiro do cérebro mais brilhante do século foi um mistério absoluto.</p>
+            <button class="btn-continue-reading" onclick="revealStep(2, this)">→ Descobrir o que ele encontrou</button>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="story-step" id="step-2">
+          <div class="highlight-box">
+            Quando finalmente estudaram o órgão, descobriram algo chocante: <em>o cérebro de Einstein era 15% menor que o normal.</em> Mas havia uma diferença crucial: a estrutura chamada <strong>corpus callosum</strong> era excepcionalmente espessa.
+            <button class="btn-continue-reading" onclick="revealStep(3, this)">→ Como ele conseguiu isso?</button>
+          </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="story-step" id="step-3">
+          <div class="highlight-box">
+            Essa "ponte" conectava os dois hemisférios de forma única. E a ciência descobriu que Einstein não nasceu assim. Ele treinou seu cérebro inconscientemente desde os 6 anos através de uma prática específica que fortalecia essa ponte neural diariamente.
+            <button class="btn-continue-reading" onclick="revealStep(4, this)">→ Qual era essa prática?</button>
+          </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="story-step" id="step-4">
+          <div class="highlight-box">
+            Einstein tocava violino. Sempre que travava num problema, ele tocava. A vibração e o foco levavam seu cérebro à <strong>frequência Theta (4-8Hz)</strong>, o estado de alta performance onde a memória consolida e a criatividade flui sem esforço.
+            <button class="btn-continue-reading" onclick="revealStep(5, this)">→ Posso ter o mesmo efeito?</button>
+          </div>
+        </div>
+
+        <!-- CARD 5 -->
+        <div class="story-step" id="step-5">
+          <div class="highlight-box" style="border-left-color: var(--accent-light)">
+            A pergunta era: <em>é possível replicar esse efeito sem anos de violino?</em> Graças à neuroplasticidade e frequências sonoras modernas, a resposta é sim. E é muito mais simples do que parece.
+            <button class="btn-continue-reading" onclick="revealStep(6, this)">→ Ver o método NeuroShift</button>
+          </div>
+        </div>
+
+        <!-- CARD 6 (ÚLTIMO) -->
+        <div class="story-step" id="step-6">
+          <div class="highlight-box">
+            O NeuroShift utiliza áudios de sincronização cerebral para forçar seu cérebro a entrar no estado Theta de Einstein. Sem meditação, sem esforço. Apenas alguns minutos por dia para reconstruir sua clareza mental.
+          </div>
+        </div>
+
+      </div>
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href="https://pay.hotmart.com/J105513010I?off=4coph92i" class="btn-cta">Começar teste grátis agora →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MECANISMO & BENEFÍCIOS (ABRIDGED) -->
+  <section class="benefits-sec">
+    <div class="sec-inner" style="text-align:center; margin-bottom:4rem;"><span class="sec-label">Benefícios</span><h2>Sua mente ativada</h2></div>
+    <div class="benefits-carousel">
+      <div class="benefits-card"><h3>Memória Clara</h3><p>Lembre-se de dados sem esforço ou "brancos".</p></div>
+      <div class="benefits-card"><h3>Foco Laser</h3><p>Termine tarefas em metade do tempo.</p></div>
+      <div class="benefits-card"><h3>Zero Névoa</h3><p>Raciocínio rápido desde o despertar.</p></div>
+      <div class="benefits-card"><h3>Paz Mental</h3><p>Redução do ruído interno e ansiedade.</p></div>
+      <!-- Duplicate for loop -->
+      <div class="benefits-card"><h3>Memória Clara</h3><p>Lembre-se de dados sem esforço ou "brancos".</p></div>
+      <div class="benefits-card"><h3>Foco Laser</h3><p>Termine tarefas em metade do tempo.</p></div>
+    </div>
+  </section>
+
+  <!-- OFERTA -->
+  <section class="offer-sec" style="background: var(--accent-glow)">
+    <div class="sec-inner">
+      <div class="offer-card reveal">
+        <div class="hook-label">Acesso liberado hoje</div>
+        <div style="font-size:2.4rem; color:#fff; font-weight:700; font-family:'Merriweather',serif;">3 Dias Grátis</div>
+        <p style="color:var(--accent); font-weight:700; margin-bottom:1rem;">NADA SERÁ COBRADO HOJE</p>
+        <p style="color:var(--muted); font-size:.9rem;">Após o teste, apenas R$ 9,90/mês. Cancele quando quiser.</p>
+        <a href="https://pay.hotmart.com/J105513010I?off=4coph92i" class="btn-cta" style="width:100%; margin-top:2rem;">Começar teste grátis →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ & FOOTER (MANTIDOS) -->
+  <footer style="padding:4rem 1.25rem; text-align:center; border-top:1px solid var(--glass-border); font-size:.8rem; color:var(--muted)">
+    <p>© 2025 NeuroShift · Todos os direitos reservados</p>
+  </footer>
+</div>
+
+<script>
+const diags = [
+  "Seus padrões indicam sobrecarga neural. O protocolo Theta reverte o esquecimento súbito ao reconectar os hemisférios.",
+  "Esses lapsos são sinais de exaustão neural. Com o NeuroShift, forçamos o cérebro a retomar a frequência certa.",
+  "Sua mente está operando em Beta polueído. O protocolo limpa essa névoa em poucos dias.",
+  "Esse estado de câmera lenta indica declínio precoce. A estimulação sonora certa pode reverter isso hoje."
+];
+
+function nextQ(n) {
+  const curr = document.getElementById('q' + n);
+  const next = document.getElementById('q' + (n + 1));
+  document.getElementById('pb' + n).classList.add('done');
+  curr.style.display = 'none';
+  next.classList.add('active');
+}
+
+function goToLP() {
+  document.getElementById('pb6').classList.add('done');
+  document.getElementById('quiz-screen').style.display = 'none';
+  const ls = document.getElementById('loading-screen');
+  ls.style.display = 'flex';
+  let fill = 0;
+  const fe = document.getElementById('lf');
+  const iv = setInterval(() => {
+    fill += 5;
+    fe.style.width = fill + '%';
+    if(fill >= 100) { clearInterval(iv); showLP(); }
+  }, 50);
+}
+
+function showLP() {
+  document.getElementById('loading-screen').style.display = 'none';
+  document.getElementById('lp-screen').style.display = 'block';
+  document.getElementById('result-text').textContent = diags[Math.floor(Math.random() * diags.length)];
+  initScrollReveal();
+}
+
+// PROGRESSÃO DE LEITURA (STORY)
+function revealStep(nextId, btn) {
+  const nextStep = document.getElementById('step-' + nextId);
+  if (nextStep) {
+    nextStep.classList.add('active');
+    btn.style.display = 'none';
+    setTimeout(() => {
+      nextStep.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+  }
+}
+
+function initScrollReveal() {
+  const obs = new IntersectionObserver((es) => {
+    es.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+</script>
+</body>
+</html>
