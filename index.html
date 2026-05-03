@@ -3,867 +3,319 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gazeta Pet</title>
+<title>Gazeta Pet - Edição Digital</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
 <style>
-/*
-  ╔══════════════════════════════════════════════════════╗
-  ║             GAZETA PET — GUIA DE EDIÇÃO             ║
-  ╠══════════════════════════════════════════════════════╣
-  ║                                                      ║
-  ║  COMO EDITAR A CADA SEMANA:                         ║
-  ║                                                      ║
-  ║  CAMPOS QUE REPETEM EM TODAS AS PÁGINAS:            ║
-  ║  • Número da edição: busque "Edição Nº" (5x)        ║
-  ║  • Data: busque "data-edicao" (5x)                  ║
-  ║                                                      ║
-  ║  PÁGINA 1 — CAPA                                    ║
-  ║  • Manchete: <h2 class="capa-manchete-titulo">      ║
-  ║  • Lead:     <p class="capa-manchete-lead">         ║
-  ║  • Chamadas: blocos <div class="chamada">           ║
-  ║  • Notas de capa: blocos <div class="nota-capa">    ║
-  ║                                                      ║
-  ║  PÁGINA 2 — MANCHETE COMPLETA                       ║
-  ║  • Título:    id="p2-titulo"                        ║
-  ║  • Subtítulo: id="p2-subtitulo"                     ║
-  ║  • Parágrafos: dentro de id="p2-corpo"              ║
-  ║  • Dica:      id="p2-dica"                          ║
-  ║  • Sidebar:   blocos <div class="sidebar-bloco">    ║
-  ║                                                      ║
-  ║  PÁGINA 3 — MUNDO ANIMAL                           ║
-  ║  • Notícia 1: id="p3-n1-titulo" e p3-n1-texto      ║
-  ║  • Notícia 2: id="p3-n2-titulo" e p3-n2-texto      ║
-  ║  • Citação:   id="p3-citacao"                       ║
-  ║                                                      ║
-  ║  PÁGINA 4 — VOCÊ SABIA? + CHARGE                   ║
-  ║  • Curiosidades: ids "cur1/2/3-pergunta/resposta"   ║
-  ║  • Charge: substitua o placeholder por <img>        ║
-  ║  • Legenda: id="charge-legenda"                     ║
-  ║                                                      ║
-  ║  PÁGINA 5 — NOTAS CURTAS                           ║
-  ║  • 3 notas: ids "nota1/2/3-titulo" e "...-texto"   ║
-  ╚══════════════════════════════════════════════════════╝
-*/
-
 :root {
   --papel: #f5f0e8;
-  --papel-escuro: #ede7d4;
-  --papel-sombra: #d4c9b0;
+  --papel-dark: #e8e2d2;
   --tinta: #1a1208;
-  --tinta-suave: #3d3220;
-  --tinta-muted: #7a6a52;
+  --tinta-suave: #4a3f35;
   --vermelho: #8b1a1a;
   --linha: #c8b89a;
-  --fonte-display: 'UnifrakturMaguntia', cursive;
-  --fonte-titulo: 'Playfair Display', Georgia, serif;
-  --fonte-corpo: 'Libre Baskerville', Georgia, serif;
-  --fonte-fell: 'IM Fell English', Georgia, serif;
+  --fonte-logo: 'UnifrakturMaguntia', cursive;
+  --fonte-titulo: 'Playfair Display', serif;
+  --fonte-corpo: 'Libre Baskerville', serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: var(--papel-sombra);
-  background-image: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(0,0,0,0.015) 40px, rgba(0,0,0,0.015) 41px);
+  background: #d4c9b0;
+  background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
   font-family: var(--fonte-corpo);
   color: var(--tinta);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem 1rem 4rem;
+  padding: 2rem 1rem;
+  line-height: 1.6;
 }
 
-/* ── PÁGINA ── */
+/* ── ESTRUTURA DA PÁGINA ── */
 .pagina {
   display: none;
   width: 100%;
-  max-width: 940px;
+  max-width: 1000px;
+  margin: 0 auto;
   background: var(--papel);
-  background-image: repeating-linear-gradient(
-    0deg, transparent, transparent 27px,
-    rgba(180,160,120,0.07) 27px, rgba(180,160,120,0.07) 28px
-  );
   border: 1px solid #b8a880;
-  box-shadow: 4px 4px 0 #b8a880, 8px 8px 0 #a89870, 10px 10px 28px rgba(0,0,0,0.25);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   position: relative;
-  animation: virar .35s ease;
+  overflow: hidden;
 }
-.pagina.ativa { display: block; }
-@keyframes virar {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.pagina::before {
-  content: '';
-  position: absolute;
-  inset: 8px;
-  border: 0.5px solid rgba(180,160,120,0.4);
-  pointer-events: none;
-  z-index: 0;
-}
+.pagina.ativa { display: block; animation: fadeIn 0.4s ease; }
 
-/* ── CABEÇALHO ── */
-.cabecalho {
-  padding: 1.25rem 2.5rem 0.75rem;
-  border-bottom: 3px double var(--tinta);
-  position: relative;
-  z-index: 1;
-}
-.cabecalho-meta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 9.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--tinta-muted);
-  margin-bottom: 8px;
-}
-.nome-jornal-grande {
-  font-family: var(--fonte-display);
-  font-size: 64px;
-  line-height: 1;
-  color: var(--tinta);
-  display: block;
-  text-align: center;
-}
-.nome-jornal-interno {
-  font-family: var(--fonte-display);
-  font-size: 32px;
-  line-height: 1;
-  color: var(--tinta);
-}
-.lema {
-  font-family: var(--fonte-fell);
-  font-style: italic;
-  font-size: 12px;
-  color: var(--tinta-muted);
-  text-align: center;
-  margin-top: 4px;
-  letter-spacing: 0.06em;
-}
-.linha-vermelha { border: none; border-top: 2.5px double var(--vermelho); margin: 6px 0 0; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ── CONTEÚDO ── */
-.conteudo {
-  padding: 1.5rem 2.5rem 2rem;
-  position: relative;
-  z-index: 1;
-}
-.secao-label {
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--tinta-muted);
-  display: block;
-  margin-bottom: 8px;
-}
-
-/* ══════════════════════════════
-   PÁGINA 1 — CAPA
-══════════════════════════════ */
-.capa-grid {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 0;
-}
-.capa-manchete {
-  padding: 0 1.5rem 1.25rem 0;
-  border-right: 1px solid var(--linha);
-  border-bottom: 0.5px solid var(--linha);
-}
-.capa-manchete-titulo {
-  font-family: var(--fonte-titulo);
-  font-size: 34px;
-  font-weight: 900;
-  line-height: 1.1;
-  margin-bottom: 12px;
-}
-.capa-manchete-lead {
-  font-family: var(--fonte-fell);
-  font-style: italic;
-  font-size: 14.5px;
-  line-height: 1.65;
-  color: var(--tinta-suave);
-  margin-bottom: 14px;
-}
-.continua-em {
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--vermelho);
-  cursor: pointer;
-  border-bottom: 0.5px solid var(--vermelho);
-  display: inline-block;
-  background: none;
-  border-left: none;
-  border-top: none;
-  border-right: none;
-  font-family: var(--fonte-corpo);
-  padding: 0;
-}
-.continua-em:hover { opacity: 0.7; }
-
-.capa-chamadas {
-  padding: 0 0 0 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  grid-row: 1 / 3;
-  grid-column: 2;
-}
-.chamada {
-  padding-bottom: 1rem;
-  border-bottom: 0.5px solid var(--linha);
-}
-.chamada:last-child { border-bottom: none; padding-bottom: 0; }
-.chamada-numero {
-  font-family: var(--fonte-titulo);
-  font-size: 38px;
-  font-weight: 900;
-  color: var(--linha);
-  line-height: 1;
-  display: block;
-  margin-bottom: 4px;
-}
-.chamada h3 {
-  font-family: var(--fonte-titulo);
-  font-size: 14.5px;
-  font-weight: 700;
-  line-height: 1.3;
-  margin-bottom: 5px;
-}
-.chamada p { font-size: 11px; line-height: 1.75; color: var(--tinta-suave); }
-
-.capa-notas {
-  grid-column: 1;
-  padding: 1rem 1.5rem 0 0;
-  border-right: 1px solid var(--linha);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-.nota-capa h4 {
-  font-family: var(--fonte-titulo);
-  font-size: 10.5px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--vermelho);
-  margin-bottom: 4px;
-  border-bottom: 0.5px solid var(--linha);
-  padding-bottom: 3px;
-}
-.nota-capa p { font-size: 11px; line-height: 1.75; color: var(--tinta-suave); }
-
-/* ══════════════════════════════
-   PÁGINA 2 — MANCHETE COMPLETA
-══════════════════════════════ */
-.p2-grid { display: grid; grid-template-columns: 1fr 260px; gap: 2rem; }
-.p2-titulo {
-  font-family: var(--fonte-titulo);
-  font-size: 32px;
-  font-weight: 900;
-  line-height: 1.15;
-  margin-bottom: 10px;
-}
-.p2-subtitulo {
-  font-family: var(--fonte-fell);
-  font-style: italic;
-  font-size: 14.5px;
-  line-height: 1.6;
-  color: var(--tinta-suave);
-  border-top: 0.5px solid var(--linha);
-  border-bottom: 0.5px solid var(--linha);
-  padding: 10px 0;
-  margin-bottom: 14px;
-}
-.p2-corpo p {
-  font-size: 13px;
-  line-height: 1.9;
-  text-align: justify;
-  hyphens: auto;
-  margin-bottom: 10px;
-}
-.p2-corpo p:first-child::first-letter {
-  font-family: var(--fonte-titulo);
-  font-size: 54px;
-  font-weight: 900;
-  float: left;
-  line-height: 0.78;
-  margin: 6px 7px 0 0;
-  color: var(--vermelho);
-}
-.dica-tutor {
-  margin-top: 1.25rem;
-  padding: 12px 14px;
+/* ── COMPONENTES REUTILIZÁVEIS ── */
+.img-placeholder {
+  background: #dfd7c5;
   border: 1px solid var(--linha);
-  background: var(--papel-escuro);
-}
-.dica-tutor strong {
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--vermelho);
-  display: block;
-  margin-bottom: 5px;
-  font-family: var(--fonte-corpo);
-}
-.dica-tutor p { font-size: 12px; line-height: 1.75; color: var(--tinta-suave); }
-
-.p2-sidebar { border-left: 0.5px solid var(--linha); padding-left: 1.5rem; }
-.sidebar-bloco { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 0.5px dotted var(--linha); }
-.sidebar-bloco:last-child { border-bottom: none; margin-bottom: 0; }
-.sidebar-bloco h4 { font-family: var(--fonte-titulo); font-size: 13px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
-.sidebar-bloco p { font-size: 11.5px; line-height: 1.8; color: var(--tinta-suave); }
-.numero-destaque {
-  font-family: var(--fonte-titulo);
-  font-size: 44px;
-  font-weight: 900;
-  color: var(--vermelho);
-  line-height: 1;
-  display: block;
-  margin-bottom: 4px;
-}
-
-/* ══════════════════════════════
-   PÁGINA 3 — MUNDO ANIMAL
-══════════════════════════════ */
-.p3-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-.p3-noticia h3 {
-  font-family: var(--fonte-titulo);
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1.25;
-  margin-bottom: 10px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--tinta);
-}
-.p3-noticia p { font-size: 12.5px; line-height: 1.9; text-align: justify; hyphens: auto; margin-bottom: 9px; }
-.p3-noticia p:first-of-type::first-letter {
-  font-family: var(--fonte-titulo);
-  font-size: 46px;
-  font-weight: 900;
-  float: left;
-  line-height: 0.8;
-  margin: 5px 6px 0 0;
-  color: var(--tinta-suave);
-}
-.citacao-animal {
-  grid-column: 1 / -1;
-  margin-top: 0.5rem;
-  padding: 14px 18px;
-  background: var(--tinta);
-  color: var(--papel);
-}
-.citacao-animal .label {
-  font-size: 8px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(245,240,232,0.5);
-  display: block;
-  margin-bottom: 6px;
-}
-.citacao-animal p {
-  font-family: var(--fonte-fell);
-  font-style: italic;
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--papel);
-}
-
-/* ══════════════════════════════
-   PÁGINA 4 — VOCÊ SABIA + CHARGE
-══════════════════════════════ */
-.p4-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-.p4-esq { padding-right: 2rem; border-right: 0.5px solid var(--linha); }
-.p4-dir { padding-left: 2rem; }
-.p4-titulo-secao {
-  font-family: var(--fonte-titulo);
-  font-size: 17px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-bottom: 2px solid var(--tinta);
-  padding-bottom: 6px;
-  margin-bottom: 1rem;
-}
-.curiosidade { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 0.5px dotted var(--linha); }
-.curiosidade:last-of-type { border-bottom: none; margin-bottom: 0; }
-.curiosidade h4 { font-family: var(--fonte-titulo); font-size: 13px; font-weight: 700; color: var(--vermelho); margin-bottom: 5px; line-height: 1.35; }
-.curiosidade p { font-size: 12px; line-height: 1.8; text-align: justify; hyphens: auto; }
-.charge-wrap { display: flex; flex-direction: column; gap: 10px; }
-.charge-imagem {
   width: 100%;
-  aspect-ratio: 4/3;
-  border: 1px solid var(--linha);
-  background: var(--papel-escuro);
+  position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 15px;
 }
-.charge-imagem img { width: 100%; height: 100%; object-fit: cover; }
-.charge-placeholder { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 1.5rem; color: var(--tinta-muted); text-align: center; }
-.charge-placeholder svg { opacity: 0.25; }
-.charge-placeholder p { font-size: 10px; font-style: italic; line-height: 1.6; }
-.charge-legenda { font-family: var(--fonte-fell); font-style: italic; font-size: 11.5px; line-height: 1.7; color: var(--tinta-muted); text-align: center; }
+.img-placeholder img { width: 100%; height: 100%; object-fit: cover; filter: sepia(0.3) contrast(1.1); }
 
-/* ══════════════════════════════
-   PÁGINA 5 — NOTAS CURTAS
-══════════════════════════════ */
-.p5-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; }
-.nota-col h3 {
-  font-family: var(--fonte-titulo);
-  font-size: 14px;
-  font-weight: 700;
+.selo {
+  display: inline-block;
+  background: var(--vermelho);
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 8px;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  border-bottom: 2px solid var(--tinta);
-  padding-bottom: 6px;
-  margin-bottom: 10px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
 }
-.nota-col p { font-size: 12.5px; line-height: 1.85; text-align: justify; hyphens: auto; }
-.nota-col p::first-letter {
+
+.capitular::first-letter {
   font-family: var(--fonte-titulo);
-  font-size: 42px;
+  font-size: 50px;
   font-weight: 900;
   float: left;
-  line-height: 0.82;
-  margin: 5px 5px 0 0;
-  color: var(--tinta-suave);
+  line-height: 0.8;
+  margin: 4px 8px 0 0;
+  color: var(--vermelho);
 }
 
-/* ── ORNAMENTO + RODAPÉ ── */
-.ornamento {
+/* ── CABEÇALHO ── */
+.cabecalho {
+  padding: 2rem;
   text-align: center;
-  color: var(--tinta-muted);
-  font-size: 13px;
-  letter-spacing: 10px;
-  opacity: 0.4;
-  margin: 1.25rem 0 0.25rem;
+  border-bottom: 4px double var(--tinta);
 }
-.rodape {
-  margin-top: 1rem;
-  padding-top: 8px;
-  border-top: 3px double var(--tinta);
+.meta-topo {
   display: flex;
   justify-content: space-between;
-  font-size: 8.5px;
-  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--tinta-muted);
+  font-size: 11px;
+  font-weight: bold;
+  border-bottom: 1px solid var(--linha);
+  padding-bottom: 5px;
 }
+.logo { font-family: var(--fonte-logo); font-size: 85px; line-height: 1; margin: 10px 0; }
+.lema { font-style: italic; font-size: 14px; color: var(--tinta-suave); }
+
+/* ── GRID DE CONTEÚDO ── */
+.conteudo { padding: 2rem; }
+
+/* LAYOUT CAPA */
+.capa-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
+.manchete-principal { padding-right: 2rem; border-right: 1px solid var(--linha); }
+.manchete-principal h2 { font-family: var(--fonte-titulo); font-size: 42px; font-weight: 900; line-height: 1.1; margin-bottom: 15px; }
+
+.chamada-secundaria {
+  display: flex;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px dotted var(--linha);
+}
+.chamada-secundaria .thumb { width: 100px; height: 80px; flex-shrink: 0; }
+.chamada-secundaria h4 { font-size: 15px; font-family: var(--fonte-titulo); line-height: 1.3; }
+
+/* ── PÁGINA 2 E 3 ── */
+.artigo-detalhe h2 { font-family: var(--fonte-titulo); font-size: 38px; margin-bottom: 10px; }
+.subtitulo { font-family: var(--fonte-titulo); font-size: 18px; font-style: italic; color: var(--tinta-suave); margin-bottom: 20px; }
+.colunas-texto { column-count: 2; column-gap: 2rem; text-align: justify; }
+
+/* ── PÁGINA 4 (CARDS) ── */
+.grid-curiosidades { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.card-curiosidade { background: var(--papel-dark); padding: 20px; border: 1px solid var(--linha); }
 
 /* ── NAVEGAÇÃO ── */
-.nav-jornal {
+.nav-container {
+  max-width: 1000px;
+  margin: 20px auto;
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin-top: 1.75rem;
-  font-family: var(--fonte-corpo);
+  align-items: center;
+  gap: 20px;
 }
-.nav-btn {
-  background: var(--papel);
-  border: 1px solid #b8a880;
-  color: var(--tinta);
-  font-family: var(--fonte-corpo);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 8px 18px;
+.btn-nav {
+  background: var(--tinta);
+  color: var(--papel);
+  border: none;
+  padding: 10px 20px;
+  font-family: var(--fonte-titulo);
   cursor: pointer;
-  box-shadow: 2px 2px 0 #a89870;
-  transition: all .15s;
+  transition: 0.3s;
 }
-.nav-btn:hover { background: var(--papel-escuro); transform: translateY(-1px); }
-.nav-btn:disabled { opacity: 0.3; cursor: default; box-shadow: none; transform: none; }
-.nav-indicador { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tinta-muted); min-width: 90px; text-align: center; }
-.nav-pontos { display: flex; gap: 6px; align-items: center; }
-.nav-ponto {
-  width: 8px; height: 8px;
-  border: 1px solid var(--tinta-muted);
-  background: transparent;
-  cursor: pointer;
-  padding: 0;
-  transition: background .2s;
-}
-.nav-ponto.ativo { background: var(--tinta); border-color: var(--tinta); }
+.btn-nav:hover { background: var(--vermelho); }
+.btn-nav:disabled { opacity: 0.3; cursor: not-allowed; }
 
-@media (max-width: 680px) {
-  .conteudo { padding: 1rem 1.25rem 1.5rem; }
-  .cabecalho { padding: 1rem 1.25rem 0.75rem; }
-  .nome-jornal-grande { font-size: 42px; }
-  .capa-grid, .p2-grid, .p3-grid, .p4-grid, .p5-grid { grid-template-columns: 1fr; }
-  .capa-chamadas { grid-column: 1; grid-row: auto; border-top: 1px solid var(--linha); padding: 1rem 0 0; }
-  .capa-notas { border-right: none; padding-right: 0; grid-template-columns: 1fr; }
-  .capa-manchete { border-right: none; padding-right: 0; }
-  .p2-sidebar { border-left: none; padding-left: 0; border-top: 0.5px solid var(--linha); padding-top: 1rem; }
-  .p4-esq { border-right: none; padding-right: 0; border-bottom: 0.5px solid var(--linha); padding-bottom: 1rem; }
-  .p4-dir { padding-left: 0; }
-  .citacao-animal { grid-column: 1; }
-}
-@media print {
-  body { background: white; padding: 0; }
-  .pagina { box-shadow: none; display: block !important; page-break-after: always; }
-  .nav-jornal { display: none; }
+@media (max-width: 768px) {
+  .capa-grid, .colunas-texto, .grid-curiosidades { grid-template-columns: 1fr; column-count: 1; }
+  .manchete-principal { border-right: none; padding-right: 0; }
+  .logo { font-size: 50px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════
-     PÁGINA 1 — CAPA
-═══════════════════════════════════ -->
+<!-- PÁGINA 1: CAPA -->
 <div class="pagina ativa" id="pag-1">
-  <div class="cabecalho">
-    <div class="cabecalho-meta">
-      <!-- EDITE: número e data (repetir nas 5 páginas) -->
-      <span>Edição&nbsp;Nº&nbsp;<strong>01</strong></span>
-      <span>✦&nbsp;O jornal do mundo animal&nbsp;✦</span>
-      <span class="data-edicao">4 de maio de 2025</span>
+  <header class="cabecalho">
+    <div class="meta-topo">
+      <span>Edição Nº 01</span>
+      <span>4 de Maio de 2025</span>
+      <span>Brasil</span>
     </div>
-    <span class="nome-jornal-grande">Gazeta Pet</span>
-    <!-- EDITE: lema da semana -->
+    <h1 class="logo">Gazeta Pet</h1>
     <p class="lema">"Porque todo bicho tem uma história que merece ser contada"</p>
-    <hr class="linha-vermelha">
-  </div>
+  </header>
 
   <div class="conteudo">
     <div class="capa-grid">
-
-      <!-- MANCHETE -->
-      <div class="capa-manchete">
-        <span class="secao-label">Manchete</span>
-        <!-- EDITE -->
-        <h2 class="capa-manchete-titulo">Nova lei proíbe venda de animais em pet shops sem certificação de bem-estar</h2>
-        <p class="capa-manchete-lead">Medida entra em vigor em julho e exige que estabelecimentos comprovem condições adequadas de alojamento, alimentação e saúde dos animais à venda.</p>
-        <button class="continua-em" onclick="irPara(2)">Continua na página 2 →</button>
-      </div>
-
-      <!-- CHAMADAS LATERAIS -->
-      <div class="capa-chamadas">
-        <span class="secao-label">Nesta edição</span>
-
-        <!-- CHAMADA 1 — EDITE -->
-        <div class="chamada">
-          <span class="chamada-numero">Pág. 3</span>
-          <h3>Hipopótamos do Pablo Escobar viram patrimônio ambiental na Colômbia</h3>
-          <p>Os descendentes dos quatro hipopótamos trazidos ilegalmente por Escobar já são mais de 160 — e a Colômbia decidiu que eles ficam.</p>
-          <button class="continua-em" onclick="irPara(3)" style="margin-top:6px;">Leia na página 3 →</button>
+      <article class="manchete-principal">
+        <span class="selo">Importante</span>
+        <h2>Nova lei proíbe venda de animais em pet shops sem certificação</h2>
+        <div class="img-placeholder" style="height: 350px;">
+          <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=1000" alt="Cachorro em abrigo">
         </div>
+        <p class="capitular">Medida entra em vigor em julho e exige que estabelecimentos comprovem condições adequadas de alojamento, alimentação e saúde dos animais à venda. A fiscalização será rigorosa e promete mudar o mercado pet nacional...</p>
+        <button class="btn-nav" onclick="irPara(2)" style="margin-top:15px">Ler matéria completa</button>
+      </article>
 
-        <!-- CHAMADA 2 — EDITE -->
-        <div class="chamada">
-          <span class="chamada-numero">Pág. 3</span>
-          <h3>Polvos sonham? Pesquisadores registram sono REM em cefalópodes</h3>
-          <p>Com mudanças rápidas de cor e olhos em movimento, polvos podem estar "revivendo" caçadas enquanto dormem.</p>
-          <button class="continua-em" onclick="irPara(3)" style="margin-top:6px;">Leia na página 3 →</button>
-        </div>
-
-        <!-- CHAMADA 3 — EDITE -->
-        <div class="chamada">
-          <span class="chamada-numero">Pág. 4</span>
-          <h3>Você sabia? Gatos só miam para humanos — nunca para outros gatos</h3>
-          <p>Três curiosidades do mundo animal que vão mudar como você olha para o seu bichinho.</p>
-          <button class="continua-em" onclick="irPara(4)" style="margin-top:6px;">Leia na página 4 →</button>
-        </div>
-      </div>
-
-      <!-- NOTAS CURTAS DA CAPA -->
-      <div class="capa-notas">
-        <!-- NOTA 1 — EDITE -->
-        <div class="nota-capa">
-          <h4>Alerta da Semana</h4>
-          <p>Veterinários registram aumento de 40% nos casos de intoxicação por xilitol em cães. O adoçante presente em chicletes e pastas de amendoim diet pode causar falência hepática em menos de 72h.</p>
-        </div>
-        <!-- NOTA 2 — EDITE -->
-        <div class="nota-capa">
-          <h4>Adoção do Mês</h4>
-          <p>Pitoco, SRD, 3 anos, castrado e vacinado, espera por um lar no abrigo Bicho Feliz (SP). Contato: <em>@bichofelizsp</em>.</p>
-        </div>
-      </div>
-
-    </div>
-    <div class="ornamento">· · · ✦ · · ·</div>
-    <footer class="rodape">
-      <span>Gazeta Pet — Publicação semanal</span>
-      <span>Página 1 de 5</span>
-      <!-- EDITE -->
-      <span>contato@gazetapet.com.br</span>
-    </footer>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════
-     PÁGINA 2 — MANCHETE COMPLETA
-═══════════════════════════════════ -->
-<div class="pagina" id="pag-2">
-  <div class="cabecalho">
-    <div class="cabecalho-meta">
-      <span>Edição&nbsp;Nº&nbsp;<strong>01</strong></span>
-      <span class="nome-jornal-interno">Gazeta Pet</span>
-      <span class="data-edicao">4 de maio de 2025</span>
-    </div>
-    <hr class="linha-vermelha" style="margin-top:4px;">
-  </div>
-  <div class="conteudo">
-    <span class="secao-label">Manchete da semana</span>
-    <div class="p2-grid">
-      <div>
-        <!-- EDITE -->
-        <h2 class="p2-titulo" id="p2-titulo">Nova lei proíbe venda de animais em pet shops sem certificação de bem-estar</h2>
-        <p class="p2-subtitulo" id="p2-subtitulo">Medida entra em vigor em julho e exige que estabelecimentos comprovem condições adequadas de alojamento, alimentação e saúde dos animais à venda em todo o território nacional.</p>
-        <!-- EDITE: adicione ou remova <p> conforme necessário -->
-        <div class="p2-corpo" id="p2-corpo">
-          <p>O Conselho Federal de Medicina Veterinária publicou nesta semana a resolução que obriga todos os estabelecimentos comerciais que revendem animais domésticos a obterem o Certificado de Bem-Estar Animal (CBEA) até 15 de julho. A medida, aguardada há anos por entidades de proteção animal, abrange cães, gatos, aves e pequenos mamíferos.</p>
-          <p>Para conseguir o certificado, os pet shops precisarão passar por vistoria técnica conduzida por médico-veterinário habilitado, que avaliará espaço mínimo por animal, acesso a água e alimentação adequadas, temperatura do ambiente e registro de vacinas em dia. Estabelecimentos que não cumprirem os requisitos dentro do prazo estarão sujeitos a multa e suspensão do alvará.</p>
-          <p>A resolução também proíbe a exposição de filhotes em vitrines por mais de quatro horas seguidas — prática comum em grandes centros comerciais que, segundo especialistas, gera estresse crônico nos animais jovens e aumenta os índices de doenças respiratórias.</p>
-          <p>Representantes do setor varejista pet afirmam que o prazo é curto e solicitaram ao Ministério da Agricultura uma prorrogação de 180 dias. A pasta ainda não se manifestou oficialmente sobre o pedido.</p>
-        </div>
-        <div class="dica-tutor">
-          <strong>Dica para o tutor</strong>
-          <!-- EDITE -->
-          <p id="p2-dica">Antes de adotar ou comprar, peça o CBEA do estabelecimento. Se ele ainda não tiver, exija prazo para regularização — ou considere adotar diretamente de um abrigo certificado.</p>
-        </div>
-      </div>
-
-      <div class="p2-sidebar">
-        <!-- SIDEBAR 1 — EDITE -->
-        <div class="sidebar-bloco">
-          <span class="secao-label">Em números</span>
-          <span class="numero-destaque">160+</span>
-          <h4>pet shops autuados em 2024 por condições inadequadas</h4>
-          <p>Dados do CFMV apontam crescimento de 38% nas autuações em relação ao ano anterior.</p>
-        </div>
-        <!-- SIDEBAR 2 — EDITE -->
-        <div class="sidebar-bloco">
-          <span class="secao-label">Saiba mais</span>
-          <h4>Como verificar se um estabelecimento é certificado?</h4>
-          <p>A consulta pode ser feita gratuitamente no portal do CFMV pelo CNPJ do estabelecimento.</p>
-        </div>
-        <!-- SIDEBAR 3 — EDITE -->
-        <div class="sidebar-bloco">
-          <span class="secao-label">Contexto</span>
-          <h4>Países que já adotam regras semelhantes</h4>
-          <p>Reino Unido proibiu a venda de filhotes em pet shops em 2020. França seguiu em 2022. Argentina debate projeto similar no congresso desde 2023.</p>
-        </div>
-      </div>
-    </div>
-    <div class="ornamento">· · · ✦ · · ·</div>
-    <footer class="rodape">
-      <span>Gazeta Pet — Publicação semanal</span>
-      <span>Página 2 de 5</span>
-      <span>contato@gazetapet.com.br</span>
-    </footer>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════
-     PÁGINA 3 — MUNDO ANIMAL
-═══════════════════════════════════ -->
-<div class="pagina" id="pag-3">
-  <div class="cabecalho">
-    <div class="cabecalho-meta">
-      <span>Edição&nbsp;Nº&nbsp;<strong>01</strong></span>
-      <span class="nome-jornal-interno">Gazeta Pet</span>
-      <span class="data-edicao">4 de maio de 2025</span>
-    </div>
-    <hr class="linha-vermelha" style="margin-top:4px;">
-  </div>
-  <div class="conteudo">
-    <span class="secao-label">Mundo Animal</span>
-    <div class="p3-grid">
-
-      <!-- NOTÍCIA 1 — EDITE -->
-      <div class="p3-noticia">
-        <h3 id="p3-n1-titulo">Hipopótamos do Pablo Escobar viram patrimônio ambiental na Colômbia</h3>
-        <p id="p3-n1-texto">O governo colombiano anunciou que os hipopótamos descendentes dos quatro exemplares trazidos ilegalmente pelo traficante Pablo Escobar nos anos 1980 serão oficialmente reconhecidos como espécie de interesse ambiental — e não mais como praga invasora.</p>
-        <p>A população, que hoje ultrapassa 160 indivíduos no rio Magdalena, passou a ser estudada como possível reequilibrador da fauna fluvial local, substituindo megaherbívoros extintos há milênios na América do Sul. Pesquisadores da Universidade Nacional da Colômbia afirmam que os animais já alteraram a composição química de trechos do rio, aumentando a disponibilidade de nutrientes.</p>
-        <p>A decisão divide especialistas: conservacionistas celebram o reconhecimento, enquanto zoólogos alertam para os riscos de uma espécie não nativa em um ecossistema tropical complexo.</p>
-      </div>
-
-      <!-- NOTÍCIA 2 — EDITE -->
-      <div class="p3-noticia">
-        <h3 id="p3-n2-titulo">Polvos registram movimentos oculares durante o sono — e podem estar sonhando</h3>
-        <p id="p3-n2-texto">Pesquisadores da Universidade do Ceará gravaram pela primeira vez polvos-comuns em fase de sono ativo, com mudanças rápidas de cor na pele e movimentos nos olhos muito semelhantes ao sono REM humano.</p>
-        <p>A hipótese é que os animais estejam "revivendo" caçadas e interações sociais durante o descanso — o que reabriria o debate sobre consciência em invertebrados. As gravações mostram padrões cromáticos que imitam presas e predadores, como se o animal estivesse simulando situações vividas durante o dia.</p>
-        <p>O estudo, publicado na revista <em>Science</em>, sugere que o sono REM pode ter surgido muito antes do que se imaginava na linha evolutiva dos animais — talvez há mais de 500 milhões de anos.</p>
-      </div>
-
-      <!-- CITAÇÃO — EDITE -->
-      <div class="citacao-animal">
-        <span class="label">Pensamento da semana</span>
-        <p id="p3-citacao">"Todo animal que sonha, tem algo a perder. Isso deveria ser suficiente para mudar como tratamos os bichos ao nosso redor."</p>
-      </div>
-
-    </div>
-    <div class="ornamento">· · · ✦ · · ·</div>
-    <footer class="rodape">
-      <span>Gazeta Pet — Publicação semanal</span>
-      <span>Página 3 de 5</span>
-      <span>contato@gazetapet.com.br</span>
-    </footer>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════
-     PÁGINA 4 — VOCÊ SABIA? + CHARGE
-═══════════════════════════════════ -->
-<div class="pagina" id="pag-4">
-  <div class="cabecalho">
-    <div class="cabecalho-meta">
-      <span>Edição&nbsp;Nº&nbsp;<strong>01</strong></span>
-      <span class="nome-jornal-interno">Gazeta Pet</span>
-      <span class="data-edicao">4 de maio de 2025</span>
-    </div>
-    <hr class="linha-vermelha" style="margin-top:4px;">
-  </div>
-  <div class="conteudo">
-    <div class="p4-grid">
-
-      <!-- CURIOSIDADES -->
-      <div class="p4-esq">
-        <h2 class="p4-titulo-secao">Você Sabia?</h2>
-
-        <!-- CURIOSIDADE 1 — EDITE -->
-        <div class="curiosidade">
-          <h4 id="cur1-pergunta">Gatos não miam para outros gatos — só para humanos?</h4>
-          <p id="cur1-resposta">Sim. O miado adulto foi desenvolvido evolutivamente quase que exclusivamente para comunicação com pessoas. Entre si, gatos adultos se comunicam por cheiro, postura e vocalização ultrassônica. Nós, involuntariamente, criamos um novo idioma felino — e eles sabem exatamente como usá-lo para nos manipular.</p>
-        </div>
-
-        <!-- CURIOSIDADE 2 — EDITE -->
-        <div class="curiosidade">
-          <h4 id="cur2-pergunta">Cachorros entendem quando somos injustos?</h4>
-          <p id="cur2-resposta">Estudos da Universidade de Viena mostram que cães se recusam a obedecer comandos de donos que viram agir de forma injusta com outras pessoas. Eles não apenas percebem a injustiça — eles guardam rancor. Seu cachorro está te avaliando o tempo todo.</p>
-        </div>
-
-        <!-- CURIOSIDADE 3 — EDITE -->
-        <div class="curiosidade">
-          <h4 id="cur3-pergunta">Ratos riem quando levam cócegas?</h4>
-          <p id="cur3-resposta">Em frequências ultrassônicas inaudíveis ao ouvido humano, ratos emitem vocalizações de alegria quando brincam ou recebem cócegas. O neurocientista Jaak Panksepp foi o primeiro a registrar o fenômeno — e seus ratos sempre voltavam pedindo mais.</p>
-        </div>
-      </div>
-
-      <!-- CHARGE -->
-      <div class="p4-dir">
-        <h2 class="p4-titulo-secao">Charge da Semana</h2>
-        <div class="charge-wrap">
-          <div class="charge-imagem">
-            <!--
-              PARA ADICIONAR A CHARGE, substitua este bloco por:
-              <img src="sua-charge.jpg" alt="descrição da charge">
-              A imagem ideal tem proporção 4:3.
-            -->
-            <div class="charge-placeholder">
-              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                <rect x="3" y="3" width="18" height="18" rx="2"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <polyline points="21 15 16 10 5 21"/>
-              </svg>
-              <p>Cole aqui a imagem da charge<br>ou ilustração da semana</p>
-            </div>
+      <aside class="outras-noticias">
+        <h3 style="border-bottom: 2px solid var(--tinta); margin-bottom:15px">Nesta Edição</h3>
+        
+        <div class="chamada-secundaria">
+          <div class="img-placeholder thumb">
+            <img src="https://images.unsplash.com/photo-1516233501032-26246def2142?auto=format&fit=crop&q=60&w=300" alt="Hipopotamo">
           </div>
-          <!-- EDITE: legenda -->
-          <p class="charge-legenda" id="charge-legenda">Um golden retriever diante do veterinário, com cara de quem esperava sair da consulta com biscoitos, recebe uma prescrição de "menos petiscos e mais caminhada". Ao fundo, o dono tenta disfarçar o próprio constrangimento.</p>
+          <div>
+            <span class="selo" style="background:#4a3f35">Mundo</span>
+            <h4>Hipopótamos de Escobar viram patrimônio na Colômbia</h4>
+          </div>
         </div>
-      </div>
 
+        <div class="chamada-secundaria">
+          <div class="img-placeholder thumb">
+            <img src="https://images.unsplash.com/photo-1545671913-b89ac1b4ac10?auto=format&fit=crop&q=60&w=300" alt="Polvo">
+          </div>
+          <div>
+            <span class="selo" style="background:#4a3f35">Ciência</span>
+            <h4>Pesquisadores registram sono REM em polvos</h4>
+          </div>
+        </div>
+
+        <div class="chamada-secundaria" style="background: #ede7d4; padding: 10px;">
+          <div>
+            <h4 style="color: var(--vermelho)">Você Sabia?</h4>
+            <p style="font-size: 12px">Gatos criaram um "idioma" exclusivo para falar com humanos. Saiba por que eles não miam entre si.</p>
+            <button onclick="irPara(4)" style="background:none; border:none; color:var(--vermelho); cursor:pointer; font-weight:bold">Ver mais →</button>
+          </div>
+        </div>
+      </aside>
     </div>
-    <div class="ornamento">· · · ✦ · · ·</div>
-    <footer class="rodape">
-      <span>Gazeta Pet — Publicação semanal</span>
-      <span>Página 4 de 5</span>
-      <span>contato@gazetapet.com.br</span>
-    </footer>
   </div>
 </div>
 
-
-<!-- ═══════════════════════════════════
-     PÁGINA 5 — NOTAS CURTAS
-═══════════════════════════════════ -->
-<div class="pagina" id="pag-5">
-  <div class="cabecalho">
-    <div class="cabecalho-meta">
-      <span>Edição&nbsp;Nº&nbsp;<strong>01</strong></span>
-      <span class="nome-jornal-interno">Gazeta Pet</span>
-      <span class="data-edicao">4 de maio de 2025</span>
-    </div>
-    <hr class="linha-vermelha" style="margin-top:4px;">
-  </div>
+<!-- PÁGINA 2: MANCHETE DETALHADA -->
+<div class="pagina" id="pag-2">
+  <header class="cabecalho" style="padding: 1rem;">
+    <h2 class="logo" style="font-size: 40px;">Gazeta Pet</h2>
+  </header>
   <div class="conteudo">
-    <span class="secao-label">Notas &amp; Avisos</span>
-    <div class="p5-grid">
-
-      <!-- NOTA 1 — EDITE -->
-      <div class="nota-col">
-        <h3 id="nota1-titulo">Em Breve</h3>
-        <p id="nota1-texto">O Ministério da Agricultura abre em junho as inscrições para o programa "Vet Cidadão", que oferecerá castração gratuita em municípios com mais de 20 mil animais em situação de rua cadastrados no sistema nacional. As prefeituras interessadas devem iniciar o cadastramento dos animais já em maio para garantir o repasse no primeiro lote.</p>
+    <article class="artigo-detalhe">
+      <span class="selo">Reportagem Especial</span>
+      <h2>A Nova Era do Bem-Estar Animal no Brasil</h2>
+      <p class="subtitulo">Entenda os detalhes da resolução que proíbe vitrines de animais e exige vistorias técnicas mensais em pet shops.</p>
+      
+      <div class="img-placeholder" style="height: 400px;">
+        <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=1000" alt="Veterinário">
       </div>
 
-      <!-- NOTA 2 — EDITE -->
-      <div class="nota-col">
-        <h3 id="nota2-titulo">Alerta da Semana</h3>
-        <p id="nota2-texto">Veterinários de São Paulo registram aumento de 40% nos casos de intoxicação por xilitol em cães. O adoçante presente em chicletes, pastas de amendoim diet e alguns remédios pode causar falência hepática fulminante em menos de 72 horas. Se seu cão ingeriu qualquer produto com xilitol, procure emergência veterinária imediatamente.</p>
+      <div class="colunas-texto">
+        <p class="capitular">O Conselho Federal de Medicina Veterinária publicou nesta semana a resolução que obriga todos os estabelecimentos comerciais que revendem animais domésticos a obterem o Certificado de Bem-Estar Animal (CBEA). A medida é um marco histórico.</p>
+        <p>Para conseguir o certificado, os pet shops precisarão passar por vistoria técnica conduzida por médico-veterinário habilitado, que avaliará espaço mínimo por animal, acesso a água e alimentação adequadas, temperatura do ambiente e registro de vacinas em dia.</p>
+        <p>Estabelecimentos que não cumprirem os requisitos dentro do prazo estarão sujeitos a multa e suspensão do alvará. A resolução também proíbe a exposição de filhotes em vitrines por mais de quatro horas seguidas.</p>
+        <blockquote style="font-family: var(--fonte-titulo); font-style: italic; font-size: 20px; border-left: 4px solid var(--vermelho); padding-left: 20px; margin: 20px 0;">
+          "O animal não é uma mercadoria de prateleira, é uma vida que exige respeito e dignidade." — Dr. Arnaldo Silva, CFMV.
+        </blockquote>
       </div>
-
-      <!-- NOTA 3 — EDITE -->
-      <div class="nota-col">
-        <h3 id="nota3-titulo">Adoção do Mês</h3>
-        <p id="nota3-texto">Pitoco, SRD, 3 anos, castrado, vacinado e muito carinhoso, espera por um lar no abrigo Bicho Feliz (São Paulo-SP). Convive bem com crianças e outros cães de médio porte. Para adotar, entre em contato pelo Instagram @bichofelizsp. Todo mês um novo amigo em busca de lar fixo nas páginas da Gazeta Pet.</p>
-      </div>
-
-    </div>
-    <div class="ornamento">· · · ✦ · · ·</div>
-    <footer class="rodape">
-      <span>Gazeta Pet — Publicação semanal</span>
-      <span>Página 5 de 5</span>
-      <span>contato@gazetapet.com.br</span>
-    </footer>
+    </article>
   </div>
 </div>
 
+<!-- PÁGINA 4: CURIOSIDADES -->
+<div class="pagina" id="pag-4">
+  <header class="cabecalho" style="padding: 1rem;">
+    <h2 class="logo" style="font-size: 40px;">Gazeta Pet</h2>
+  </header>
+  <div class="conteudo">
+    <h2 style="font-family: var(--fonte-titulo); text-align:center; margin-bottom: 30px; font-size: 35px">Curiosidades do Mundo Animal</h2>
+    
+    <div class="grid-curiosidades">
+      <div class="card-curiosidade">
+        <h3 style="color: var(--vermelho); margin-bottom:10px">O Idioma dos Gatos</h3>
+        <p>Gatos adultos não miam para outros gatos. Eles usam o miado especificamente para se comunicar com humanos, tendo aprendido que esse som atrai nossa atenção.</p>
+      </div>
+      <div class="card-curiosidade">
+        <h3 style="color: var(--vermelho); margin-bottom:10px">Senso de Justiça</h3>
+        <p>Cachorros percebem quando estão sendo tratados de forma injusta. Se um cão recebe uma recompensa por um truque e o outro não, o injustiçado pode parar de colaborar.</p>
+      </div>
+      <div class="card-curiosidade">
+        <h3 style="color: var(--vermelho); margin-bottom:10px">Ratos e Cócegas</h3>
+        <p>Ratos emitem sons de "risada" em frequências ultrassônicas quando recebem cócegas. Eles inclusive buscam a mão do pesquisador para brincar mais.</p>
+      </div>
+      <div class="card-curiosidade">
+        <h3 style="color: var(--vermelho); margin-bottom:10px">Memória das Abelhas</h3>
+        <p>Abelhas podem reconhecer rostos humanos. Elas usam uma técnica de processamento visual semelhante à nossa para identificar flores e possíveis ameaças.</p>
+      </div>
+    </div>
 
-<!-- ═══════════════════════════════════
-     NAVEGAÇÃO
-═══════════════════════════════════ -->
-<nav class="nav-jornal">
-  <button class="nav-btn" id="btn-ant" onclick="navegar(-1)" disabled>← Anterior</button>
-  <div class="nav-pontos">
-    <button class="nav-ponto ativo" onclick="irPara(1)" title="Capa"></button>
-    <button class="nav-ponto" onclick="irPara(2)" title="Manchete"></button>
-    <button class="nav-ponto" onclick="irPara(3)" title="Mundo Animal"></button>
-    <button class="nav-ponto" onclick="irPara(4)" title="Você Sabia?"></button>
-    <button class="nav-ponto" onclick="irPara(5)" title="Notas"></button>
+    <div style="margin-top: 40px; border: 2px dashed var(--linha); padding: 20px; text-align: center;">
+      <h3 style="font-family: var(--fonte-titulo)">Charge da Semana</h3>
+      <div class="img-placeholder" style="max-width: 500px; margin: 20px auto; height: 300px;">
+        <p style="padding: 20px; font-style: italic;">[Espaço para ilustração: Um cachorro tentando usar um notebook para comprar petiscos no cartão do dono]</p>
+      </div>
+    </div>
   </div>
-  <span class="nav-indicador" id="nav-label">Capa</span>
-  <button class="nav-btn" id="btn-prox" onclick="navegar(1)">Próxima →</button>
+</div>
+
+<!-- NAVEGAÇÃO FIXA -->
+<nav class="nav-container">
+  <button class="btn-nav" id="btn-ant" onclick="navegar(-1)">← Anterior</button>
+  <span id="indicador" style="font-weight: bold; font-family: var(--fonte-titulo)">Página 1</span>
+  <button class="btn-nav" id="btn-prox" onclick="navegar(1)">Próxima →</button>
 </nav>
 
 <script>
-const NOMES = ['Capa','Manchete','Mundo Animal','Você Sabia?','Notas'];
-let atual = 1;
+let pagAtual = 1;
+const totalPags = 4; // Ajuste conforme adicionar mais IDs de páginas
+
 function irPara(n) {
-  document.getElementById('pag-'+atual).classList.remove('ativa');
-  document.querySelectorAll('.nav-ponto')[atual-1].classList.remove('ativo');
-  atual = n;
-  document.getElementById('pag-'+atual).classList.add('ativa');
-  document.querySelectorAll('.nav-ponto')[atual-1].classList.add('ativo');
-  document.getElementById('btn-ant').disabled = atual === 1;
-  document.getElementById('btn-prox').disabled = atual === 5;
-  document.getElementById('nav-label').textContent = NOMES[atual-1];
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.querySelectorAll('.pagina').forEach(p => p.classList.remove('ativa'));
+  const proxima = document.getElementById('pag-' + n);
+  if(proxima) {
+    proxima.classList.add('ativa');
+    pagAtual = n;
+    atualizarUI();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
-function navegar(dir) { irPara(atual + dir); }
+
+function navegar(dir) {
+  let nova = pagAtual + dir;
+  if(nova >= 1 && nova <= totalPags) irPara(nova);
+}
+
+function atualizarUI() {
+  document.getElementById('indicador').textContent = "Página " + pagAtual;
+  document.getElementById('btn-ant').disabled = (pagAtual === 1);
+  document.getElementById('btn-prox').disabled = (pagAtual === totalPags);
+}
+
+// Inicializa
+atualizarUI();
 </script>
+
 </body>
 </html>
