@@ -1,244 +1,1231 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mestre da Obra - Hub Profissional</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
-        .glass-effect { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
-        .industrial-shadow { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
-        .tab-active { color: #2563eb; border-top: 3px solid #2563eb; }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Apê</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-tap-highlight-color:transparent}
+:root{
+  --cream:#F5F0E8;
+  --cream-dark:#EDE7D9;
+  --cream-darker:#E4DDD0;
+  --black:#0F0F0D;
+  --black2:#1A1A17;
+  --yellow:#F5C842;
+  --yellow-dark:#E6B830;
+  --yellow-soft:rgba(245,200,66,0.15);
+  --yellow-softer:rgba(245,200,66,0.08);
+  --text:#0F0F0D;
+  --muted:#8C8880;
+  --muted2:#B8B4AE;
+  --border:rgba(15,15,13,0.08);
+  --border2:rgba(15,15,13,0.12);
+  --white:rgba(255,255,255,0.7);
+  --r:18px;--rs:12px;--rxs:8px;
+}
+html,body{height:100%;background:var(--cream)}
+body{font-family:'Poppins',sans-serif;color:var(--text);display:flex;justify-content:center;align-items:flex-start;overflow:hidden}
+.shell{width:100%;max-width:390px;height:100vh;position:relative;overflow:hidden;background:var(--cream)}
+
+/* ===================== ONBOARDING ===================== */
+#ob{position:absolute;inset:0;z-index:300;display:flex;flex-direction:column;background:var(--cream)}
+
+/* splash */
+.splash{
+  position:absolute;inset:0;
+  background:var(--black);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  z-index:10;
+  transition:opacity 0.5s ease;
+}
+.splash-logo{
+  font-family:'Outfit',sans-serif;
+  font-size:3rem;font-weight:800;
+  color:var(--cream);letter-spacing:-1px;
+}
+.splash-logo span{color:var(--yellow)}
+.splash-tagline{
+  font-size:0.78rem;color:rgba(245,240,232,0.4);
+  letter-spacing:0.15em;text-transform:uppercase;
+  margin-top:8px;font-weight:400;
+}
+.splash-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--yellow);
+  margin-top:40px;
+  animation:pulse 1.2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:0.3;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
+
+/* steps */
+.ob-steps{flex:1;display:flex;flex-direction:column;opacity:0;transition:opacity 0.4s ease}
+.ob-steps.show{opacity:1}
+
+.step{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  padding:0 24px;
+  opacity:0;pointer-events:none;
+  transform:translateX(32px);
+  transition:all 0.38s cubic-bezier(0.4,0,0.2,1);
+}
+.step.active{opacity:1;pointer-events:all;transform:translateX(0)}
+.step.out{opacity:0;transform:translateX(-32px)}
+
+/* step header */
+.step-top{
+  padding-top:56px;
+  margin-bottom:32px;
+}
+.step-num{
+  font-size:0.65rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:0.15em;
+  color:var(--muted);margin-bottom:12px;
+}
+.step-title{
+  font-family:'Outfit',sans-serif;
+  font-size:1.9rem;font-weight:700;
+  line-height:1.15;letter-spacing:-0.5px;
+  color:var(--black);
+}
+.step-title em{font-style:normal;color:var(--yellow-dark)}
+.step-desc{font-size:0.85rem;color:var(--muted);margin-top:8px;line-height:1.6;font-weight:400}
+
+/* illo */
+.illo-wrap{
+  height:180px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:28px;
+}
+.illo-box{
+  width:160px;height:160px;
+  border-radius:32px;
+  background:var(--black);
+  display:flex;align-items:center;justify-content:center;
+  font-size:4rem;
+  position:relative;
+  box-shadow:0 20px 60px rgba(15,15,13,0.15);
+}
+.illo-pill{
+  position:absolute;
+  bottom:-12px;
+  background:var(--yellow);
+  color:var(--black);
+  font-size:0.68rem;font-weight:700;
+  padding:5px 14px;border-radius:99px;
+  white-space:nowrap;
+  box-shadow:0 4px 12px rgba(245,200,66,0.35);
+}
+
+/* form fields */
+.field-group{display:flex;flex-direction:column;gap:14px;flex:1}
+.field-label{font-size:0.72rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
+.field-input{
+  width:100%;
+  background:rgba(255,255,255,0.6);
+  border:1.5px solid var(--border2);
+  border-radius:var(--rs);
+  padding:14px 16px;
+  font-family:'Poppins',sans-serif;
+  font-size:0.95rem;font-weight:500;
+  color:var(--text);
+  outline:none;
+  transition:border-color 0.2s,background 0.2s,box-shadow 0.2s;
+  -webkit-appearance:none;
+}
+.field-input:focus{
+  border-color:var(--yellow-dark);
+  background:rgba(255,255,255,0.9);
+  box-shadow:0 0 0 3px rgba(245,200,66,0.15);
+}
+.field-input::placeholder{color:var(--muted2);font-weight:400}
+.prefix-wrap{position:relative}
+.prefix{
+  position:absolute;left:16px;top:50%;transform:translateY(-50%);
+  font-size:0.95rem;font-weight:500;color:var(--muted);
+  pointer-events:none;
+}
+.prefix-wrap .field-input{padding-left:38px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  padding:8px 16px;border-radius:99px;
+  border:1.5px solid var(--border2);
+  background:transparent;
+  font-family:'Poppins',sans-serif;
+  font-size:0.82rem;font-weight:500;
+  color:var(--muted);cursor:pointer;
+  transition:all 0.18s;
+}
+.chip.on{
+  background:var(--black);
+  border-color:var(--black);
+  color:var(--yellow);
+}
+.chip:active{transform:scale(0.96)}
+
+/* ob bottom */
+.ob-bottom{
+  padding:20px 24px 40px;
+  flex-shrink:0;
+}
+.progress-dots{display:flex;gap:6px;justify-content:center;margin-bottom:20px}
+.pdot{width:6px;height:6px;border-radius:99px;background:var(--border2);transition:all 0.3s ease}
+.pdot.on{width:22px;background:var(--black)}
+
+.btn-primary{
+  width:100%;padding:16px;
+  background:var(--black);color:var(--cream);
+  border:none;border-radius:var(--r);
+  font-family:'Poppins',sans-serif;
+  font-size:0.95rem;font-weight:600;
+  cursor:pointer;
+  transition:opacity 0.15s,transform 0.15s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-primary:active{transform:scale(0.98);opacity:0.85}
+.btn-primary.yellow{background:var(--yellow);color:var(--black)}
+
+.skip-link{
+  text-align:center;margin-top:14px;
+  font-size:0.78rem;color:var(--muted);cursor:pointer;
+}
+.skip-link:hover{color:var(--text)}
+
+/* ===================== APP ===================== */
+#app{
+  position:absolute;inset:0;
+  display:none;flex-direction:column;
+  background:var(--cream);
+}
+#app.show{display:flex}
+
+/* status bar */
+.statusbar{
+  height:44px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 22px;
+  font-size:0.72rem;font-weight:600;color:var(--text);
+}
+.sb-right{display:flex;align-items:center;gap:5px;font-size:0.68rem}
+
+/* top bar */
+.topbar{
+  padding:4px 20px 14px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.app-logo{
+  font-family:'Outfit',sans-serif;
+  font-size:1.3rem;font-weight:800;
+  letter-spacing:-0.5px;color:var(--black);
+}
+.app-logo span{color:var(--yellow-dark)}
+.greeting-sub{font-size:0.72rem;color:var(--muted);margin-top:1px;font-weight:400}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.icon-btn{
+  width:38px;height:38px;border-radius:50%;
+  background:var(--black);
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity 0.15s;position:relative;
+}
+.icon-btn:active{opacity:0.7}
+.icon-btn svg{color:var(--cream)}
+.notif-badge{
+  position:absolute;top:7px;right:7px;
+  width:7px;height:7px;border-radius:50%;
+  background:var(--yellow);
+  border:1.5px solid var(--cream);
+}
+.avatar-btn{
+  width:38px;height:38px;border-radius:50%;
+  background:var(--yellow);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.78rem;font-weight:700;color:var(--black);
+  cursor:pointer;border:none;
+  font-family:'Poppins',sans-serif;
+}
+
+/* tabs */
+.tabs{
+  display:flex;
+  padding:0 20px;
+  gap:6px;
+  flex-shrink:0;
+  margin-bottom:4px;
+}
+.tab{
+  padding:7px 16px;border-radius:99px;
+  font-size:0.75rem;font-weight:600;
+  cursor:pointer;border:1.5px solid transparent;
+  transition:all 0.2s;white-space:nowrap;
+  font-family:'Poppins',sans-serif;
+  color:var(--muted);
+  background:transparent;
+  border-color:var(--border);
+}
+.tab.on{
+  background:var(--black);
+  color:var(--yellow);
+  border-color:var(--black);
+}
+.tab:active{transform:scale(0.97)}
+
+/* content area */
+.content{
+  flex:1;overflow-y:auto;
+  padding:16px 20px 100px;
+  scrollbar-width:none;
+}
+.content::-webkit-scrollbar{display:none}
+
+/* tab panels */
+.panel{display:none}
+.panel.on{display:block}
+
+/* ---- HOME ---- */
+.hero-card{
+  background:var(--black);
+  border-radius:24px;
+  padding:24px;
+  margin-bottom:16px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-card::before{
+  content:'';
+  position:absolute;top:-40px;right:-40px;
+  width:160px;height:160px;
+  background:radial-gradient(circle,rgba(245,200,66,0.2) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-greeting{font-size:0.75rem;color:rgba(245,240,232,0.5);font-weight:400;margin-bottom:4px}
+.hero-name{
+  font-family:'Outfit',sans-serif;
+  font-size:1.6rem;font-weight:700;
+  color:var(--cream);letter-spacing:-0.5px;
+  margin-bottom:20px;
+}
+.hero-name span{color:var(--yellow)}
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hstat{background:rgba(255,255,255,0.06);border-radius:var(--rs);padding:14px}
+.hstat-label{font-size:0.65rem;color:rgba(245,240,232,0.4);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:4px}
+.hstat-val{font-size:1.3rem;font-weight:700;color:var(--cream);letter-spacing:-0.5px;line-height:1}
+.hstat-val.yellow{color:var(--yellow)}
+.hstat-sub{font-size:0.65rem;color:rgba(245,240,232,0.35);margin-top:2px}
+
+/* prog */
+.prog-card{
+  background:rgba(255,255,255,0.55);
+  border:1.5px solid var(--border);
+  border-radius:var(--r);
+  padding:20px;
+  margin-bottom:16px;
+  backdrop-filter:blur(8px);
+}
+.prog-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.prog-title{font-size:0.92rem;font-weight:600;letter-spacing:-0.2px}
+.prog-sub{font-size:0.72rem;color:var(--muted);margin-top:2px;font-weight:400}
+.prog-pct{
+  font-family:'Outfit',sans-serif;
+  font-size:1.6rem;font-weight:700;
+  color:var(--yellow-dark);letter-spacing:-1px;line-height:1;
+}
+.prog-bg{height:6px;background:var(--cream-darker);border-radius:99px;overflow:hidden;margin-bottom:10px}
+.prog-fill{height:100%;background:var(--black);border-radius:99px;transition:width 0.8s ease}
+.prog-meta{display:flex;justify-content:space-between;font-size:0.68rem;color:var(--muted);font-weight:500}
+
+/* resumo cards */
+.resumo-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.rcard{
+  background:rgba(255,255,255,0.55);
+  border:1.5px solid var(--border);
+  border-radius:var(--r);
+  padding:16px;
+  cursor:pointer;
+  transition:all 0.18s;
+  backdrop-filter:blur(8px);
+}
+.rcard:active{transform:scale(0.97)}
+.rcard.accent{background:var(--yellow-soft);border-color:rgba(245,200,66,0.3)}
+.rcard-icon{font-size:1.1rem;margin-bottom:8px}
+.rcard-num{font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:700;letter-spacing:-1px;line-height:1;color:var(--black)}
+.rcard-label{font-size:0.7rem;color:var(--muted);font-weight:500;margin-top:3px}
+
+/* section title */
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;margin-top:20px}
+.sec-title{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted)}
+.sec-link{font-size:0.78rem;font-weight:600;color:var(--black);cursor:pointer}
+
+/* quick actions */
+.qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.qa{display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer}
+.qa-icon{
+  width:52px;height:52px;border-radius:16px;
+  background:var(--black);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;
+  transition:transform 0.15s,opacity 0.15s;
+}
+.qa:active .qa-icon{transform:scale(0.92);opacity:0.8}
+.qa-label{font-size:0.62rem;font-weight:600;color:var(--muted);text-align:center}
+
+/* list cards */
+.list-card{
+  background:rgba(255,255,255,0.55);
+  border:1.5px solid var(--border);
+  border-radius:var(--r);
+  overflow:hidden;
+  backdrop-filter:blur(8px);
+  margin-bottom:10px;
+}
+.list-item{
+  display:flex;align-items:center;gap:12px;
+  padding:13px 16px;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;transition:background 0.12s;
+}
+.list-item:last-child{border:none}
+.list-item:active{background:rgba(255,255,255,0.6)}
+.li-dot{
+  width:8px;height:8px;border-radius:50%;
+  flex-shrink:0;
+}
+.li-text{flex:1;font-size:0.88rem;font-weight:500}
+.li-text.done{text-decoration:line-through;color:var(--muted);font-weight:400}
+.li-tag{
+  font-size:0.62rem;font-weight:700;
+  padding:3px 9px;border-radius:99px;
+}
+.tag-pend{background:var(--yellow-soft);color:var(--yellow-dark)}
+.tag-ok{background:rgba(15,15,13,0.06);color:var(--muted)}
+
+/* ---- FINANÇAS ---- */
+.fin-hero{
+  background:var(--black);border-radius:24px;
+  padding:24px;margin-bottom:16px;position:relative;overflow:hidden;
+}
+.fin-hero::after{
+  content:'';position:absolute;bottom:-30px;right:-30px;
+  width:120px;height:120px;
+  background:radial-gradient(circle,rgba(245,200,66,0.25) 0%,transparent 70%);
+}
+.fin-period{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.fin-month{font-size:0.82rem;font-weight:600;color:rgba(245,240,232,0.6)}
+.fin-arrows{display:flex;gap:8px}
+.fin-arrow{
+  width:28px;height:28px;border-radius:8px;
+  background:rgba(255,255,255,0.08);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--cream);font-size:0.8rem;transition:background 0.15s;
+}
+.fin-arrow:hover{background:rgba(255,255,255,0.14)}
+.fin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fcard{background:rgba(255,255,255,0.07);border-radius:var(--rs);padding:14px}
+.fcard-label{font-size:0.62rem;color:rgba(245,240,232,0.4);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:5px}
+.fcard-val{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:700;color:var(--cream);letter-spacing:-0.5px}
+.fcard-val.y{color:var(--yellow)}
+.fcard-val.g{color:#7DD4A0}
+.fcard-sub{font-size:0.62rem;color:rgba(245,240,232,0.3);margin-top:2px}
+
+.conta-card{
+  background:rgba(255,255,255,0.55);border:1.5px solid var(--border);
+  border-radius:var(--r);overflow:hidden;backdrop-filter:blur(8px);
+}
+.conta-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:13px 16px;border-bottom:1px solid var(--border);
+}
+.conta-item:last-child{border:none}
+.conta-left{display:flex;flex-direction:column;gap:2px}
+.conta-name{font-size:0.88rem;font-weight:600}
+.conta-due{font-size:0.7rem;color:var(--muted);font-weight:400}
+.conta-val{font-size:0.9rem;font-weight:700}
+.conta-val.ok{color:var(--muted);font-weight:400}
+.cpill{font-size:0.58rem;font-weight:700;padding:2px 7px;border-radius:99px;margin-left:6px}
+.cp-p{background:var(--yellow-soft);color:var(--yellow-dark)}
+.cp-ok{background:rgba(15,15,13,0.06);color:var(--muted)}
+
+/* ---- ROTINA ---- */
+.rotina-header{
+  background:var(--black);border-radius:24px;
+  padding:20px 24px;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.rot-date{font-size:0.75rem;color:rgba(245,240,232,0.5);margin-bottom:2px}
+.rot-title{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;color:var(--cream)}
+.rot-progress{text-align:right}
+.rot-pct{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:700;color:var(--yellow);line-height:1}
+.rot-sub{font-size:0.65rem;color:rgba(245,240,232,0.4);margin-top:1px}
+
+.rot-item{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 16px;border-bottom:1px solid var(--border);
+  cursor:pointer;transition:background 0.12s;
+}
+.rot-item:last-child{border:none}
+.rot-item:active{background:rgba(255,255,255,0.6)}
+.rot-time{
+  font-size:0.68rem;font-weight:700;color:var(--muted);
+  min-width:42px;text-align:right;font-family:'Outfit',sans-serif;
+}
+.rot-dot{
+  width:36px;height:36px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.9rem;flex-shrink:0;
+}
+.rot-info{flex:1}
+.rot-name{font-size:0.88rem;font-weight:600}
+.rot-name.done{text-decoration:line-through;color:var(--muted);font-weight:400}
+.rot-cat{font-size:0.68rem;color:var(--muted);margin-top:1px;font-weight:400}
+
+/* ---- PERFIL ---- */
+.perfil-hero{
+  background:var(--black);border-radius:24px;
+  padding:28px 24px;margin-bottom:16px;
+  text-align:center;position:relative;overflow:hidden;
+}
+.perfil-hero::before{
+  content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);
+  width:200px;height:200px;
+  background:radial-gradient(circle,rgba(245,200,66,0.12) 0%,transparent 65%);
+}
+.perfil-av{
+  width:72px;height:72px;border-radius:50%;
+  background:var(--yellow);margin:0 auto 12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;font-weight:700;color:var(--black);
+  font-family:'Outfit',sans-serif;
+}
+.perfil-name{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:700;color:var(--cream);letter-spacing:-0.3px}
+.perfil-since{font-size:0.72rem;color:rgba(245,240,232,0.4);margin-top:4px;font-weight:400}
+
+.perfil-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(255,255,255,0.08);border-radius:var(--rs);overflow:hidden;margin-top:20px}
+.pstat{background:rgba(255,255,255,0.04);padding:14px 8px;text-align:center}
+.pstat-val{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;color:var(--yellow)}
+.pstat-label{font-size:0.62rem;color:rgba(245,240,232,0.4);margin-top:2px;font-weight:500}
+
+.perf-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:15px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.12s;
+}
+.perf-row:last-child{border:none}
+.perf-row:active{background:rgba(255,255,255,0.4)}
+.perf-left{display:flex;align-items:center;gap:12px}
+.perf-icon{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--cream-dark);
+  display:flex;align-items:center;justify-content:center;font-size:0.9rem;
+}
+.perf-name{font-size:0.88rem;font-weight:500}
+.perf-arr{color:var(--muted);font-size:0.8rem}
+
+/* ===================== NAVBAR ===================== */
+.navbar{
+  position:absolute;bottom:0;left:0;right:0;
+  height:80px;
+  background:rgba(245,240,232,0.92);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-around;align-items:flex-start;
+  padding-top:10px;
+  z-index:50;
+  flex-shrink:0;
+}
+.nb-item{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  cursor:pointer;padding:0 12px;transition:opacity 0.15s;
+}
+.nb-item:active{opacity:0.6}
+.nb-icon{
+  width:40px;height:40px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;
+}
+.nb-item.on .nb-icon{background:var(--black)}
+.nb-item:not(.on) .nb-icon svg{color:var(--muted2)}
+.nb-item.on .nb-icon svg{color:var(--yellow)}
+.nb-label{font-size:0.58rem;font-weight:600;color:var(--muted2);transition:color 0.2s}
+.nb-item.on .nb-label{color:var(--black)}
+
+/* ===================== TOAST ===================== */
+.toast{
+  position:fixed;bottom:90px;left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--black);color:var(--cream);
+  padding:11px 22px;border-radius:99px;
+  font-size:0.78rem;font-weight:600;
+  z-index:9999;opacity:0;
+  transition:all 0.32s cubic-bezier(0.34,1.4,0.64,1);
+  pointer-events:none;white-space:nowrap;
+  font-family:'Poppins',sans-serif;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
 </head>
-<body class="flex justify-center items-start min-h-screen">
+<body>
+<div class="toast" id="toast"></div>
+<div class="shell">
 
-    <!-- Mobile Container Simulation -->
-    <div id="app-container" class="w-full max-w-md bg-slate-50 min-h-screen relative shadow-2xl overflow-hidden mb-10 md:mt-5 md:rounded-[3rem] md:border-[8px] md:border-slate-900">
-        
-        <!-- HEADER / PERFIL -->
-        <header class="bg-slate-900 p-6 pt-10 rounded-b-[2.5rem] industrial-shadow border-b-4 border-yellow-500">
-            <div class="flex justify-between items-center mb-6">
-                <div>
-                    <h1 class="text-white text-2xl font-black italic tracking-tighter leading-none">MESTRE DA OBRA</h1>
-                    <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mt-1">Hub de Soluções</p>
-                </div>
-                <div class="relative cursor-pointer hover:scale-105 transition-transform" onclick="openModal('Perfil')">
-                    <div class="w-12 h-12 bg-yellow-500 rounded-2xl flex items-center justify-center border-2 border-white shadow-lg rotate-3">
-                        <i data-lucide="trophy" class="text-slate-900 w-6 h-6"></i>
-                    </div>
-                    <span class="absolute -bottom-2 -right-2 bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded-full font-bold border-2 border-slate-900">Nível 4</span>
-                </div>
-            </div>
+<!-- =================== ONBOARDING =================== -->
+<div id="ob">
+  <!-- splash -->
+  <div class="splash" id="splash">
+    <div class="splash-logo">apê<span>.</span></div>
+    <div class="splash-tagline">sua vida adulta, organizada</div>
+    <div class="splash-dot"></div>
+  </div>
 
-            <!-- GAMIFICAÇÃO / XP -->
-            <div class="bg-slate-800/50 rounded-2xl p-4 border border-slate-700 backdrop-blur-sm">
-                <div class="flex justify-between items-end mb-2">
-                    <span class="text-white text-[10px] font-black uppercase tracking-widest">Missão Diária</span>
-                    <span class="text-yellow-500 text-[10px] font-bold">120/200 XP</span>
-                </div>
-                <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
-                    <div class="bg-yellow-500 h-full w-[60%] rounded-full shadow-[0_0_10px_rgba(250,204,21,0.5)]"></div>
-                </div>
-                <p class="text-slate-400 text-[11px] mt-2 italic font-medium">"Complete o checklist de fundação para subir de nível"</p>
-            </div>
-        </header>
+  <!-- steps container -->
+  <div class="ob-steps" id="obSteps">
 
-        <!-- BUSCA -->
-        <div class="px-6 -mt-5">
-            <div class="bg-white rounded-xl shadow-lg flex items-center px-4 py-3 border border-slate-100">
-                <i data-lucide="search" class="text-slate-400 w-5 h-5 mr-3"></i>
-                <input type="text" placeholder="O que vamos calcular hoje?" class="bg-transparent outline-none text-sm w-full font-medium text-slate-600">
-            </div>
+    <!-- step 0: welcome -->
+    <div class="step active" id="step0">
+      <div class="step-top">
+        <div class="step-num">Bem-vindo</div>
+        <div class="step-title">Morar sozinho é<br><em>incrível.</em><br>E bem caótico.</div>
+        <div class="step-desc">O apê. te ajuda a organizar tudo: finanças, rotina e as mil coisas que vêm junto com o primeiro apartamento.</div>
+      </div>
+      <div class="illo-wrap">
+        <div class="illo-box">
+          🗝️
+          <div class="illo-pill">Parabéns pelo apê! 🎉</div>
         </div>
-
-        <!-- CONTEÚDO SCROLLABLE -->
-        <main class="px-6 pb-32 pt-4 overflow-y-auto max-h-[calc(100vh-250px)] hide-scrollbar">
-            
-            <!-- SEÇÃO: CALCULADORAS -->
-            <div class="flex items-center justify-between mt-6 mb-4">
-                <h2 class="text-slate-800 text-sm font-black uppercase tracking-tighter flex items-center gap-2">
-                    <span class="w-2 h-4 bg-yellow-500 rounded-full"></span> Calculadoras
-                </h2>
-                <span class="text-blue-600 text-[10px] font-bold uppercase">Ver todas</span>
-            </div>
-
-            <div class="grid grid-cols-2 gap-3">
-                <!-- Card -->
-                <div onclick="openModal('Piso e Revestimento')" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm active:scale-95 transition-all cursor-pointer">
-                    <div class="bg-blue-50 text-blue-600 w-10 h-10 rounded-xl flex items-center justify-center mb-3">
-                        <i data-lucide="calculator"></i>
-                    </div>
-                    <span class="bg-blue-600 text-white text-[8px] font-bold px-2 py-0.5 rounded-full">ESSENCIAL</span>
-                    <h3 class="text-slate-800 font-bold text-xs mt-2 italic">Piso e Azulejo</h3>
-                    <p class="text-slate-400 text-[10px]">Cálculo de área e fuge.</p>
-                </div>
-                <!-- Card -->
-                <div onclick="openModal('Quant. de Tijolos')" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm active:scale-95 transition-all cursor-pointer">
-                    <div class="bg-orange-50 text-orange-600 w-10 h-10 rounded-xl flex items-center justify-center mb-3">
-                        <i data-lucide="layout-grid"></i>
-                    </div>
-                    <span class="bg-orange-500 text-white text-[8px] font-bold px-2 py-0.5 rounded-full">POPULAR</span>
-                    <h3 class="text-slate-800 font-bold text-xs mt-2 italic">Tijolos / Blocos</h3>
-                    <p class="text-slate-400 text-[10px]">Milheiro e m² de parede.</p>
-                </div>
-                <!-- Card -->
-                <div onclick="openModal('Cimento e Areia')" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm active:scale-95 transition-all cursor-pointer">
-                    <div class="bg-slate-100 text-slate-600 w-10 h-10 rounded-xl flex items-center justify-center mb-3">
-                        <i data-lucide="anvil"></i>
-                    </div>
-                    <span class="bg-slate-400 text-white text-[8px] font-bold px-2 py-0.5 rounded-full">NOVO</span>
-                    <h3 class="text-slate-800 font-bold text-xs mt-2 italic">Traço de Massa</h3>
-                    <p class="text-slate-400 text-[10px]">Volume de cimento/areia.</p>
-                </div>
-                <!-- Card -->
-                <div onclick="openModal('Precificador de Serviço')" class="bg-yellow-400 p-4 rounded-2xl shadow-sm active:scale-95 transition-all cursor-pointer">
-                    <div class="bg-slate-900 text-yellow-400 w-10 h-10 rounded-xl flex items-center justify-center mb-3 shadow-lg">
-                        <i data-lucide="dollar-sign"></i>
-                    </div>
-                    <span class="bg-slate-900 text-white text-[8px] font-bold px-2 py-0.5 rounded-full italic font-black underline">PREMIUM</span>
-                    <h3 class="text-slate-900 font-black text-xs mt-2 uppercase tracking-tighter">Precificador</h3>
-                    <p class="text-slate-800 text-[10px] font-medium opacity-80">Mão de obra e lucro.</p>
-                </div>
-            </div>
-
-            <!-- SEÇÃO: BIBLIOTECA -->
-            <h2 class="text-slate-800 text-sm font-black uppercase tracking-tighter flex items-center gap-2 mt-8 mb-4">
-                <span class="w-2 h-4 bg-blue-600 rounded-full"></span> Segredos do Mestre
-            </h2>
-
-            <div class="space-y-3">
-                <div onclick="openModal('Técnicas de Acabamento')" class="group bg-slate-900 p-4 rounded-2xl flex items-center gap-4 active:bg-slate-800 transition-colors cursor-pointer border-l-4 border-yellow-500 shadow-xl">
-                    <div class="bg-yellow-500/10 p-3 rounded-xl text-yellow-500 group-hover:scale-110 transition-transform">
-                        <i data-lucide="zap"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h3 class="text-white font-bold text-[13px] italic uppercase tracking-tight">Hacks de Acabamento</h3>
-                        <p class="text-slate-400 text-[10px]">O "pulo do gato" no porcelanato.</p>
-                    </div>
-                    <i data-lucide="chevron-right" class="text-slate-600"></i>
-                </div>
-
-                <div onclick="openModal('Resolução de Infiltração')" class="bg-white p-4 rounded-2xl flex items-center gap-4 border border-slate-100 shadow-sm active:bg-slate-50 transition-colors cursor-pointer">
-                    <div class="bg-red-50 p-3 rounded-xl text-red-500">
-                        <i data-lucide="alert-triangle"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h3 class="text-slate-800 font-bold text-[13px]">Infiltração e Umidade</h3>
-                        <p class="text-slate-400 text-[10px]">Como tratar paredes úmidas.</p>
-                    </div>
-                    <i data-lucide="chevron-right" class="text-slate-300"></i>
-                </div>
-                
-                <div onclick="openModal('Nivelamento de Piso')" class="bg-white p-4 rounded-2xl flex items-center gap-4 border border-slate-100 shadow-sm active:bg-slate-50 transition-colors cursor-pointer">
-                    <div class="bg-blue-50 p-3 rounded-xl text-blue-600">
-                        <i data-lucide="box"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h3 class="text-slate-800 font-bold text-[13px]">Nivelamento Perfeito</h3>
-                        <p class="text-slate-400 text-[10px]">Uso de cunhas e niveladores.</p>
-                    </div>
-                    <i data-lucide="chevron-right" class="text-slate-300"></i>
-                </div>
-            </div>
-
-            <!-- GAMIFICAÇÃO: RANKING (BANNER) -->
-            <div class="mt-8 bg-gradient-to-br from-blue-700 to-blue-900 rounded-[2rem] p-6 text-white relative overflow-hidden shadow-2xl">
-                <div class="relative z-10">
-                    <h3 class="font-black italic text-lg leading-tight uppercase tracking-tighter">Mestre de Obra<br><span class="text-yellow-400 text-2xl uppercase">Elite</span></h3>
-                    <p class="text-blue-100 text-[10px] mt-2 max-w-[150px]">Chegue ao Rank Elite e ganhe acesso a certificados exclusivos.</p>
-                    <button class="bg-white text-blue-900 font-black text-[10px] px-4 py-2 rounded-full mt-4 uppercase tracking-widest shadow-lg">Ver Ranking</button>
-                </div>
-                <i data-lucide="award" class="absolute -right-4 -bottom-4 w-32 h-32 text-blue-600/30 rotate-12"></i>
-            </div>
-
-        </main>
-
-        <!-- MENU INFERIOR FIXO -->
-        <nav class="absolute bottom-0 left-0 right-0 glass-effect border-t border-slate-200 px-8 py-4 flex justify-between items-center safe-area-bottom z-40">
-            <button onclick="setActiveTab(this)" class="flex flex-col items-center gap-1 text-blue-600 transition-all">
-                <i data-lucide="layout-grid" class="w-6 h-6"></i>
-                <span class="text-[9px] font-black uppercase tracking-widest">Ferramentas</span>
-            </button>
-            
-            <button onclick="openModal('Novo Checklist')" class="bg-slate-950 p-4 rounded-full -mt-14 border-[6px] border-slate-50 shadow-2xl active:scale-90 transition-all">
-                <i data-lucide="plus" class="text-yellow-500 w-8 h-8"></i>
-            </button>
-
-            <button onclick="setActiveTab(this)" class="flex flex-col items-center gap-1 text-slate-400 transition-all">
-                <i data-lucide="medal" class="w-6 h-6"></i>
-                <span class="text-[9px] font-black uppercase tracking-widest">Desafios</span>
-            </button>
-        </nav>
-
-        <!-- MODAL PLACEHOLDER (SIMULAÇÃO DE TELA) -->
-        <div id="toolModal" class="fixed inset-0 bg-white z-50 translate-y-full transition-transform duration-300 ease-in-out md:max-w-md md:left-1/2 md:-translate-x-1/2">
-            <div class="bg-slate-900 p-6 pt-10 text-white flex items-center gap-4">
-                <button onclick="closeModal()" class="p-2 bg-slate-800 rounded-xl hover:bg-slate-700 transition-colors">
-                    <i data-lucide="arrow-left" class="w-6 h-6"></i>
-                </button>
-                <div>
-                    <h2 id="modalTitle" class="font-black italic text-lg uppercase tracking-tight">Título</h2>
-                    <p class="text-xs text-slate-400 uppercase tracking-widest font-bold">Mestre da Obra v1.0</p>
-                </div>
-            </div>
-            
-            <div class="p-8 flex flex-col items-center justify-center text-center h-[70vh]">
-                <div class="w-24 h-24 bg-yellow-500/10 rounded-full flex items-center justify-center text-yellow-500 mb-6 animate-pulse">
-                    <i data-lucide="construction" class="w-12 h-12"></i>
-                </div>
-                <h3 class="text-2xl font-black text-slate-900 leading-tight uppercase italic">Módulo em Montagem</h3>
-                <p class="text-slate-500 mt-4 text-sm font-medium">Estamos conectando os sensores de precisão e as tabelas técnicas para esta ferramenta.</p>
-                
-                <div class="w-full space-y-3 mt-10">
-                    <div class="h-3 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="bg-blue-600 h-full w-[85%] animate-[pulse_2s_infinite]"></div>
-                    </div>
-                    <p class="text-[10px] font-black text-blue-600 uppercase tracking-[0.2em]">Sincronizando Banco de Dados...</p>
-                </div>
-
-                <button onclick="closeModal()" class="mt-12 w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl active:scale-95 transition-transform uppercase tracking-widest text-xs">
-                    Voltar ao Canteiro
-                </button>
-            </div>
-        </div>
-
+      </div>
     </div>
 
-    <script>
-        // Inicializar Ícones
-        lucide.createIcons();
+    <!-- step 1: nome -->
+    <div class="step" id="step1">
+      <div class="step-top">
+        <div class="step-num">Passo 1 de 3</div>
+        <div class="step-title">Como posso<br>te <em>chamar?</em></div>
+        <div class="step-desc">Vamos personalizar tudo pra você.</div>
+      </div>
+      <div class="field-group">
+        <div>
+          <div class="field-label">Seu nome</div>
+          <input class="field-input" id="inpNome" type="text" placeholder="Ex: João, Ana..." autocomplete="off">
+        </div>
+        <div>
+          <div class="field-label">Sua idade</div>
+          <input class="field-input" id="inpIdade" type="number" placeholder="Ex: 24" min="18" max="40">
+        </div>
+        <div>
+          <div class="field-label">Cidade</div>
+          <input class="field-input" id="inpCidade" type="text" placeholder="Ex: São Paulo, BH...">
+        </div>
+      </div>
+    </div>
 
-        // Lógica de Modal
-        function openModal(title) {
-            const modal = document.getElementById('toolModal');
-            document.getElementById('modalTitle').innerText = title;
-            modal.classList.remove('translate-y-full');
-            modal.classList.add('translate-y-0');
-        }
+    <!-- step 2: financeiro -->
+    <div class="step" id="step2">
+      <div class="step-top">
+        <div class="step-num">Passo 2 de 3</div>
+        <div class="step-title">Agora, o<br><em>financeiro.</em></div>
+        <div class="step-desc">Não precisa ser exato — uma estimativa já ajuda muito.</div>
+      </div>
+      <div class="field-group">
+        <div>
+          <div class="field-label">Renda mensal</div>
+          <div class="prefix-wrap">
+            <span class="prefix">R$</span>
+            <input class="field-input" id="inpRenda" type="number" placeholder="0,00">
+          </div>
+        </div>
+        <div>
+          <div class="field-label">Saldo atual</div>
+          <div class="prefix-wrap">
+            <span class="prefix">R$</span>
+            <input class="field-input" id="inpSaldo" type="number" placeholder="0,00">
+          </div>
+        </div>
+        <div>
+          <div class="field-label">Valor do aluguel / financiamento</div>
+          <div class="prefix-wrap">
+            <span class="prefix">R$</span>
+            <input class="field-input" id="inpAluguel" type="number" placeholder="0,00">
+          </div>
+        </div>
+      </div>
+    </div>
 
-        function closeModal() {
-            const modal = document.getElementById('toolModal');
-            modal.classList.add('translate-y-full');
-            modal.classList.remove('translate-y-0');
-        }
+    <!-- step 3: perfil apê -->
+    <div class="step" id="step3">
+      <div class="step-top">
+        <div class="step-num">Passo 3 de 3</div>
+        <div class="step-title">Qual é a situação<br>do seu <em>apê?</em></div>
+        <div class="step-desc">Selecione tudo que se aplica.</div>
+      </div>
+      <div class="field-group">
+        <div>
+          <div class="field-label">Tipo de moradia</div>
+          <div class="chips">
+            <div class="chip on" onclick="toggleChip(this)">Alugado</div>
+            <div class="chip" onclick="toggleChip(this)">Financiado</div>
+            <div class="chip" onclick="toggleChip(this)">Quitado</div>
+            <div class="chip" onclick="toggleChip(this)">Rep</div>
+          </div>
+        </div>
+        <div>
+          <div class="field-label" style="margin-top:8px">O que ainda falta?</div>
+          <div class="chips">
+            <div class="chip on" onclick="toggleChip(this)">Geladeira</div>
+            <div class="chip on" onclick="toggleChip(this)">Sofá</div>
+            <div class="chip" onclick="toggleChip(this)">TV</div>
+            <div class="chip" onclick="toggleChip(this)">Máquina de lavar</div>
+            <div class="chip" onclick="toggleChip(this)">Mesa</div>
+            <div class="chip" onclick="toggleChip(this)">Micro-ondas</div>
+            <div class="chip" onclick="toggleChip(this)">Armários</div>
+            <div class="chip" onclick="toggleChip(this)">Internet</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        // Troca de Estilo nas Abas
-        function setActiveTab(element) {
-            // Resetar todos
-            document.querySelectorAll('nav button').forEach(btn => {
-                btn.classList.remove('text-blue-600');
-                btn.classList.add('text-slate-400');
-            });
-            // Ativar clicado
-            element.classList.remove('text-slate-400');
-            element.classList.add('text-blue-600');
-        }
-    </script>
-</body>
-</html>
+  </div><!-- /ob-steps -->
+
+  <div class="ob-bottom">
+    <div class="progress-dots">
+      <div class="pdot" id="pd0"></div>
+      <div class="pdot" id="pd1"></div>
+      <div class="pdot" id="pd2"></div>
+      <div class="pdot" id="pd3"></div>
+    </div>
+    <button class="btn-primary" id="btnOb" onclick="obNext()">
+      <span id="obBtnLabel">Começar</span>
+    </button>
+    <div class="skip-link" id="skipLink" onclick="skipOb()">Pular</div>
+  </div>
+</div>
+
+<!-- =================== APP =================== -->
+<div id="app">
+  <div class="statusbar">
+    <span>9:41</span>
+    <div class="sb-right"><span>●●●●</span><span>5G</span></div>
+  </div>
+
+  <div class="topbar">
+    <div>
+      <div class="app-logo">apê<span>.</span></div>
+      <div class="greeting-sub" id="greetSub">Boa tarde 👋</div>
+    </div>
+    <div class="topbar-right">
+      <button class="icon-btn" onclick="showToast('Sem notificações novas')">
+        <div class="notif-badge"></div>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+      <button class="avatar-btn" id="avatarBtn">F</button>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabsRow">
+    <button class="tab on" onclick="switchTab('home',this)">Início</button>
+    <button class="tab" onclick="switchTab('financas',this)">Finanças</button>
+    <button class="tab" onclick="switchTab('rotina',this)">Rotina</button>
+    <button class="tab" onclick="switchTab('tarefas',this)">Tarefas</button>
+    <button class="tab" onclick="switchTab('perfil',this)">Perfil</button>
+  </div>
+
+  <div class="content" id="mainContent">
+
+    <!-- HOME -->
+    <div class="panel on" id="panel-home">
+      <div class="hero-card">
+        <div class="hero-greeting">Bem-vindo de volta,</div>
+        <div class="hero-name" id="heroName">Fávaro <span>👋</span></div>
+        <div class="hero-stats">
+          <div class="hstat">
+            <div class="hstat-label">Saldo atual</div>
+            <div class="hstat-val yellow" id="heroSaldo">R$ —</div>
+            <div class="hstat-sub">Disponível</div>
+          </div>
+          <div class="hstat">
+            <div class="hstat-label">Apê completo</div>
+            <div class="hstat-val">32%</div>
+            <div class="hstat-sub">3 de 5 etapas</div>
+          </div>
+          <div class="hstat">
+            <div class="hstat-label">Renda mensal</div>
+            <div class="hstat-val" id="heroRenda">R$ —</div>
+            <div class="hstat-sub">Cadastrada</div>
+          </div>
+          <div class="hstat">
+            <div class="hstat-label">Tarefas hoje</div>
+            <div class="hstat-val">2<span style="font-size:0.9rem;color:rgba(245,240,232,0.4)">/5</span></div>
+            <div class="hstat-sub">Concluídas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prog-card">
+        <div class="prog-top">
+          <div>
+            <div class="prog-title">Montando o apê</div>
+            <div class="prog-sub">3 de 5 etapas concluídas</div>
+          </div>
+          <div class="prog-pct">32%</div>
+        </div>
+        <div class="prog-bg"><div class="prog-fill" style="width:32%"></div></div>
+        <div class="prog-meta"><span>Início</span><span>Apê dos sonhos ✨</span></div>
+      </div>
+
+      <div class="resumo-row">
+        <div class="rcard" onclick="switchTab('tarefas',null)">
+          <div class="rcard-icon">📋</div>
+          <div class="rcard-num">3</div>
+          <div class="rcard-label">Tarefas pendentes</div>
+        </div>
+        <div class="rcard accent" onclick="switchTab('financas',null)">
+          <div class="rcard-icon">💸</div>
+          <div class="rcard-num">2</div>
+          <div class="rcard-label">Contas a vencer</div>
+        </div>
+      </div>
+
+      <div class="sec-head">
+        <span class="sec-title">Ações rápidas</span>
+      </div>
+      <div class="qa-grid" style="margin-bottom:4px">
+        <div class="qa" onclick="showToast('Adicionar tarefa')">
+          <div class="qa-icon">✅</div>
+          <div class="qa-label">Tarefa</div>
+        </div>
+        <div class="qa" onclick="showToast('Registrar despesa')">
+          <div class="qa-icon">💰</div>
+          <div class="qa-label">Despesa</div>
+        </div>
+        <div class="qa" onclick="showToast('Adicionar conta')">
+          <div class="qa-icon">📄</div>
+          <div class="qa-label">Conta</div>
+        </div>
+        <div class="qa" onclick="showToast('Lista de compras')">
+          <div class="qa-icon">🛒</div>
+          <div class="qa-label">Compras</div>
+        </div>
+      </div>
+
+      <div class="sec-head">
+        <span class="sec-title">Lista do apê</span>
+        <span class="sec-link" onclick="switchTab('tarefas',null)">Ver tudo</span>
+      </div>
+      <div class="list-card">
+        <div class="list-item"><div class="li-dot" style="background:#7DD4A0"></div><span class="li-text done">Comprar colchão</span><span class="li-tag tag-ok">Feito</span></div>
+        <div class="list-item"><div class="li-dot" style="background:#7DD4A0"></div><span class="li-text done">Instalar chuveiro</span><span class="li-tag tag-ok">Feito</span></div>
+        <div class="list-item"><div class="li-dot" style="background:var(--yellow-dark)"></div><span class="li-text">Comprar geladeira</span><span class="li-tag tag-pend">Pendente</span></div>
+        <div class="list-item"><div class="li-dot" style="background:var(--yellow-dark)"></div><span class="li-text">Contratar internet</span><span class="li-tag tag-pend">Pendente</span></div>
+      </div>
+    </div>
+
+    <!-- FINANÇAS -->
+    <div class="panel" id="panel-financas">
+      <div class="fin-hero">
+        <div class="fin-period">
+          <div class="fin-month">📅 Junho 2025</div>
+          <div class="fin-arrows">
+            <button class="fin-arrow" onclick="showToast('Mês anterior')">‹</button>
+            <button class="fin-arrow" onclick="showToast('Próximo mês')">›</button>
+          </div>
+        </div>
+        <div class="fin-grid">
+          <div class="fcard">
+            <div class="fcard-label">Receitas</div>
+            <div class="fcard-val y" id="finRenda">R$ —</div>
+            <div class="fcard-sub">Este mês</div>
+          </div>
+          <div class="fcard">
+            <div class="fcard-label">Despesas</div>
+            <div class="fcard-val">R$ 2.549</div>
+            <div class="fcard-sub">Este mês</div>
+          </div>
+          <div class="fcard">
+            <div class="fcard-label">Saldo atual</div>
+            <div class="fcard-val g" id="finSaldo">R$ —</div>
+            <div class="fcard-sub">Disponível</div>
+          </div>
+          <div class="fcard">
+            <div class="fcard-label">Aluguel/Fin.</div>
+            <div class="fcard-val" id="finAluguel">R$ —</div>
+            <div class="fcard-sub">Fixo mensal</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec-head">
+        <span class="sec-title">Contas do mês</span>
+        <span class="sec-link" onclick="showToast('Ver todas as contas')">+ Adicionar</span>
+      </div>
+      <div class="conta-card">
+        <div class="conta-item">
+          <div class="conta-left">
+            <div class="conta-name">Financiamento <span class="cpill cp-p">Pendente</span></div>
+            <div class="conta-due">Vence dia 5</div>
+          </div>
+          <div class="conta-val">R$ 1.850</div>
+        </div>
+        <div class="conta-item">
+          <div class="conta-left">
+            <div class="conta-name">Internet <span class="cpill cp-p">Pendente</span></div>
+            <div class="conta-due">Vence dia 10</div>
+          </div>
+          <div class="conta-val">R$ 99</div>
+        </div>
+        <div class="conta-item">
+          <div class="conta-left">
+            <div class="conta-name">Condomínio <span class="cpill cp-ok">Pago</span></div>
+            <div class="conta-due">Pago dia 1</div>
+          </div>
+          <div class="conta-val ok">R$ 450</div>
+        </div>
+        <div class="conta-item">
+          <div class="conta-left">
+            <div class="conta-name">Energia <span class="cpill cp-ok">Pago</span></div>
+            <div class="conta-due">Pago dia 2</div>
+          </div>
+          <div class="conta-val ok">R$ 120</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROTINA -->
+    <div class="panel" id="panel-rotina">
+      <div class="rotina-header">
+        <div>
+          <div class="rot-date">Terça, 10 de Junho</div>
+          <div class="rot-title">Minha Rotina</div>
+        </div>
+        <div class="rot-progress">
+          <div class="rot-pct">60%</div>
+          <div class="rot-sub">concluído</div>
+        </div>
+      </div>
+      <div class="list-card">
+        <div class="rot-item" onclick="toggleRot(this)">
+          <div class="rot-time">06:30</div>
+          <div class="rot-dot" style="background:#FFF3CD">🌅</div>
+          <div class="rot-info"><div class="rot-name done">Acordar e alongar</div><div class="rot-cat">Saúde</div></div>
+        </div>
+        <div class="rot-item" onclick="toggleRot(this)">
+          <div class="rot-time">07:00</div>
+          <div class="rot-dot" style="background:#D4EDDA">🍳</div>
+          <div class="rot-info"><div class="rot-name done">Café da manhã</div><div class="rot-cat">Alimentação</div></div>
+        </div>
+        <div class="rot-item" onclick="toggleRot(this)">
+          <div class="rot-time">07:30</div>
+          <div class="rot-dot" style="background:#D1ECF1">🏠</div>
+          <div class="rot-info"><div class="rot-name done">Arrumar o apê</div><div class="rot-cat">Casa</div></div>
+        </div>
+        <div class="rot-item" onclick="toggleRot(this)">
+          <div class="rot-time">08:00</div>
+          <div class="rot-dot" style="background:#F5C842" style="background:var(--yellow-soft)">💼</div>
+          <div class="rot-info"><div class="rot-name">Trabalho</div><div class="rot-cat">Compromisso</div></div>
+        </div>
+        <div class="rot-item" onclick="toggleRot(this)">
+          <div class="rot-time">18:30</div>
+          <div class="rot-dot" style="background:#E2D4F0">💪</div>
+          <div class="rot-info"><div class="rot-name">Treino</div><div class="rot-cat">Saúde</div></div>
+        </div>
+        <div class="rot-item" onclick="toggleRot(this)">
+          <div class="rot-time">21:00</div>
+          <div class="rot-dot" style="background:#FADBD8">💸</div>
+          <div class="rot-info"><div class="rot-name">Atualizar finanças</div><div class="rot-cat">Financeiro</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAREFAS -->
+    <div class="panel" id="panel-tarefas">
+      <div class="sec-head" style="margin-top:4px">
+        <span class="sec-title">Lista do apê</span>
+        <span class="sec-link" onclick="showToast('Adicionar tarefa')">+ Nova</span>
+      </div>
+      <div class="list-card" id="taskList">
+        <div class="list-item" onclick="togTask(this)">
+          <div class="li-dot" style="background:#7DD4A0"></div>
+          <span class="li-text done">Comprar colchão</span>
+          <span class="li-tag tag-ok">Feito</span>
+        </div>
+        <div class="list-item" onclick="togTask(this)">
+          <div class="li-dot" style="background:#7DD4A0"></div>
+          <span class="li-text done">Instalar chuveiro</span>
+          <span class="li-tag tag-ok">Feito</span>
+        </div>
+        <div class="list-item" onclick="togTask(this)">
+          <div class="li-dot" style="background:var(--yellow-dark)"></div>
+          <span class="li-text">Comprar geladeira</span>
+          <span class="li-tag tag-pend">Pendente</span>
+        </div>
+        <div class="list-item" onclick="togTask(this)">
+          <div class="li-dot" style="background:var(--yellow-dark)"></div>
+          <span class="li-text">Contratar internet</span>
+          <span class="li-tag tag-pend">Pendente</span>
+        </div>
+        <div class="list-item" onclick="togTask(this)">
+          <div class="li-dot" style="background:var(--yellow-dark)"></div>
+          <span class="li-text">Comprar sofá</span>
+          <span class="li-tag tag-pend">Pendente</span>
+        </div>
+        <div class="list-item" onclick="togTask(this)">
+          <div class="li-dot" style="background:var(--yellow-dark)"></div>
+          <span class="li-text">Montar home office</span>
+          <span class="li-tag tag-pend">Pendente</span>
+        </div>
+      </div>
+
+      <div class="sec-head">
+        <span class="sec-title">Compras</span>
+        <span class="sec-link" onclick="showToast('Ver lista completa')">Ver tudo</span>
+      </div>
+      <div class="list-card">
+        <div class="list-item" onclick="togTask(this)">
+          <div class="li-dot" style="background:var(--muted2)"></div>
+          <span class="li-text">Desengordurante</span>
+          <span class="li-tag tag-pend">Pendente</span>
+        </div>
+        <div class="list-item" onclick="togTask(this)">
+          <div class="li-dot" style="background:var(--muted2)"></div>
+          <span class="li-text">Rodo e vassoura</span>
+          <span class="li-tag tag-pend">Pendente</span>
+        </div>
+        <div class="list-item" onclick="togTask(this)">
+          <div class="li-dot" style="background:#7DD4A0"></div>
+          <span class="li-text done">Tapete de banheiro</span>
+          <span class="li-tag tag-ok">Feito</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PERFIL -->
+    <div class="panel" id="panel-perfil">
+      <div class="perfil-hero">
+        <div class="perfil-av" id="perfAvatar">F</div>
+        <div class="perfil-name" id="perfName">Fávaro</div>
+        <div class="perfil-since">Morando sozinho desde Jan 2024 · SP</div>
+        <div class="perfil-stats">
+          <div class="pstat"><div class="pstat-val">32%</div><div class="pstat-label">Apê completo</div></div>
+          <div class="pstat"><div class="pstat-val">7</div><div class="pstat-label">Semanas</div></div>
+          <div class="pstat"><div class="pstat-val">12</div><div class="pstat-label">Tarefas feitas</div></div>
+        </div>
+      </div>
+
+      <div class="list-card">
+        <div class="perf-row" onclick="showToast('Editar perfil')">
+          <div class="perf-left"><div class="perf-icon">👤</div><div class="perf-name">Editar perfil</div></div>
+          <span class="perf-arr">›</span>
+        </div>
+        <div class="perf-row" onclick="showToast('Dados financeiros')">
+          <div class="perf-left"><div class="perf-icon">💰</div><div class="perf-name">Dados financeiros</div></div>
+          <span class="perf-arr">›</span>
+        </div>
+        <div class="perf-row" onclick="showToast('Notificações')">
+          <div class="perf-left"><div class="perf-icon">🔔</div><div class="perf-name">Notificações</div></div>
+          <span class="perf-arr">›</span>
+        </div>
+        <div class="perf-row" onclick="showToast('Aparência')">
+          <div class="perf-left"><div class="perf-icon">🎨</div><div class="perf-name">Aparência</div></div>
+          <span class="perf-arr">›</span>
+        </div>
+        <div class="perf-row" onclick="showToast('Sobre o apê.')">
+          <div class="perf-left"><div class="perf-icon">ℹ️</div><div class="perf-name">Sobre o apê.</div></div>
+          <span class="perf-arr">›</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <nav class="navbar">
+    <div class="nb-item on" id="nb-home" onclick="switchTab('home',null);setNb('home')">
+      <div class="nb-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <span class="nb-label">Início</span>
+    </div>
+    <div class="nb-item" id="nb-financas" onclick="switchTab('financas',null);setNb('financas')">
+      <div class="nb-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <span class="nb-label">Finanças</span>
+    </div>
+    <div class="nb-item" id="nb-rotina" onclick="switchTab('rotina',null);setNb('rotina')">
+      <div class="nb-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <span class="nb-label">Rotina</span>
+    </div>
+    <div class="nb-item" id="nb-tarefas" onclick="switchTab('tarefas',null);setNb('tarefas')">
+      <div class="nb-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+      <span class="nb-label">Tarefas</span>
+    </div>
+    <div class="nb-item" id="nb-perfil" onclick="switchTab('perfil',null);setNb('perfil')">
+      <div class="nb-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <span class="nb-label">Perfil</span>
+    </div>
+  </nav>
+</div><!-- /app -->
+
+</div><!-- /shell -->
+
+<script>
+// ---- SPLASH ----
+setTimeout(function(){
+  var sp = document.getElementById('splash');
+  sp.style.opacity = '0';
+  setTimeout(function(){
+    sp.style.display = 'none';
+    var steps = document.getElementById('obSteps');
+    steps.classList.add('show');
+    updateDots();
+  }, 500);
+}, 1800);
+
+// ---- ONBOARDING ----
+var curStep = 0;
+var totalSteps = 4;
+var userData = {};
+
+function obNext(){
+  if(curStep === 0){
+    goStep(1);
+  } else if(curStep === 1){
+    var nome = document.getElementById('inpNome').value.trim();
+    if(!nome){ showToast('Digite seu nome pra continuar'); return; }
+    userData.nome = nome;
+    userData.idade = document.getElementById('inpIdade').value;
+    userData.cidade = document.getElementById('inpCidade').value;
+    goStep(2);
+  } else if(curStep === 2){
+    userData.renda = document.getElementById('inpRenda').value;
+    userData.saldo = document.getElementById('inpSaldo').value;
+    userData.aluguel = document.getElementById('inpAluguel').value;
+    goStep(3);
+  } else if(curStep === 3){
+    startApp();
+  }
+}
+
+function goStep(n){
+  document.getElementById('step'+curStep).classList.remove('active');
+  document.getElementById('step'+curStep).classList.add('out');
+  setTimeout(function(){
+    document.getElementById('step'+(n-1 >= 0 ? n-1 : 0)).classList.remove('out');
+  }, 400);
+  curStep = n;
+  document.getElementById('step'+curStep).classList.add('active');
+  updateDots();
+  var lbl = document.getElementById('obBtnLabel');
+  lbl.textContent = curStep === totalSteps-1 ? 'Entrar no apê 🚀' : 'Continuar';
+  document.getElementById('skipLink').style.display = curStep === 0 ? 'block' : 'none';
+}
+
+function updateDots(){
+  for(var i=0;i<totalSteps;i++){
+    var d = document.getElementById('pd'+i);
+    if(d) d.className = i===curStep ? 'pdot on' : 'pdot';
+  }
+}
+
+function skipOb(){ startApp(); }
+
+function toggleChip(el){
+  el.classList.toggle('on');
+}
+
+function startApp(){
+  var nome = userData.nome || 'Fávaro';
+  var inicial = nome.charAt(0).toUpperCase();
+  // apply user data
+  document.getElementById('heroName').innerHTML = nome + ' <span>👋</span>';
+  document.getElementById('avatarBtn').textContent = inicial;
+  document.getElementById('perfAvatar').textContent = inicial;
+  document.getElementById('perfName').textContent = nome;
+  if(userData.saldo){
+    var s = 'R$ '+parseFloat(userData.saldo).toLocaleString('pt-BR');
+    document.getElementById('heroSaldo').textContent = s;
+    document.getElementById('finSaldo').textContent = s;
+  }
+  if(userData.renda){
+    var r = 'R$ '+parseFloat(userData.renda).toLocaleString('pt-BR');
+    document.getElementById('heroRenda').textContent = r;
+    document.getElementById('finRenda').textContent = r;
+  }
+  if(userData.aluguel){
+    document.getElementById('finAluguel').textContent = 'R$ '+parseFloat(userData.aluguel).toLocaleString('pt-BR');
+  }
+  document.getElementById('greetSub').textContent = 'Boa tarde, '+nome+' 👋';
+
+  // transition
+  var ob = document.getElementById('ob');
+  ob.style.transition = 'opacity 0.4s ease';
+  ob.style.opacity = '0';
+  setTimeout(function(){
+    ob.style.display = 'none';
+    var app = document.getElementById('app');
+    app.style.display = 'flex';
+    app.style.opacity = '0';
+    app.style.transition = 'opacity 0.4s ease';
+    setTimeout(function(){ app.style.opacity='1'; },20);
+  }, 380);
+}
+
+// ---- TABS ----
+function switchTab(name, tabEl){
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+  document.getElementById('panel-'+name).classList.add('on');
+  if(tabEl){
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
+    tabEl.classList.add('on');
+  }
+  setNb(name);
+  document.getElementById('mainContent').scrollTop = 0;
+}
+
+function setNb(name){
+  document.querySelectorAll('.nb-item').forEach(function(n){ n.classList.remove('on'); });
+  var nb = document.getElementById('nb-'+name);
+  if(nb) nb.classList.add('on');
+  // sync tabs
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.classList.remove('on');
+    if(t.getAttribute('onclick') && t.getAttribute('onclick').includes("'"+name+"'")){
+      t.classList.add('on');
+    }
+  });
+}
+
+// ---- TASKS ----
+function togTask(el){
+  var tx = el.querySelector('.li-text');
+  var tg = el.querySelector('.li-tag');
+  var dot = el.querySelector('.li-dot');
+  if(tx.classList.contains('done')){
+    tx.classList.remove('done');
+    tg.textContent='Pendente'; tg.className='li-tag tag-pend';
+    dot.style.background='var(--yellow-dark)';
+  } else {
+    tx.classList.add('done');
+    tg.textContent='Feito'; tg.className='li-tag tag-ok';
+    dot.style.background='#7DD4A0';
+    showToast('Feito! ✓');
+  }
+}
+
+// ---- ROTINA ----
+function toggleRot(el){
+  var name = el.querySelector('.rot-name');
+  name.classList.toggle('done');
+  if(name.classList.contains('done')) showToast('Concluído! ✓');
+}
+
+// ---- TOAST ----
+function showToast(msg){
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(function(){ t.classList.remove('show'); }, 2000);
+}
+
+updateDots();
+</script>
+</HTMLEOF>
+echo "done"
