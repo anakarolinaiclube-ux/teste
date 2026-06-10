@@ -30,7 +30,7 @@ body{font-family:'Poppins',sans-serif;color:var(--text);display:flex;justify-con
 .shell{width:100%;max-width:390px;height:100vh;position:relative;overflow:hidden;background:var(--cream)}
 
 /* ===================== ONBOARDING ===================== */
-#ob{position:absolute;inset:0;z-index:300;display:flex;flex-direction:column;background:var(--cream)}
+#ob{position:absolute;inset:0;z-index:300;display:flex;flex-direction:column;background:var(--cream);overflow:hidden}
 
 /* splash */
 .splash{
@@ -61,23 +61,29 @@ body{font-family:'Poppins',sans-serif;color:var(--text);display:flex;justify-con
 @keyframes pulse{0%,100%{opacity:0.3;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
 
 /* steps */
-.ob-steps{flex:1;display:flex;flex-direction:column;opacity:1;position:relative;z-index:20}
+.ob-steps{flex:1;display:flex;flex-direction:column;opacity:1;position:relative;z-index:20;overflow:hidden;min-height:0}
 
 .step{
   position:absolute;inset:0;
   display:flex;flex-direction:column;
   padding:0 24px;
+  overflow-y:auto;
+  overflow-x:hidden;
   opacity:0;pointer-events:none;
   transform:translateX(32px);
   transition:all 0.38s cubic-bezier(0.4,0,0.2,1);
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
 }
+.step::-webkit-scrollbar{display:none}
 .step.active{opacity:1;pointer-events:all;transform:translateX(0)}
 .step.out{opacity:0;transform:translateX(-32px)}
 
 /* step header */
 .step-top{
-  padding-top:56px;
-  margin-bottom:32px;
+  padding-top:40px;
+  margin-bottom:24px;
+  flex-shrink:0;
 }
 .step-num{
   font-size:0.65rem;font-weight:600;
@@ -95,9 +101,10 @@ body{font-family:'Poppins',sans-serif;color:var(--text);display:flex;justify-con
 
 /* illo */
 .illo-wrap{
-  height:180px;
+  height:160px;
   display:flex;align-items:center;justify-content:center;
-  margin-bottom:28px;
+  margin-bottom:20px;
+  flex-shrink:0;
 }
 .illo-box{
   width:160px;height:160px;
@@ -120,7 +127,7 @@ body{font-family:'Poppins',sans-serif;color:var(--text);display:flex;justify-con
 }
 
 /* form fields */
-.field-group{display:flex;flex-direction:column;gap:14px;flex:1}
+.field-group{display:flex;flex-direction:column;gap:14px;padding-bottom:24px}
 .field-label{font-size:0.72rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
 .field-input{
   width:100%;
@@ -169,8 +176,13 @@ body{font-family:'Poppins',sans-serif;color:var(--text);display:flex;justify-con
 
 /* ob bottom */
 .ob-bottom{
-  padding:20px 24px 40px;
+  padding:16px 24px;
+  padding-bottom:max(32px, env(safe-area-inset-bottom, 32px));
   flex-shrink:0;
+  background:var(--cream);
+  border-top:1px solid var(--border);
+  position:relative;
+  z-index:25;
 }
 .progress-dots{display:flex;gap:6px;justify-content:center;margin-bottom:20px}
 .pdot{width:6px;height:6px;border-radius:99px;background:var(--border2);transition:all 0.3s ease}
